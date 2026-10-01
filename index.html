@@ -168,17 +168,28 @@ function contactProfile(raw){
  try{openProfile(raw);setTimeout(()=>document.getElementById('profileContent').insertAdjacentHTML('beforeend','<div class="contactBox"><b>Contacto</b><p>El profesional podrá añadir WhatsApp, teléfono o web desde su panel.</p></div>'),50)}catch(e){alert('No se pudo abrir el contacto.')}
 }
 function cat(c){document.getElementById('cat').value=c;document.getElementById('profesionales').scrollIntoView({behavior:'smooth'});loadProfiles()}
-function openModal(mode){document.getElementById('modal').classList.add('open');document.getElementById('register').style.display=mode==='register'?'block':'none';document.getElementById('login').style.display=mode==='login'?'block':'none';document.getElementById('mtitle').textContent=mode==='register'?'Publicar mi anuncio':'Mi cuenta'}
+function openModal(mode){
+ document.getElementById('modal').classList.add('open');
+ document.getElementById('register').style.display=mode==='register'?'block':'none';
+ document.getElementById('login').style.display=mode==='login'?'block':'none';
+ document.getElementById('mtitle').textContent=mode==='register'?'Crear cuenta':'Mi cuenta';
+ const intro=document.querySelector('#modal .box > p');
+ if(intro) intro.textContent=mode==='register'?'Crea tu cuenta y empieza con el plan que prefieras.':'Inicia sesión para gestionar tu cuenta y tu anuncio.';
+}
 function closeModal(){document.getElementById('modal').classList.remove('open')}
 function showRegister(){
  document.getElementById('register').style.display='block';
  document.getElementById('login').style.display='none';
  document.getElementById('mtitle').textContent='Crear cuenta';
+ const intro=document.querySelector('#modal .box > p');
+ if(intro) intro.textContent='Crea tu cuenta y empieza con el plan que prefieras.';
 }
 function showLogin(){
  document.getElementById('register').style.display='none';
  document.getElementById('login').style.display='block';
  document.getElementById('mtitle').textContent='Mi cuenta';
+ const intro=document.querySelector('#modal .box > p');
+ if(intro) intro.textContent='Inicia sesión para gestionar tu cuenta y tu anuncio.';
 }
 function pick(el){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');plan=el.dataset.plan}
 async function registerUser(){const name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),pass=document.getElementById('pass').value;if(!name||!email||pass.length<6){document.getElementById('msg').textContent='Completa los datos correctamente.';return}const {error}=await db.auth.signUp({email,password:pass,options:{data:{display_name:name,plan}}});document.getElementById('msg').textContent=error?error.message:'Cuenta creada. Revisa tu email si se solicita confirmación.';if(!error)setTimeout(closeModal,1800)}
