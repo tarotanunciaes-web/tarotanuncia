@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TarotAnuncia | Encuentra tu profesional espiritual</title>
+<meta name="description" content="Encuentra tarotistas, videntes, astrólogos y profesionales espirituales en TarotAnuncia.">
+<style>
+:root{--ink:#11152f;--purple:#7027c9;--purple2:#8b43df;--gold:#f0a900;--line:#e9e5ee;--muted:#666477;--soft:#faf8ff;--green:#19a56f}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#fff}button,input,select{font:inherit}a{text-decoration:none;color:inherit}
+.wrap{max-width:1180px;margin:auto;padding:0 22px}
+header{height:70px;border-bottom:1px solid #eee;background:#fff;position:sticky;top:0;z-index:30}.nav{height:70px;display:flex;align-items:center;gap:30px}.brand{display:flex;align-items:center;gap:10px;margin-right:auto}.lotus{font-size:39px;color:var(--purple);line-height:1}.brand strong{font:800 28px Georgia,serif}.brand strong span{color:var(--purple)}.brand small{display:block;color:#777;font-size:12px;margin-top:-3px}.menu{display:flex;gap:25px;font-size:14px}.menu a{padding:25px 0;border-bottom:3px solid transparent}.menu a:first-child{color:var(--purple);border-color:var(--purple)}.btn{border:0;background:linear-gradient(135deg,var(--purple),#7c32d5);color:#fff;font-weight:800;border-radius:25px;padding:12px 20px;cursor:pointer;box-shadow:0 7px 20px #7027c926}.btn.ghost{background:#fff;color:var(--purple);border:1px solid var(--purple);box-shadow:none}.btn.small{padding:9px 15px;font-size:13px}.btn.gold{background:#f6b90c;color:#18120b}.mobileMenu{display:none}
+
+.hero{background:linear-gradient(90deg,#fff 0,#fff 47%,#f4edff 100%);position:relative}.heroGrid{min-height:305px;display:grid;grid-template-columns:47% 53%;align-items:center}.heroText{padding:35px 25px 35px 16px}.eyebrow{font-size:12px;font-weight:900;letter-spacing:1.5px;color:var(--purple);text-transform:uppercase}.hero h1{font:800 54px/.98 Georgia,serif;letter-spacing:-2px;margin:12px 0}.hero h1 span{color:var(--purple)}.hero p{font-size:22px;line-height:1.35;margin:0 0 20px;max-width:520px}.trust{display:flex;gap:22px;font-size:13px;font-weight:750}.trust div{display:flex;gap:7px;align-items:center}.trust i{font-style:normal;color:var(--purple);font-size:27px}.heroVisual{height:305px;background:radial-gradient(circle at 55% 48%,#ead6ff,#f9eaf7 55%,#fff);display:flex;align-items:center;justify-content:center;overflow:hidden}.woman{font-size:145px;filter:drop-shadow(0 15px 25px #32124a25)}.search{position:relative;margin:-22px auto 0;background:#fff;border:1px solid #e8e4ec;border-radius:20px;padding:10px;display:grid;grid-template-columns:1.4fr 1fr 1fr 180px;gap:8px;box-shadow:0 12px 30px #1d133018;z-index:4}.field{background:#fbfafc;border:1px solid #eeeaf2;border-radius:13px;padding:9px 13px}.field label{display:block;font-size:12px;font-weight:900}.field input,.field select{width:100%;border:0;outline:0;background:transparent;color:#555;margin-top:3px}.search .btn{border-radius:14px;font-size:15px}
+
+section{padding:42px 0}.title{text-align:center;margin-bottom:22px}.title h2{font:800 30px Georgia,serif;margin:0;display:flex;align-items:center;gap:25px;justify-content:center}.title h2:before,.title h2:after{content:"";width:72px;height:2px;background:var(--purple);opacity:.8}.title p{color:var(--muted);margin:8px 0 0}
+.cats{display:grid;grid-template-columns:repeat(9,1fr);gap:11px}.cat{border-radius:15px;padding:16px 8px;text-align:center;border:1px solid #eee8f3;min-height:102px;display:flex;flex-direction:column;justify-content:center;gap:9px;font-weight:800;font-size:12px;cursor:pointer;transition:.2s}.cat:nth-child(1){background:#f2efff}.cat:nth-child(2){background:#fff0f5}.cat:nth-child(3){background:#fff7e9}.cat:nth-child(4){background:#f4efff}.cat:nth-child(5){background:#eafbf9}.cat:nth-child(6){background:#fff0f5}.cat:nth-child(7){background:#fff8eb}.cat:nth-child(8){background:#eef4ff}.cat:nth-child(9){background:#ebfbf4}.cat:hover{transform:translateY(-3px);box-shadow:0 10px 25px #39204c12}.cat i{font-style:normal;font-size:30px}
+
+.featured{background:#fff}.headrow{display:flex;align-items:center;justify-content:space-between}.headrow .title{flex:1}.all{color:var(--purple);font-weight:800;font-size:13px}.profiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.profile{border:1px solid #e6e0eb;border-radius:15px;overflow:hidden;background:#fff;box-shadow:0 7px 22px #21152d0b}.photo{height:155px;background:linear-gradient(135deg,#eadfff,#fff0f5);display:flex;align-items:center;justify-content:center;font-size:82px;position:relative}.badge{position:absolute;top:10px;left:10px;padding:6px 10px;border-radius:15px;background:#ffbf16;font-size:11px;font-weight:900}.badge.premium{background:#7b2de0;color:#fff}.badge.new{background:#20b77a;color:#fff}.heart{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:50%;border:0;background:#ffffffdd;font-size:20px;color:#fff;text-shadow:0 1px 4px #333;cursor:pointer}.profileBody{padding:12px}.pname{font-size:16px;font-weight:900}.rating{float:right;color:#333;font-size:12px}.rating b{color:#e99b00}.tags{display:flex;gap:5px;flex-wrap:wrap;margin:9px 0}.tag{font-size:10px;padding:5px 8px;border-radius:10px;background:#f2eaff;color:#6333a2;font-weight:800}.meta{font-size:12px;color:#555;margin:7px 0;line-height:1.5}.online{color:#18a16b}.price{font-weight:900;font-size:14px;margin:10px 0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.actions .btn{padding:9px 8px;border-radius:10px;font-size:11px}
+
+.benefits{background:#f6efff;border-radius:18px;padding:22px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}.benefit{display:flex;gap:12px;align-items:center;padding:5px 18px;border-right:1px solid #d9cceb}.benefit:last-child{border:0}.benefit i{font-style:normal;color:var(--purple);font-size:34px}.benefit strong{display:block;font-size:13px}.benefit small{color:#666;font-size:11px;line-height:1.3}
+
+.proBox{display:grid;grid-template-columns:1fr 1.25fr;gap:18px}.proCta{border-radius:17px;padding:30px;background:linear-gradient(135deg,#fff3eb,#fffaf7);border:1px solid #f1e5dc}.proCta h2{font:800 30px Georgia,serif;margin:0 0 10px}.proCta p{font-size:14px;line-height:1.55;color:#4f4a57}.proCta .btn{margin-top:15px;width:100%}.why{border-radius:17px;padding:25px;background:#fbfaff;border:1px solid #eee7f6}.why h3{font:800 23px Georgia,serif;margin:0 0 15px}.whyGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.whyItem{background:#fff;border:1px solid #eee7f6;border-radius:12px;padding:12px;font-size:12px;font-weight:800}.whyItem span{color:#15966a;margin-right:5px}
+
+footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-content:space-between;gap:20px}.foot small{color:#d8ccdf}
+
+.modal{position:fixed;inset:0;background:#130b1d99;z-index:100;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.box{width:100%;max-width:540px;max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:25px;position:relative}.x{position:absolute;right:17px;top:10px;font-size:28px;cursor:pointer}.box h2{font:800 28px Georgia,serif;margin:0 0 5px}.box>p{color:#686170;font-size:13px}.box input,.box textarea,.box select{width:100%;padding:12px;border:1px solid #ddd5e6;border-radius:11px;margin:5px 0 10px;outline:0}.plans{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.plan{border:1px solid #e3dceb;border-radius:14px;padding:13px;cursor:pointer}.plan.selected{border:2px solid var(--purple);background:#faf6ff}.plan b{display:block}.plan strong{display:block;color:var(--purple);margin-top:5px}.notice{font-size:11px;color:#666;background:#f8f6fb;padding:10px;border-radius:10px;margin-bottom:12px}
+
+@media(max-width:1000px){.menu{display:none}.mobileMenu{display:block}.cats{grid-template-columns:repeat(5,1fr)}.profiles{grid-template-columns:repeat(2,1fr)}.search{grid-template-columns:1fr 1fr}.search .btn{grid-column:1/-1}.heroGrid{grid-template-columns:1fr 1fr}.hero h1{font-size:43px}.benefits{grid-template-columns:1fr 1fr}.benefit:nth-child(2){border:0}}
+@media(max-width:650px){header,.nav{height:64px}.brand strong{font-size:22px}.brand small{font-size:9px}.lotus{font-size:30px}.heroGrid{display:block}.heroText{padding:34px 0 20px}.heroVisual{height:180px}.woman{font-size:90px}.hero h1{font-size:42px}.hero p{font-size:17px}.trust{gap:10px;font-size:10px}.trust i{font-size:21px}.search{grid-template-columns:1fr;margin-top:-18px}.cats{grid-template-columns:repeat(3,1fr)}.profiles{grid-template-columns:1fr}.photo{height:180px}.benefits{grid-template-columns:1fr}.benefit{border:0;border-bottom:1px solid #d9cceb;padding:10px}.benefit:last-child{border:0}.proBox{grid-template-columns:1fr}.foot{flex-direction:column}.title h2{font-size:25px}.title h2:before,.title h2:after{width:35px}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+<a class="brand" href="#"><span class="lotus">♧</span><span><strong>Tarot<span>Anuncia</span></strong><small>Tu guía espiritual, más cerca</small></span></a>
+<nav class="menu"><a href="#inicio">Inicio</a><a href="#profesionales">Tarotistas</a><a href="#categorias">Categorías</a><a href="#como">Cómo funciona</a><a href="#blog">Blog</a><a href="#contacto">Contacto</a></nav>
+<button class="btn small" onclick="openModal('register')">＋ Publicar anuncio</button><button class="mobileMenu btn small" onclick="openModal('login')">Mi cuenta</button>
+</div></header>
+
+<main id="inicio">
+<section class="hero"><div class="wrap heroGrid">
+<div class="heroText"><div class="eyebrow">Portal de profesionales espirituales</div><h1>Encuentra tu<br><span>tarotista ideal</span></h1><p>Tarotistas, videntes y profesionales del tarot en un solo lugar.</p><div class="trust"><div><i>♢</i>Perfiles<br>verificados</div><div><i>☆</i>Valoraciones<br>reales</div><div><i>♙</i>Consultas<br>seguras</div></div></div>
+<div class="heroVisual"><div class="woman">🔮<br>🃏</div></div>
+</div></section>
+
+<div class="wrap"><div class="search">
+<div class="field"><label>🔎 ¿Qué buscas?</label><input id="q" placeholder="Ej: amor, trabajo, dinero..."></div>
+<div class="field"><label>⌖ Ubicación</label><input id="city" placeholder="Ej: A Coruña"></div>
+<div class="field"><label>♧ Categoría</label><select id="cat"><option value="">Todas</option><option>Tarot</option><option>Amor y pareja</option><option>Trabajo y dinero</option><option>Videncia</option><option>Astrología</option><option>Cartomancia</option><option>Espiritualidad</option><option>Consultas telefónicas</option><option>Consultas online</option></select></div>
+<button class="btn" onclick="loadProfiles()">⌕ Buscar</button>
+</div></div>
+
+<section id="categorias"><div class="wrap"><div class="title"><h2>Explora por categorías</h2></div><div class="cats">
+<div class="cat" onclick="cat('Tarot')"><i>🃏</i>Tarot</div><div class="cat" onclick="cat('Amor')"><i>♡</i>Amor y<br>pareja</div><div class="cat" onclick="cat('Trabajo')"><i>▣</i>Trabajo y<br>dinero</div><div class="cat" onclick="cat('Videncia')"><i>◐</i>Videncia</div><div class="cat" onclick="cat('Astrología')"><i>☆</i>Astrología</div><div class="cat" onclick="cat('Cartomancia')"><i>♧</i>Cartomancia</div><div class="cat" onclick="cat('Espiritualidad')"><i>☼</i>Espiritualidad</div><div class="cat"><i>☎</i>Consultas<br>telefónicas</div><div class="cat"><i>▣</i>Consultas<br>online</div>
+</div></div></section>
+
+<section id="profesionales"><div class="wrap"><div class="headrow"><div class="title"><h2>Tarotistas destacados</h2></div><a class="all" href="#profesionales">Ver todos →</a></div><div id="profiles" class="profiles"></div></div></section>
+
+<section id="como"><div class="wrap"><div class="benefits">
+<div class="benefit"><i>⌕</i><div><strong>Busca fácilmente</strong><small>Encuentra el tarotista que mejor se adapte a ti.</small></div></div>
+<div class="benefit"><i>★</i><div><strong>Lee opiniones</strong><small>Valoraciones reales de otros usuarios.</small></div></div>
+<div class="benefit"><i>♢</i><div><strong>Contacta directo</strong><small>Por teléfono, WhatsApp o desde la web.</small></div></div>
+<div class="benefit"><i>♡</i><div><strong>Tu bienestar</strong><small>Toma decisiones con más claridad y confianza.</small></div></div>
+</div></div></section>
+
+<section><div class="wrap"><div class="proBox">
+<div class="proCta"><h2>¿Eres tarotista?<br>Publica tu anuncio</h2><p>Da a conocer tu talento y llega a más personas. Empieza con el plan gratuito y, si quieres más visibilidad, cambia de plan desde tu cuenta.</p><button class="btn" onclick="openModal('register')">Publicar mi anuncio →</button></div>
+<div class="why"><h3>Un espacio pensado para profesionales</h3><div class="whyGrid"><div class="whyItem"><span>✓</span>Empieza gratis</div><div class="whyItem"><span>✓</span>Perfil editable</div><div class="whyItem"><span>✓</span>Cambia de plan cuando quieras</div><div class="whyItem"><span>✓</span>Contacto directo</div><div class="whyItem"><span>✓</span>Moderación de anuncios</div><div class="whyItem"><span>✓</span>Más visibilidad con planes superiores</div></div></div>
+</div></div></section>
+</main>
+
+<footer id="contacto"><div class="wrap foot"><div><strong style="font:800 24px Georgia">TarotAnuncia</strong><br><small>Tu guía espiritual, más cerca.</small></div><small>© 2026 TarotAnuncia · Privacidad · Términos · Contacto</small></div></footer>
+
+<div id="modal" class="modal"><div class="box"><span class="x" onclick="closeModal()">×</span><h2 id="mtitle">Publicar mi anuncio</h2><p id="mtext">Crea tu cuenta y empieza con el plan que prefieras.</p>
+<div id="register">
+<input id="name" placeholder="Nombre profesional"><input id="email" type="email" placeholder="Email"><input id="pass" type="password" placeholder="Contraseña (mínimo 6 caracteres)">
+<label style="font-size:12px;font-weight:900">Elige tu plan</label><div class="plans">
+<div class="plan selected" data-plan="free" onclick="pick(this)"><b>🆓 Básico</b><strong>Gratis</strong><small>Sin caducidad</small></div>
+<div class="plan" data-plan="featured" onclick="pick(this)"><b>⭐ Destacado</b><strong>2,99 € / 30 días</strong><small>Más visibilidad</small></div>
+<div class="plan" data-plan="premium" onclick="pick(this)"><b>💎 Premium</b><strong>5,99 € / 30 días</strong><small>Más presencia</small></div>
+<div class="plan" data-plan="professional" onclick="pick(this)"><b>👑 Profesional</b><strong>9,99 € / 30 días</strong><small>Máxima presencia</small></div></div>
+<div class="notice">Puedes empezar gratis y cambiar de plan después desde tu cuenta. Los planes de pago se activarán con pago seguro cuando conectemos la pasarela.</div><button class="btn" style="width:100%" onclick="registerUser()">Crear cuenta gratis</button><p id="msg"></p></div>
+<div id="login" style="display:none"><input id="lemail" type="email" placeholder="Email"><input id="lpass" type="password" placeholder="Contraseña"><button class="btn" style="width:100%" onclick="loginUser()">Entrar</button><p id="lmsg"></p></div>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const URL='https://ozbbgfxixbgffxnhqpzh.supabase.co',KEY='sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd';
+const db=window.supabase.createClient(URL,KEY);let plan='free';
+const demo=[
+{n:'Lucía Tarot',r:'4.9 (87)',tags:['Amor','Trabajo','General'],city:'A Coruña',price:'15',emoji:'👩🏻‍🦰',badge:'Destacado'},
+{n:'Ángel Espiritual',r:'4.8 (65)',tags:['Tarot','Videncia','Amor'],city:'Madrid',price:'20',emoji:'🧔🏻',badge:'Premium'},
+{n:'Marta Luz',r:'4.7 (42)',tags:['Astrología','Amor','General'],city:'Barcelona',price:'18',emoji:'👩🏼',badge:'Nuevo'},
+{n:'Rosa Visión',r:'4.9 (103)',tags:['Videncia','Amor','Espiritualidad'],city:'Valencia',price:'17',emoji:'👩🏻‍🦱',badge:'Destacado'}
+];
+function esc(s){return String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]))}
+function card(a){return `<article class="profile"><div class="photo"><span class="badge ${a.badge==='Premium'?'premium':a.badge==='Nuevo'?'new':''}">${a.badge}</span><button class="heart">♡</button>${a.emoji}</div><div class="profileBody"><span class="pname">${esc(a.n)}</span><span class="rating"><b>★</b> ${a.r}</span><div class="tags">${a.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div><div class="meta">⌖ ${esc(a.city)}　·　<span class="online">● Online</span></div><div class="price">Desde ${esc(a.price)} € <span style="font-weight:500">/ 30 min</span></div><div class="actions"><button class="btn" onclick="alert('El contacto se habilitará cuando el profesional publique sus datos.')">◉ Contactar</button><button class="btn ghost" onclick="alert('La ficha completa estará disponible en la siguiente fase.')">Ver perfil</button></div></div></article>`}
+async function loadProfiles(){
+ const q=document.getElementById('q').value.trim().toLowerCase(),city=document.getElementById('city').value.trim().toLowerCase(),cat=document.getElementById('cat').value;
+ const {data,error}=await db.from('tarotist_ads').select('*').eq('status','approved').order('created_at',{ascending:false}).limit(30);
+ let rows=error||!data?.length?demo:data;
+ rows=rows.filter(a=>{const text=JSON.stringify(a).toLowerCase();return(!q||text.includes(q))&&(!city||text.includes(city))&&(!cat||text.includes(cat.toLowerCase()))});
+ document.getElementById('profiles').innerHTML=rows.length?rows.map(a=>a.n?card(a):card({n:a.display_name||'Profesional',r:'Nuevo',tags:a.categories||['Tarot'],city:a.city||'España',price:a.price_from||'Consultar',emoji:'🔮',badge:a.plan==='premium'?'Premium':a.plan==='professional'?'Profesional':a.plan==='featured'?'Destacado':'Nuevo'})).join(''):'<p>No hay perfiles que coincidan.</p>';
+}
+function cat(c){document.getElementById('cat').value=c;document.getElementById('profesionales').scrollIntoView({behavior:'smooth'});loadProfiles()}
+function openModal(mode){document.getElementById('modal').classList.add('open');document.getElementById('register').style.display=mode==='register'?'block':'none';document.getElementById('login').style.display=mode==='login'?'block':'none';document.getElementById('mtitle').textContent=mode==='register'?'Publicar mi anuncio':'Mi cuenta'}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function pick(el){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');plan=el.dataset.plan}
+async function registerUser(){const name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),pass=document.getElementById('pass').value;if(!name||!email||pass.length<6){msg.textContent='Completa los datos correctamente.';return}const {error}=await db.auth.signUp({email,password:pass,options:{data:{display_name:name,plan}}});msg.textContent=error?error.message:'Cuenta creada. Revisa tu email si se solicita confirmación.';if(!error)setTimeout(closeModal,1800)}
+async function loginUser(){const {error}=await db.auth.signInWithPassword({email:document.getElementById('lemail').value,password:document.getElementById('lpass').value});lmsg.textContent=error?error.message:'Sesión iniciada correctamente.'}
+loadProfiles();
+</script>
+</body></html>
