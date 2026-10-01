@@ -101,7 +101,13 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 
 <div id="modal" class="modal"><div class="box"><span class="x" onclick="closeModal()">×</span><h2 id="mtitle">Publicar mi anuncio</h2><p>Crea tu cuenta y empieza con el plan que prefieras.</p>
 <div id="register">
-<input id="name" placeholder="Nombre profesional"><input id="email" type="email" placeholder="Email"><input id="pass" type="password" placeholder="Contraseña (mínimo 6 caracteres)">
+<input id="name" autocomplete="name" placeholder="Nombre profesional">
+<input id="email" type="email" autocomplete="email" inputmode="email" placeholder="Email">
+<input id="pass" type="password" autocomplete="new-password" placeholder="Contraseña segura">
+<div style="font-size:12px;color:#666;margin:-2px 0 7px;line-height:1.45">
+  Usa al menos 8 caracteres con <b>mayúscula, minúscula, número y símbolo</b> (@ # * !, etc.).
+  <button type="button" onclick="suggestPassword()" style="border:0;background:none;color:#7027c9;font-weight:900;padding:0;cursor:pointer">Sugerir contraseña</button>
+</div>
 <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#555;margin:0 0 10px;cursor:pointer"><input id="showPass" type="checkbox" onchange="document.getElementById('pass').type=this.checked?'text':'password'" style="width:auto;margin:0"> Ver contraseña</label>
 <label style="font-size:12px;font-weight:900">Elige tu plan</label><div class="plans">
 <div class="plan selected" data-plan="free" onclick="pick(this)"><b>🆓 Básico</b><strong>Gratis</strong><small>Sin caducidad</small></div>
@@ -192,16 +198,32 @@ function showLogin(){
  const intro=document.querySelector('#modal .box > p');
  if(intro) intro.textContent='Inicia sesión para gestionar tu cuenta y tu anuncio.';
 }
+function suggestPassword(){
+ const chars='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789@#*!';
+ let p='Tarot';
+ while(p.length<10) p+=chars[Math.floor(Math.random()*chars.length)];
+ p+='A7@';
+ document.getElementById('pass').value=p;
+ document.getElementById('pass').type='text';
+ const cb=document.getElementById('showPass');
+ if(cb) cb.checked=true;
+ document.getElementById('msg').textContent='Contraseña sugerida. Guárdala en un lugar seguro.';
+}
 function pick(el){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');plan=el.dataset.plan}
 async function registerUser(){
  const msg=document.getElementById('msg');
  const name=document.getElementById('name').value.trim();
  const email=document.getElementById('email').value.trim();
  const pass=document.getElementById('pass').value;
- if(!email||pass.length<6){
- msg.textContent='Escribe un email válido y una contraseña de al menos 6 caracteres.';
- if(!email){document.getElementById('email').focus();}
- else{document.getElementById('pass').focus();}
+ const strongPassword=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/;
+if(!strongPassword.test(pass)){
+ msg.textContent='La contraseña debe tener 8+ caracteres e incluir mayúscula, minúscula, número y símbolo (@ # * !, etc.).';
+ document.getElementById('pass').focus();
+ return;
+}
+if(!email){
+ msg.textContent='Toca el campo Email y escribe tu correo manualmente.';
+ document.getElementById('email').focus();
  return;
 }
  if(!db){msg.textContent='No se ha podido conectar con el servidor. Recarga la página e inténtalo de nuevo.';return}
