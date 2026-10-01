@@ -114,7 +114,7 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 <div class="plan" data-plan="featured" onclick="pick(this)"><b>⭐ Destacado</b><strong>2,99 € / 30 días</strong><small>Más visibilidad</small></div>
 <div class="plan" data-plan="premium" onclick="pick(this)"><b>💎 Premium</b><strong>5,99 € / 30 días</strong><small>Más presencia</small></div>
 <div class="plan" data-plan="professional" onclick="pick(this)"><b>👑 Profesional</b><strong>9,99 € / 30 días</strong><small>Máxima presencia</small></div></div>
-<div class="notice">Puedes empezar gratis y cambiar de plan después. Los pagos se conectarán cuando activemos la pasarela.</div><button class="btn" style="width:100%" onclick="registerUser()">Crear cuenta gratis</button><p id="msg"></p></div>
+<div class="notice">Puedes empezar gratis y cambiar de plan después. Los pagos se conectarán cuando activemos la pasarela.</div><button id="createAccountBtn" class="btn" style="width:100%" onclick="registerUser()">Crear cuenta gratis</button><p id="msg"></p></div>
 <div id="login" style="display:none">
 <input id="lemail" type="email" placeholder="Email">
 <input id="lpass" type="password" placeholder="Contraseña">
@@ -216,24 +216,56 @@ async function registerUser(){
  const email=document.getElementById('email').value.trim();
  const pass=document.getElementById('pass').value;
  const strongPassword=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/;
-if(!strongPassword.test(pass)){
- msg.textContent='La contraseña debe tener 8+ caracteres e incluir mayúscula, minúscula, número y símbolo (@ # * !, etc.).';
- document.getElementById('pass').focus();
- return;
-}
-if(!email){
- msg.textContent='Toca el campo Email y escribe tu correo manualmente.';
- document.getElementById('email').focus();
- return;
-}
- if(!db){msg.textContent='No se ha podido conectar con el servidor. Recarga la página e inténtalo de nuevo.';return}
+
+ if(!email){
+  msg.textContent='Escribe tu email.';
+  document.getElementById('email').focus();
+  return;
+ }
+ if(!strongPassword.test(pass)){
+  msg.textContent='La contraseña necesita 8+ caracteres, mayúscula, minúscula, número y símbolo.';
+  document.getElementById('pass').focus();
+  return;
+ }
+
  msg.textContent='Creando tu cuenta…';
  try{
-  const {data,error}=await db.auth.signUp({email,password:pass,options:{data:{display_name:name,plan}}});
-  if(error){msg.textContent='No se pudo crear la cuenta: '+error.message;return}
-  msg.textContent=data?.session?'Cuenta creada correctamente.':'Cuenta creada. Revisa tu email para confirmar la cuenta.';
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),10000);
+  const response=await fetch(URL+'/auth/v1/signup',{
+   method:'POST',
+   headers:{
+    'Content-Type':'application/json',
+    'apikey':KEY,
+    'Authorization':'Bearer '+KEY
+   },
+   body:JSON.stringify({
+    email:email,
+    password:pass,
+    data:{display_name:name,plan:plan}
+   }),
+   signal:controller.signal
+  });
+  clearTimeout(timer);
+
+  let result={};
+  try{result=await response.json()}catch(e){}
+
+  if(!response.ok){
+   const detail=result.msg||result.message||result.error_description||result.error||'No se pudo crear la cuenta.';
+   msg.textContent='Error: '+detail;
+   return;
+  }
+
+  if(result.session){
+   msg.textContent='✅ Cuenta creada correctamente.';
+  }else{
+   msg.textContent='✅ Cuenta creada. Revisa tu email para confirmar la cuenta.';
+  }
  }catch(e){
-  msg.textContent='No se pudo crear la cuenta. Comprueba el email y vuelve a intentarlo.';
+  msg.textContent=e.name==='AbortError'
+   ? 'La conexión está tardando demasiado. Comprueba Internet e inténtalo otra vez.'
+   : 'No se pudo conectar con el servidor. Inténtalo de nuevo.';
  }
 }
 async function loginUser(){
