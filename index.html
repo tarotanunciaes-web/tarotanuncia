@@ -29,7 +29,7 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 <header><div class="wrap nav">
 <a class="brand" href="#inicio"><span class="lotus">♧</span><span><strong>Tarot<span>Anuncia</span></strong><small>Tu guía espiritual, más cerca</small></span></a>
 <nav class="menu"><a href="#inicio">Inicio</a><a href="#profesionales">Tarotistas</a><a href="#categorias">Categorías</a><a href="#como">Cómo funciona</a><a href="#blog">Blog</a><a href="#contacto">Contacto</a></nav>
-<button class="btn small" onclick="openModal('register')">＋ Publicar anuncio</button><button class="mobileMenu btn small" onclick="openModal('login')">Mi cuenta</button>
+<button class="btn small" onclick="showRegister();document.getElementById('modal').classList.add('open')">＋ Publicar anuncio</button><button class="mobileMenu btn small" onclick="openModal('login')">Mi cuenta</button>
 </div></header>
 
 <main id="inicio">
@@ -108,7 +108,16 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 <div class="plan" data-plan="premium" onclick="pick(this)"><b>💎 Premium</b><strong>5,99 € / 30 días</strong><small>Más presencia</small></div>
 <div class="plan" data-plan="professional" onclick="pick(this)"><b>👑 Profesional</b><strong>9,99 € / 30 días</strong><small>Máxima presencia</small></div></div>
 <div class="notice">Puedes empezar gratis y cambiar de plan después. Los pagos se conectarán cuando activemos la pasarela.</div><button class="btn" style="width:100%" onclick="registerUser()">Crear cuenta gratis</button><p id="msg"></p></div>
-<div id="login" style="display:none"><input id="lemail" type="email" placeholder="Email"><input id="lpass" type="password" placeholder="Contraseña"><button class="btn" style="width:100%" onclick="loginUser()">Entrar</button><p id="lmsg"></p></div>
+<div id="login" style="display:none">
+<input id="lemail" type="email" placeholder="Email">
+<input id="lpass" type="password" placeholder="Contraseña">
+<button class="btn" style="width:100%" onclick="loginUser()">Entrar</button>
+<p id="lmsg"></p>
+<div style="text-align:center;margin-top:14px;font-size:13px;color:#666">
+¿Aún no tienes cuenta?
+<button type="button" onclick="showRegister()" style="border:0;background:none;color:#7027c9;font-weight:900;cursor:pointer">Crear cuenta</button>
+</div>
+</div>
 </div></div>
 
 <div id="profileModal" class="modal"><div class="box"><span class="x" onclick="closeProfile()">×</span><h2 id="profileTitle">Perfil</h2><div id="profileContent"></div><button class="btn" style="width:100%;margin-top:14px" onclick="closeProfile()">Cerrar</button></div></div>
@@ -161,6 +170,16 @@ function contactProfile(raw){
 function cat(c){document.getElementById('cat').value=c;document.getElementById('profesionales').scrollIntoView({behavior:'smooth'});loadProfiles()}
 function openModal(mode){document.getElementById('modal').classList.add('open');document.getElementById('register').style.display=mode==='register'?'block':'none';document.getElementById('login').style.display=mode==='login'?'block':'none';document.getElementById('mtitle').textContent=mode==='register'?'Publicar mi anuncio':'Mi cuenta'}
 function closeModal(){document.getElementById('modal').classList.remove('open')}
+function showRegister(){
+ document.getElementById('register').style.display='block';
+ document.getElementById('login').style.display='none';
+ document.getElementById('mtitle').textContent='Crear cuenta';
+}
+function showLogin(){
+ document.getElementById('register').style.display='none';
+ document.getElementById('login').style.display='block';
+ document.getElementById('mtitle').textContent='Mi cuenta';
+}
 function pick(el){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');plan=el.dataset.plan}
 async function registerUser(){const name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),pass=document.getElementById('pass').value;if(!name||!email||pass.length<6){document.getElementById('msg').textContent='Completa los datos correctamente.';return}const {error}=await db.auth.signUp({email,password:pass,options:{data:{display_name:name,plan}}});document.getElementById('msg').textContent=error?error.message:'Cuenta creada. Revisa tu email si se solicita confirmación.';if(!error)setTimeout(closeModal,1800)}
 async function loginUser(){const {error}=await db.auth.signInWithPassword({email:document.getElementById('lemail').value,password:document.getElementById('lpass').value});document.getElementById('lmsg').textContent=error?error.message:'Sesión iniciada correctamente.'}
