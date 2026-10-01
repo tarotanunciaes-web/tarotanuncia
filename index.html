@@ -198,7 +198,12 @@ async function registerUser(){
  const name=document.getElementById('name').value.trim();
  const email=document.getElementById('email').value.trim();
  const pass=document.getElementById('pass').value;
- if(!name||!email||pass.length<6){msg.textContent='Completa los datos correctamente. La contraseña debe tener al menos 6 caracteres.';return}
+ if(!email||pass.length<6){
+ msg.textContent='Escribe un email válido y una contraseña de al menos 6 caracteres.';
+ if(!email){document.getElementById('email').focus();}
+ else{document.getElementById('pass').focus();}
+ return;
+}
  if(!db){msg.textContent='No se ha podido conectar con el servidor. Recarga la página e inténtalo de nuevo.';return}
  msg.textContent='Creando tu cuenta…';
  try{
