@@ -193,8 +193,30 @@ function showLogin(){
  if(intro) intro.textContent='Inicia sesión para gestionar tu cuenta y tu anuncio.';
 }
 function pick(el){document.querySelectorAll('.plan').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');plan=el.dataset.plan}
-async function registerUser(){const name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),pass=document.getElementById('pass').value;if(!name||!email||pass.length<6){document.getElementById('msg').textContent='Completa los datos correctamente.';return}const {error}=await db.auth.signUp({email,password:pass,options:{data:{display_name:name,plan}}});document.getElementById('msg').textContent=error?error.message:'Cuenta creada. Revisa tu email si se solicita confirmación.';if(!error)setTimeout(closeModal,1800)}
-async function loginUser(){const {error}=await db.auth.signInWithPassword({email:document.getElementById('lemail').value,password:document.getElementById('lpass').value});document.getElementById('lmsg').textContent=error?error.message:'Sesión iniciada correctamente.'}
+async function registerUser(){
+ const msg=document.getElementById('msg');
+ const name=document.getElementById('name').value.trim();
+ const email=document.getElementById('email').value.trim();
+ const pass=document.getElementById('pass').value;
+ if(!name||!email||pass.length<6){msg.textContent='Completa los datos correctamente. La contraseña debe tener al menos 6 caracteres.';return}
+ if(!db){msg.textContent='No se ha podido conectar con el servidor. Recarga la página e inténtalo de nuevo.';return}
+ msg.textContent='Creando tu cuenta…';
+ try{
+  const {data,error}=await db.auth.signUp({email,password:pass,options:{data:{display_name:name,plan}}});
+  if(error){msg.textContent='No se pudo crear la cuenta: '+error.message;return}
+  msg.textContent=data?.session?'Cuenta creada correctamente.':'Cuenta creada. Revisa tu email para confirmar la cuenta.';
+ }catch(e){
+  msg.textContent='No se pudo crear la cuenta. Comprueba el email y vuelve a intentarlo.';
+ }
+}
+async function loginUser(){
+ const msg=document.getElementById('lmsg');
+ if(!db){msg.textContent='No se ha podido conectar con el servidor.';return}
+ try{
+  const {error}=await db.auth.signInWithPassword({email:document.getElementById('lemail').value,password:document.getElementById('lpass').value});
+  msg.textContent=error?error.message:'Sesión iniciada correctamente.';
+ }catch(e){msg.textContent='No se pudo iniciar sesión. Comprueba tus datos.'}
+}
 loadProfiles();
 </script>
 </body>
