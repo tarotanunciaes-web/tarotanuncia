@@ -150,8 +150,18 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 <div class="plan" data-plan="professional" onclick="pick(this)"><b>👑 Profesional</b><strong>9,99 € / 30 días</strong><small>Máxima presencia</small></div></div>
 <div class="notice">Puedes empezar gratis y cambiar de plan después. Los pagos se conectarán cuando activemos la pasarela.</div><button id="createAccountBtn" class="btn" style="width:100%" onclick="window.registerUser()">Crear cuenta gratis</button><p id="msg"></p></div>
 <div id="login" style="display:none">
-<input id="lemail" type="email" placeholder="Email">
-<input id="lpass" type="password" placeholder="Contraseña">
+<input id="lemail" type="email" autocomplete="email" placeholder="Email">
+
+<div style="position:relative">
+  <input id="lpass" type="password" autocomplete="current-password" placeholder="Contraseña" style="padding-right:105px">
+
+  <button type="button"
+          onclick="toggleLoginPass()"
+          style="position:absolute;right:8px;top:8px;border:0;background:#f4effa;color:#7027c9;border-radius:9px;padding:7px 9px;font-size:12px;font-weight:800">
+    👁 Ver
+  </button>
+</div>
+
 <button class="btn" style="width:100%" onclick="loginUser()">Entrar</button>
 <p id="lmsg"></p>
 <div style="text-align:center;margin-top:14px;font-size:13px;color:#666">
@@ -322,14 +332,105 @@ async function registerUser(){
  }
 }
 window.registerUser=registerUser;
-async function loginUser(){
- const msg=document.getElementById('lmsg');
- if(!db){msg.textContent='No se ha podido conectar con el servidor.';return}
- try{
-  const {error}=await db.auth.signInWithPassword({email:document.getElementById('lemail').value,password:document.getElementById('lpass').value});
-  msg.textContent=error?error.message:'Sesión iniciada correctamente.';
- }catch(e){msg.textContent='No se pudo iniciar sesión. Comprueba tus datos.'}
+function toggleLoginPass(){
+  const el=document.getElementById('lpass');
+  const btn=event.currentTarget;
+  if(!el)return;
+
+  if(el.type==='password'){
+    el.type='text';
+    btn.textContent='🙈 Ocultar';
+  }else{
+    el.type='password';
+    btn.textContent='👁 Ver contraseña';
+  }
 }
+
+async function loginUser(){
+  const msg=document.getElementById('lmsg');
+  const email=(document.getElementById('lemail')?.value||'').trim();
+  const password=document.getElementById('lpass')?.value||'';
+
+  if(!email){
+    msg.textContent='Escribe tu email.';
+    return;
+  }
+
+  if(!password){
+    msg.textContent='Escribe tu contraseña.';
+    return;
+  }
+
+  msg.textContent='Entrando…';
+
+  try{
+    const response=await fetch(
+      URL+'/auth/v1/token?grant_type=password',
+      {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'apikey':KEY
+        },
+        body:JSON.stringify({
+          email:email,
+          password:password
+        })
+      }
+    );
+
+    const result=await response.json();
+
+    if(!response.ok){
+      const error=String(
+        result?.error_description||
+        result?.msg||
+        result?.message||
+        ''
+      ).toLowerCase();
+
+      if(error.includes('email not confirmed')){
+        msg.textContent='📧 Primero debes confirmar tu email.';
+      }else if(error.includes('invalid login credentials')){
+        msg.textContent='❌ Email o contraseña incorrectos.';
+      }else{
+        msg.textContent='❌ No se pudo iniciar sesión.';
+      }
+
+      return;
+    }
+
+    if(result.access_token){
+
+      localStorage.setItem(
+        'tarotanuncia_access_token',
+        result.access_token
+      );
+
+      localStorage.setItem(
+        'tarotanuncia_refresh_token',
+        result.refresh_token||''
+      );
+
+      msg.style.color='#15966a';
+      msg.textContent='✅ Sesión iniciada correctamente.';
+
+      setTimeout(function(){
+        closeModal();
+      },700);
+
+    }else{
+      msg.textContent='❌ No se pudo iniciar sesión.';
+    }
+
+  }catch(error){
+
+    msg.textContent=
+      '❌ Error de conexión con Supabase.';
+
+  }
+}
+
 loadProfiles();
 </script>
 </body>
