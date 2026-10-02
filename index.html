@@ -49,32 +49,42 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 }
 .nav>.btn.small::before{content:none!important;display:none!important}
   @media(max-width:650px){
-  .heroText{
+  .heroGrid{
     display:block!important;
     position:relative;
-    z-index:2;
-    background:#fff;
-    padding:24px 16px 20px!important;
+    background-image:url("https://raw.githubusercontent.com/tarotanunciaes-web/tarotanuncia/main/hero-espiritual.jpg");
+    background-size:cover;
+    background-position:center;
+    min-height:760px;
   }
 
   .heroVisual{
-    height:auto!important;
-    overflow:hidden;
+    display:none!important;
   }
 
-  .mysticScene{
-    width:100%;
-    height:100%;
+  .heroText{
+    position:relative;
+    z-index:2;
+    padding:45px 16px 35px!important;
+    background:linear-gradient(
+      to bottom,
+      rgba(255,255,255,.88),
+      rgba(255,255,255,.72)
+    );
   }
 
-  .mysticScene img{
-    width:100%;
-    height:100%;
-    
-    display:block;
+  .hero h1{
+    font-size:39px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .benefits{
+    background:rgba(246,239,255,.90);
   }
   }
-@media (max-width: 600px){
   .formGrid{grid-template-columns:1fr;gap:0}
   .box{max-height:90vh;overflow-y:auto}
   .box input,.box select{box-sizing:border-box}
