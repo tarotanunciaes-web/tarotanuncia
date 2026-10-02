@@ -809,6 +809,15 @@ if(ad){
     photosBox.textContent='📸 Fotos: '+
       (Array.isArray(ad.photo_urls) ? ad.photo_urls.length : 0)+' / 6';
   }
+const photosList=document.getElementById('accountPhotosList');
+
+if(photosList){
+  const urls=Array.isArray(ad.photo_urls) ? ad.photo_urls : [];
+
+  photosList.innerHTML=urls.map(url=>
+    '<img src="'+url+'" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid #ddd">'
+  ).join('');
+}
 }
     if(ad){
 
