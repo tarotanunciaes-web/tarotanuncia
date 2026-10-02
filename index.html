@@ -48,6 +48,32 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
   }
 }
 .nav>.btn.small::before{content:none!important;display:none!important}
+  @media(max-width:650px){
+  .heroText{
+    display:block!important;
+    position:relative;
+    z-index:2;
+    background:#fff;
+    padding:24px 16px 20px!important;
+  }
+
+  .heroVisual{
+    height:230px!important;
+    overflow:hidden;
+  }
+
+  .mysticScene{
+    width:100%;
+    height:100%;
+  }
+
+  .mysticScene img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  }
 @media (max-width: 600px){
   .formGrid{grid-template-columns:1fr;gap:0}
   .box{max-height:90vh;overflow-y:auto}
