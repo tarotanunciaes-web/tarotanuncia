@@ -906,7 +906,125 @@ if(photosList){
 
   }
 }
+async function uploadProfilePhoto(input){
 
+  const msg=document.getElementById('accountMessage');
+
+  try{
+
+    const user=await getCurrentUser();
+
+    if(!user){
+      msg.textContent='❌ Sesión no válida.';
+      return;
+    }
+
+    const file=input.files && input.files[0];
+
+    if(!file)return;
+
+    if(!['image/jpeg','image/png','image/webp'].includes(file.type)){
+      msg.textContent='❌ Solo puedes subir JPG, PNG o WEBP.';
+      input.value='';
+      return;
+    }
+
+    if(file.size>6291456){
+      msg.textContent='❌ La foto supera los 6 MB.';
+      input.value='';
+      return;
+    }
+
+    const token=getAccessToken();
+
+    const adResponse=await fetch(
+      URL+'/rest/v1/tarotist_ads?owner_id=eq.'+
+      encodeURIComponent(user.id)+
+      '&select=id,profile_photo_url',
+      {
+        headers:{
+          apikey:KEY,
+          Authorization:'Bearer '+token
+        }
+      }
+    );
+
+    if(!adResponse.ok){
+      msg.textContent='❌ No se pudo cargar tu anuncio.';
+      return;
+    }
+
+    const ads=await adResponse.json();
+
+    if(!ads.length){
+      msg.textContent='⚠️ Primero guarda el anuncio y después añade la foto de perfil.';
+      input.value='';
+      return;
+    }
+
+    const extension=
+      file.type==='image/png' ? 'png' :
+      file.type==='image/webp' ? 'webp' : 'jpg';
+
+    const path=
+      user.id+'/profile-'+crypto.randomUUID()+'.'+extension;
+
+    const uploadResponse=await fetch(
+      URL+'/storage/v1/object/tarotanuncia-photos/'+path,
+      {
+        method:'POST',
+        headers:{
+          apikey:KEY,
+          Authorization:'Bearer '+token,
+          'Content-Type':file.type,
+          'x-upsert':'false'
+        },
+        body:file
+      }
+    );
+
+    if(!uploadResponse.ok){
+      msg.textContent='❌ No se pudo subir la foto de perfil.';
+      return;
+    }
+
+    const publicUrl=
+      URL+'/storage/v1/object/public/tarotanuncia-photos/'+path;
+
+    const updateResponse=await fetch(
+      URL+'/rest/v1/tarotist_ads?id=eq.'+
+      encodeURIComponent(ads[0].id),
+      {
+        method:'PATCH',
+        headers:{
+          apikey:KEY,
+          Authorization:'Bearer '+token,
+          'Content-Type':'application/json',
+          Prefer:'return=minimal'
+        },
+        body:JSON.stringify({
+          profile_photo_url:publicUrl
+        })
+      }
+    );
+
+    if(!updateResponse.ok){
+      msg.textContent='❌ La foto se subió, pero no se pudo guardar.';
+      return;
+    }
+
+    msg.textContent='✅ Foto de perfil actualizada.';
+
+    input.value='';
+
+    await loadMyAccount();
+
+  }catch(error){
+
+    msg.textContent='❌ No se pudo actualizar la foto de perfil.';
+
+  }
+}
 
   async function uploadMyPhotos(input){
 
