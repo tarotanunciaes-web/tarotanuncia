@@ -924,10 +924,8 @@ if(existing.length>=2){
     if(!response.ok){
 
       const error=await response.text();
-
-      msg.textContent=
-        '❌ No se pudo guardar el anuncio.';
-
+msg.textContent=
+    '❌ Error: '+error;
       console.log(error);
 
       return;
