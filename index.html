@@ -646,7 +646,20 @@ style="background:#f7f1fb;border-radius:12px;padding:10px;text-align:center;font
           <input id="accountCategories"
             placeholder="Tarot, videncia, astrología..."
             style="width:100%;box-sizing:border-box;margin:6px 0 18px;padding:11px;border:1px solid #ddd;border-radius:10px">
+<label style="font-weight:800;font-size:13px">📸 Fotos del anuncio (máximo 6)</label>
 
+<input
+  id="accountPhotos"
+  type="file"
+  accept="image/jpeg,image/png,image/webp"
+  multiple
+  onchange="uploadMyPhotos(this)"
+  style="width:100%;box-sizing:border-box;margin:6px 0 8px;padding:10px;border:1px solid #ddd;border-radius:10px">
+
+<div
+  id="accountPhotosList"
+  style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px">
+</div>
           <button
             type="button"
             onclick="saveMyAd()"
@@ -868,16 +881,169 @@ if(ad){
 
   }
 }
-
-async function saveMyAd(){
+async function uploadMyPhotos(input){
 
   const msg=document.getElementById('accountMessage');
-  const token=getAccessToken();
 
   try{
 
     const user=await getCurrentUser();
 
+    if(!user){
+      msg.textContent='❌ Sesión no válida.';
+      return;
+    }
+
+    const token=getAccessToken();
+
+    const adResponse=await fetch(
+      URL+'/rest/v1/tarotist_ads?owner_id=eq.'+
+      encodeURIComponent(user.id)+
+      '&select=id,photo_urls',
+      {
+        headers:{
+          apikey:KEY,
+          Authorization:'Bearer '+token
+        }
+      }
+    );
+
+    if(!adResponse.ok){
+      msg.textContent='❌ No se pudo cargar tu anuncio.';
+      return;
+    }
+
+    const ads=await adResponse.json();
+
+    if(!ads.length){
+      msg.textContent='⚠️ Primero guarda el anuncio y después sube las fotos.';
+      return;
+    }
+
+    const ad=ads[0];
+
+    let photoUrls=Array.isArray(ad.photo_urls)
+      ? ad.photo_urls
+      : [];
+
+    if(photoUrls.length>=6){
+      msg.textContent='⚠️ Ya tienes 6 fotos, que es el máximo.';
+      return;
+    }
+
+    const files=Array.from(input.files || [])
+      .slice(0,6-photoUrls.length);
+
+    const newUrls=[];
+
+    for(const file of files){
+
+      if(!['image/jpeg','image/png','image/webp'].includes(file.type)){
+        msg.textContent='❌ Solo puedes subir JPG, PNG o WEBP.';
+        continue;
+      }
+
+      if(file.size>6291456){
+        msg.textContent='❌ Una foto supera los 6 MB.';
+        continue;
+      }
+
+      const extension=
+        file.type==='image/png' ? 'png' :
+        file.type==='image/webp' ? 'webp' : 'jpg';
+
+      const path=
+        user.id+'/'+crypto.randomUUID()+'.'+extension;
+
+      const uploadResponse=await fetch(
+        URL+'/storage/v1/object/tarotanuncia-photos/'+
+        path,
+        {
+          method:'POST',
+          headers:{
+            apikey:KEY,
+            Authorization:'Bearer '+token,
+            'Content-Type':file.type,
+            'x-upsert':'false'
+          },
+          body:file
+        }
+      );
+
+      if(!uploadResponse.ok){
+        msg.textContent='❌ No se pudo subir una de las fotos.';
+        continue;
+      }
+
+      const publicUrl=
+        URL+
+        '/storage/v1/object/public/tarotanuncia-photos/'+
+        path;
+
+      newUrls.push(publicUrl);
+    }
+
+    if(!newUrls.length){
+      return;
+    }
+
+    photoUrls=[...photoUrls,...newUrls];
+
+    const updateResponse=await fetch(
+      URL+'/rest/v1/tarotist_ads?id=eq.'+
+      encodeURIComponent(ad.id),
+      {
+        method:'PATCH',
+        headers:{
+          apikey:KEY,
+          Authorization:'Bearer '+token,
+          'Content-Type':'application/json',
+          Prefer:'return=minimal'
+        },
+        body:JSON.stringify({
+          photo_urls:photoUrls
+        })
+      }
+    );
+
+    if(!updateResponse.ok){
+      msg.textContent='❌ Las fotos se subieron pero no se pudieron guardar en el anuncio.';
+      return;
+    }
+
+    const counter=document.getElementById('accountPhotosCount');
+
+    if(counter){
+      counter.textContent='📸 Fotos: '+photoUrls.length+' / 6';
+    }
+
+    const list=document.getElementById('accountPhotosList');
+
+    if(list){
+      list.innerHTML=photoUrls.map(url=>
+        '<img src="'+url+'" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid #ddd">'
+      ).join('');
+    }
+
+    input.value='';
+
+    msg.textContent='✅ Fotos añadidas correctamente.';
+
+  }catch(error){
+
+    console.error(error);
+    msg.textContent='❌ Error al subir las fotos.';
+  }
+}
+async function saveMyAd(){
+
+  const msg=document.getElementById('accountMessage');
+
+
+  try{
+
+    const user=await getCurrentUser();
+const token=getAccessToken();
     if(!user){
       msg.textContent='❌ Sesión no válida.';
       return;
