@@ -646,6 +646,19 @@ style="background:#f7f1fb;border-radius:12px;padding:10px;text-align:center;font
           <input id="accountCategories"
             placeholder="Tarot, videncia, astrología..."
             style="width:100%;box-sizing:border-box;margin:6px 0 18px;padding:11px;border:1px solid #ddd;border-radius:10px">
+<label style="font-weight:800;font-size:13px">👤 Foto de perfil</label>
+
+<input
+  id="accountProfilePhoto"
+  type="file"
+  accept="image/jpeg,image/png,image/webp"
+  onchange="uploadProfilePhoto(this)"
+  style="width:100%;box-sizing:border-box;margin:6px 0 8px;padding:10px;border:1px solid #ddd;border-radius:10px">
+
+<div
+  id="accountProfilePhotoPreview"
+  style="margin:0 0 18px;text-align:center">
+</div>
 <label style="font-weight:800;font-size:13px">📸 Fotos del anuncio (máximo 6)</label>
 
 <input
