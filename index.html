@@ -522,6 +522,7 @@ async function openAccount(){
 style="background:#f7f1fb;border-radius:12px;padding:10px;text-align:center;font-weight:800;color:#7027c9;margin:10px 0">
 📋 Anuncios: 0 / 2
 </div>
+
         <div style="display:flex;gap:10px;margin:12px 0 14px">
   <div id="accountViews" style="flex:1;background:#f7f1fb;border-radius:12px;padding:12px;text-align:center;font-weight:800;color:#7027c9">
     👀 Visitas: 0
@@ -530,7 +531,6 @@ style="background:#f7f1fb;border-radius:12px;padding:10px;text-align:center;font
     📸 Fotos: 0 / 6
   </div>
 </div>
-
         <div id="accountMessage"
           style="margin-bottom:12px;font-size:14px">
         </div>
@@ -875,7 +875,15 @@ async function saveMyAd(){
     );
 
     const existing=await check.json();
+if(!Array.isArray(existing)){
+  msg.textContent='❌ No se pudo comprobar tus anuncios.';
+  return;
+}
 
+if(existing.length>=2){
+  msg.textContent='⚠️ Has alcanzado el límite de 2 anuncios gratuitos. Puedes cambiar de plan para publicar más.';
+  return;
+}
     let response;
 
     if(Array.isArray(existing) && existing.length){
