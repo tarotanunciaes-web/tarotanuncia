@@ -48,14 +48,23 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
   }
 }
 .nav>.btn.small::before{content:none!important;display:none!important}
-  @media(max-width:650px){
+@media(max-width:650px){
+
   .heroGrid{
     display:block!important;
     position:relative;
-    background-image:url("https://raw.githubusercontent.com/tarotanunciaes-web/tarotanuncia/main/hero-espiritual.jpg");
+    min-height:700px;
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(255,255,255,.20),
+        rgba(255,255,255,.08) 55%,
+        rgba(255,255,255,.18)
+      ),
+      url("https://raw.githubusercontent.com/tarotanunciaes-web/tarotanuncia/main/hero-espiritual.jpg");
     background-size:cover;
     background-position:center;
-    min-height:760px;
+    overflow:hidden;
   }
 
   .heroVisual{
@@ -65,26 +74,44 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
   .heroText{
     position:relative;
     z-index:2;
-    padding:45px 16px 35px!important;
-    background:linear-gradient(
-      to bottom,
-      rgba(255,255,255,.88),
-      rgba(255,255,255,.72)
-    );
+    padding:38px 22px 28px!important;
+    background:transparent!important;
+  }
+
+  .hero .eyebrow{
+    font-size:12px!important;
+    letter-spacing:1.5px!important;
+    margin-bottom:14px!important;
   }
 
   .hero h1{
-    font-size:39px;
+    font-size:38px!important;
+    line-height:.98!important;
+    margin:0 0 18px!important;
+    max-width:100%!important;
   }
 
   .hero p{
-    font-size:16px;
+    font-size:16px!important;
+    line-height:1.4!important;
+    margin-bottom:22px!important;
+    max-width:100%!important;
   }
 
   .benefits{
-    background:rgba(246,239,255,.90);
+    background:rgba(255,255,255,.72)!important;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-radius:20px!important;
+    padding:16px 14px!important;
+    margin-top:8px!important;
   }
+
+  .benefits div{
+    font-size:14px!important;
   }
+
+}
   .formGrid{grid-template-columns:1fr;gap:0}
   .box{max-height:90vh;overflow-y:auto}
   .box input,.box select{box-sizing:border-box}
