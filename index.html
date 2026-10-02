@@ -815,9 +815,11 @@ if(photosList){
   const urls=Array.isArray(ad.photo_urls) ? ad.photo_urls : [];
 
   photosList.innerHTML=urls.map(url=>
-    '<img src="'+url+'" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid #ddd">'
-  ).join('');
-}
+  '<div style="position:relative">'+
+    '<img src="'+url+'" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid #ddd">'+
+    '<button type="button" onclick="deleteMyPhoto(\''+encodeURIComponent(url)+'\')" style="width:100%;margin-top:5px;border:0;border-radius:8px;padding:7px;background:#eee;color:#333;font-weight:700;cursor:pointer">🗑️ Borrar</button>'+
+  '</div>'
+).join('');
 }
     if(ad){
 
@@ -890,7 +892,9 @@ if(photosList){
 
   }
 }
-async function uploadMyPhotos(input){
+
+
+  async function uploadMyPhotos(input){
 
   const msg=document.getElementById('accountMessage');
 
@@ -1044,7 +1048,92 @@ async function uploadMyPhotos(input){
     msg.textContent='❌ Error al subir las fotos.';
   }
 }
-async function saveMyAd(){
+async function deleteMyPhoto(index){
+
+  const msg=document.getElementById('accountMessage');
+
+  try{
+
+    const user=await getCurrentUser();
+
+    if(!user){
+      msg.textContent='❌ Sesión no válida.';
+      return;
+    }
+
+    const token=getAccessToken();
+
+    const response=await fetch(
+      URL+'/rest/v1/tarotist_ads?owner_id=eq.'+
+      encodeURIComponent(user.id)+
+      '&select=id,photo_urls',
+      {
+        headers:{
+          apikey:KEY,
+          Authorization:'Bearer '+token
+        }
+      }
+    );
+
+    if(!response.ok){
+      msg.textContent='❌ No se pudo cargar el anuncio.';
+      return;
+    }
+
+    const ads=await response.json();
+
+    if(!ads.length){
+      msg.textContent='❌ No se encontró el anuncio.';
+      return;
+    }
+
+    const ad=ads[0];
+
+    const urls=Array.isArray(ad.photo_urls)
+      ? [...ad.photo_urls]
+      : [];
+
+    if(index<0 || index>=urls.length){
+      return;
+    }
+
+    urls.splice(index,1);
+
+    const updateResponse=await fetch(
+      URL+'/rest/v1/tarotist_ads?id=eq.'+
+      encodeURIComponent(ad.id),
+      {
+        method:'PATCH',
+        headers:{
+          apikey:KEY,
+          Authorization:'Bearer '+token,
+          'Content-Type':'application/json',
+          Prefer:'return=minimal'
+        },
+        body:JSON.stringify({
+          photo_urls:urls
+        })
+      }
+    );
+
+    if(!updateResponse.ok){
+      msg.textContent='❌ No se pudo eliminar la foto.';
+      return;
+    }
+
+    msg.textContent='✅ Foto eliminada correctamente.';
+
+    await loadMyAccount();
+
+  }catch(error){
+
+    console.error(error);
+
+    msg.textContent='❌ Error al eliminar la foto.';
+
+  }
+}
+  async function saveMyAd(){
 
   const msg=document.getElementById('accountMessage');
 
