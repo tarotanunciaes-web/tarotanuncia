@@ -1155,6 +1155,14 @@ msg.textContent=
 
     msg.style.color='#15966a';
     msg.textContent='✅ Anuncio guardado correctamente.';
+    const saveBtn=document.querySelector('#accountForm button[onclick="saveMyAd()"]');
+
+if(saveBtn){
+  saveBtn.textContent='✅ Guardado correctamente';
+  setTimeout(()=>{
+    saveBtn.textContent='💾 Guardar anuncio';
+  },2500);
+}
 
     
 
