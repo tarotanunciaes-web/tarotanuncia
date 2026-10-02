@@ -25,21 +25,25 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 @media(max-width:650px){header,.nav{height:58px}.nav{padding:0 12px}.brand strong{font-size:20px}.brand small{display:none}.lotus{font-size:27px}.nav>.btn:not(.mobileMenu){font-size:0;padding:7px 10px}.nav>.btn:not(.mobileMenu)::before{content:"＋";font-size:18px}.mobileMenu{font-size:0!important;padding:7px 10px!important}.mobileMenu::before{content:"♙";font-size:17px}.heroGrid{display:block}.heroText{padding:30px 0 18px}.heroVisual{height:150px}.woman{font-size:70px}.hero h1{font-size:39px}.hero p{font-size:16px}.trust{gap:8px;font-size:9px}.trust i{font-size:19px}.search{grid-template-columns:1fr;margin-top:-14px;padding:8px}.cats{grid-template-columns:repeat(3,1fr);gap:8px}.cat{min-height:88px;padding:10px 5px;font-size:11px}.cat i{font-size:25px}.profiles{grid-template-columns:1fr;gap:14px}.photo{height:170px}.benefits{grid-template-columns:1fr}.benefit{border:0;border-bottom:1px solid #d9cceb;padding:10px}.proBox{grid-template-columns:1fr}.foot{flex-direction:column}.title h2{font-size:24px;gap:12px}.title h2:before,.title h2:after{width:28px}.profileLarge{grid-template-columns:1fr}.profileAvatar{height:110px}}
 @media (max-width:650px){
   header .nav{
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
     height:auto;
-    padding:10px 12px;
-    gap:8px;
+    padding:8px 10px;
+    gap:6px;
   }
 
-  header .brand{
-    width:100%;
+  header .nav .brand{
+    flex:1;
+    min-width:0;
+  }
+
+  header .nav .brand strong{
+    font-size:18px;
   }
 
   header .nav > .btn.small{
     flex:0 0 auto;
-    padding:7px 6px;
-font-size:11px;
-    min-width:0;
+    padding:7px 8px;
+    font-size:10px;
     white-space:nowrap;
   }
 }
