@@ -518,7 +518,14 @@ async function openAccount(){
           <div id="accountPlan" style="font-size:20px;font-weight:900;color:#7027c9;margin-top:3px">
             ⭐ Básico · Gratis
           </div>
-        </div>
+        <div style="display:flex;gap:10px;margin:12px 0 14px">
+  <div id="accountViews" style="flex:1;background:#f7f1fb;border-radius:12px;padding:12px;text-align:center;font-weight:800;color:#7027c9">
+    👀 Visitas: 0
+  </div>
+  <div id="accountPhotosCount" style="flex:1;background:#f7f1fb;border-radius:12px;padding:12px;text-align:center;font-weight:800;color:#7027c9">
+    📸 Fotos: 0 / 6
+  </div>
+</div>
 
         <div id="accountMessage"
           style="margin-bottom:12px;font-size:14px">
@@ -712,7 +719,19 @@ async function loadMyAccount(){
     }
 
     const ad=Array.isArray(ads) ? ads[0] : null;
+const viewsBox=document.getElementById('accountViews');
+const photosBox=document.getElementById('accountPhotosCount');
 
+if(ad){
+  if(viewsBox){
+    viewsBox.textContent='👀 Visitas: '+(ad.views||0);
+  }
+
+  if(photosBox){
+    photosBox.textContent='📸 Fotos: '+
+      (Array.isArray(ad.photo_urls) ? ad.photo_urls.length : 0)+' / 6';
+  }
+}
     if(ad){
 
       document.getElementById('accountName').value=
