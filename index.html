@@ -435,15 +435,66 @@ function getAccessToken(){
 }
 
 async function getCurrentUser(){
-  const token=getAccessToken();
+
+  let token=getAccessToken();
+
   if(!token)return null;
 
-  const response=await fetch(
+  let response=await fetch(
     URL+'/auth/v1/user',
     {
       headers:{
         apikey:KEY,
         Authorization:'Bearer '+token
+      }
+    }
+  );
+
+  if(response.ok){
+    return await response.json();
+  }
+
+  const refreshToken=
+    localStorage.getItem('tarotanuncia_refresh_token') || '';
+
+  if(!refreshToken)return null;
+
+  const refreshResponse=await fetch(
+    URL+'/auth/v1/token?grant_type=refresh_token',
+    {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        apikey:KEY
+      },
+      body:JSON.stringify({
+        refresh_token:refreshToken
+      })
+    }
+  );
+
+  if(!refreshResponse.ok)return null;
+
+  const result=await refreshResponse.json();
+
+  if(!result.access_token)return null;
+
+  localStorage.setItem(
+    'tarotanuncia_access_token',
+    result.access_token
+  );
+
+  localStorage.setItem(
+    'tarotanuncia_refresh_token',
+    result.refresh_token || refreshToken
+  );
+
+  response=await fetch(
+    URL+'/auth/v1/user',
+    {
+      headers:{
+        apikey:KEY,
+        Authorization:'Bearer '+result.access_token
       }
     }
   );
