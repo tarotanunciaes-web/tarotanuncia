@@ -518,6 +518,10 @@ async function openAccount(){
           <div id="accountPlan" style="font-size:20px;font-weight:900;color:#7027c9;margin-top:3px">
             ⭐ Básico · Gratis
           </div>
+          <div id="accountAdsCount"
+style="background:#f7f1fb;border-radius:12px;padding:10px;text-align:center;font-weight:800;color:#7027c9;margin:10px 0">
+📋 Anuncios: 0 / 2
+</div>
         <div style="display:flex;gap:10px;margin:12px 0 14px">
   <div id="accountViews" style="flex:1;background:#f7f1fb;border-radius:12px;padding:12px;text-align:center;font-weight:800;color:#7027c9">
     👀 Visitas: 0
@@ -719,6 +723,11 @@ async function loadMyAccount(){
     }
 
     const ad=Array.isArray(ads) ? ads[0] : null;
+    const adsCountBox=document.getElementById('accountAdsCount');
+
+if(adsCountBox){
+  adsCountBox.textContent='📋 Anuncios: '+ads.length+' / 2';
+}
 const viewsBox=document.getElementById('accountViews');
 const photosBox=document.getElementById('accountPhotosCount');
 
