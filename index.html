@@ -814,6 +814,27 @@ const viewsBox=document.getElementById('accountViews');
 const photosBox=document.getElementById('accountPhotosCount');
 
 if(ad){
+  const profilePreview=document.getElementById('accountProfilePhotoPreview');
+
+if(profilePreview){
+
+  const profileUrl=ad.profile_photo_url || '';
+
+  if(profileUrl){
+
+    profilePreview.innerHTML=
+      '<img src="'+profileUrl+'" '+
+      'style="width:110px;height:110px;object-fit:cover;border-radius:50%;border:3px solid #7027c9">';
+
+  }else{
+
+    profilePreview.innerHTML=
+      '<div style="width:110px;height:110px;margin:auto;border-radius:50%;background:#f3eaff;border:3px solid #7027c9;display:flex;align-items:center;justify-content:center;font-size:48px;color:#7027c9">♧</div>'+
+      '<div style="font-size:12px;color:#777;margin-top:6px">Logo TarotAnuncia</div>';
+
+  }
+
+}
   if(viewsBox){
     viewsBox.textContent='👀 Visitas: '+(ad.views||0);
   }
