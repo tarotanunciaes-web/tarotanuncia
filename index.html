@@ -10,29 +10,36 @@
 *{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#fff}button,input,select{font:inherit}a{text-decoration:none;color:inherit}
 .wrap{max-width:1180px;margin:auto;padding:0 22px}
 @media (min-width:1001px){
+  .hero{
+    width:100vw !important;
+    margin-left:calc(50% - 50vw) !important;
+    padding:0 !important;
+  }
+
   .hero .wrap{
-    max-width:none;
-    width:100%;
-    padding:0;
+    max-width:none !important;
+    width:100% !important;
+    padding:0 !important;
+    margin:0 !important;
   }
 
   .heroGrid{
-    width:100%;
-    min-height:520px;
+    width:100% !important;
+    min-height:620px !important;
+    grid-template-columns:45% 55% !important;
   }
 
   .heroText{
-    padding-left:7vw;
-    padding-right:4vw;
+    padding:70px 5vw !important;
   }
 
   .heroVisual{
-    height:520px;
+    height:620px !important;
   }
 
   .search{
-    width:calc(100% - 60px);
-    max-width:1500px;
+    width:calc(100% - 80px) !important;
+    max-width:1500px !important;
   }
 }
 header{height:70px;border-bottom:1px solid #eee;background:#fff;position:sticky;top:0;z-index:30}.nav{height:70px;display:flex;align-items:center;gap:20px}.brand{display:flex;align-items:center;gap:8px;margin-right:auto}.lotus{font-size:38px;color:var(--purple)}.brand strong{font:800 28px Georgia,serif}.brand strong span{color:var(--purple)}.brand small{display:block;color:#777;font-size:12px}
