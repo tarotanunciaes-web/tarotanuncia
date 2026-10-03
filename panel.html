@@ -735,26 +735,30 @@ async function saveProfile(){
         },
         body:JSON.stringify({
 
-          name:document.getElementById('name').value.trim(),
+          display_name:document.getElementById('name').value.trim(),
 
-          title:document.getElementById('title').value.trim(),
+title:document.getElementById('title').value.trim(),
 
-          description:document.getElementById('description').value.trim(),
+description:document.getElementById('description').value.trim(),
 
-          city:document.getElementById('city').value.trim(),
+city:document.getElementById('city').value.trim(),
 
-          province:document.getElementById('province').value.trim(),
+province:document.getElementById('province').value.trim(),
 
-          whatsapp:document.getElementById('whatsapp').value.trim(),
+whatsapp:document.getElementById('whatsapp').value.trim(),
 
-          phone:document.getElementById('phone').value.trim(),
+phone:document.getElementById('phone').value.trim(),
 
-          price:document.getElementById('price').value.trim(),
+price_from:document.getElementById('price').value
+  ? Number(document.getElementById('price').value)
+  : null,
 
-          modality:document.getElementById('modality').value,
+modality:document.getElementById('modality').value,
 
-          categories:document.getElementById('categories').value.trim()
-
+categories:document.getElementById('categories').value
+  .split(',')
+  .map(function(x){ return x.trim(); })
+  .filter(Boolean)
         })
       }
     );
