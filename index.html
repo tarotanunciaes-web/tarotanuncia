@@ -2149,11 +2149,12 @@ async function logoutUser(){
       box.innerHTML = '<p>No hay anuncios publicados todavía.</p>';
     }
 
-  }catch(error){
-    console.error(error);
-    box.innerHTML = '<p>No se pudieron cargar los anuncios.</p>';
-  }
+}catch(error){
+  console.error(error);
+  box.innerHTML = '<p style="color:red;padding:20px"><b>ERROR:</b> ' + error.message + '</p>';
 }
+  }
+
 
 loadProfiles();
 </script>
