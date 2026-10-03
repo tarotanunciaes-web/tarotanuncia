@@ -753,7 +753,12 @@ price_from:document.getElementById('price').value
   ? Number(document.getElementById('price').value)
   : null,
 
-modality:document.getElementById('modality').value,
+modality:(function(){
+  const v=document.getElementById('modality').value.trim().toLowerCase();
+  if(v.includes('amb')) return 'ambas';
+  if(v.includes('pres')) return 'presencial';
+  return 'online';
+})(),
 
 categories:document.getElementById('categories').value
   .split(',')
