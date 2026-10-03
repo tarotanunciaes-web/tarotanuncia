@@ -694,20 +694,22 @@ async function loadProfiles(){
 
   box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">Cargando anuncios...</p>';
 
-  if(!db){
-    box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">No se pueden cargar los anuncios.</p>';
-    return;
-  }
-
   try{
-    const {data,error}=await db
-      .from('tarotist_ads')
-      .select('*')
-      .eq('status','approved')
-      .order('created_at',{ascending:false})
-      .limit(30);
+    const response=await fetch(
+      URL+'/rest/v1/tarotist_ads?select=*&status=eq.approved&order=created_at.desc&limit=30',
+      {
+        headers:{
+          apikey:KEY,
+          Authorization:'Bearer '+KEY
+        }
+      }
+    );
 
-    if(error) throw error;
+    if(!response.ok){
+      throw new Error(await response.text());
+    }
+
+    const data=await response.json();
 
     if(Array.isArray(data) && data.length){
       renderProfiles(filterRows(data));
@@ -719,6 +721,7 @@ async function loadProfiles(){
     console.error('Error cargando anuncios:',e);
     box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">No se pudieron cargar los anuncios.</p>';
   }
+}
 }
 
 async function openProfile(raw){
