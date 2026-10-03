@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel profesional - Tarotanuncia</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#faf7fd;
+  color:#3f3150;
+}
+
+header{
+  background:#ffffff;
+  border-bottom:1px solid #eee5f5;
+  padding:18px 16px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.header-inner{
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:900;
+  color:#7027c9;
+}
+
+.subtitle{
+  font-size:12px;
+  color:#8a7b96;
+  margin-top:3px;
+}
+
+.logout{
+  border:0;
+  background:#f3eafa;
+  color:#7027c9;
+  padding:9px 12px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+main{
+  max-width:900px;
+  margin:0 auto;
+  padding:22px 14px 50px;
+}
+
+h1{
+  margin:0;
+  font-size:26px;
+  color:#3d2850;
+}
+
+.intro{
+  color:#81728d;
+  margin:7px 0 20px;
+  font-size:14px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #eee5f5;
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 5px 20px rgba(112,39,201,.05);
+}
+
+.card h2{
+  margin:0 0 14px;
+  font-size:18px;
+  color:#4a315d;
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#f5eefb;
+  border-radius:14px;
+  padding:14px;
+}
+
+.status-dot{
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:#35a85b;
+  flex:none;
+}
+
+.status strong{
+  display:block;
+  color:#4d2b68;
+}
+
+.status span{
+  font-size:12px;
+  color:#81728d;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.stat{
+  background:#faf7fd;
+  border:1px solid #eee5f5;
+  border-radius:15px;
+  padding:14px 8px;
+  text-align:center;
+}
+
+.stat-icon{
+  font-size:21px;
+}
+
+.stat-number{
+  font-size:20px;
+  font-weight:900;
+  color:#7027c9;
+  margin-top:4px;
+}
+
+.stat-label{
+  font-size:11px;
+  color:#81728d;
+  margin-top:3px;
+}
+
+.plan{
+  background:#f8f1fc;
+  border-radius:16px;
+  padding:15px;
+}
+
+.plan-name{
+  font-size:19px;
+  font-weight:900;
+  color:#7027c9;
+}
+
+.plan-date{
+  font-size:13px;
+  color:#766680;
+  margin-top:5px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  font-weight:800;
+  color:#685675;
+  margin-bottom:5px;
+}
+
+input,textarea,select{
+  width:100%;
+  border:1px solid #dfd3e8;
+  border-radius:11px;
+  padding:11px 12px;
+  font-size:14px;
+  color:#403247;
+  background:#fff;
+  outline:none;
+}
+
+input:focus,textarea:focus,select:focus{
+  border-color:#b58ad7;
+  box-shadow:0 0 0 3px #f2e7f9;
+}
+
+textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.photo-box{
+  border:2px dashed #d9c5e7;
+  border-radius:15px;
+  padding:18px;
+  text-align:center;
+  background:#fcf9fe;
+}
+
+.photo-preview{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid #f0e5f6;
+  margin-bottom:10px;
+  display:none;
+}
+
+.button{
+  border:0;
+  border-radius:12px;
+  padding:12px 17px;
+  font-weight:900;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.primary{
+  background:#7027c9;
+  color:white;
+}
+
+.secondary{
+  background:#f0e6f7;
+  color:#7027c9;
+}
+
+.buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.message{
+  margin-top:10px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.loading{
+  text-align:center;
+  padding:50px 20px;
+  color:#7d6c89;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:650px){
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  h1{
+    font-size:23px;
+  }
+
+  .header-inner{
+    align-items:flex-start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="logo">TarotAnuncia</div>
+      <div class="subtitle">Panel profesional</div>
+    </div>
+
+    <button class="logout" onclick="logout()">Cerrar sesión</button>
+  </div>
+</header>
+
+<main>
+
+  <div id="loading" class="loading">
+    Cargando tu panel...
+  </div>
+
+  <div id="panel" class="hidden">
+
+    <h1>🧑‍💼 Panel profesional</h1>
+    <p class="intro">
+      Gestiona tu perfil, tu anuncio y tu información profesional.
+    </p>
+
+    <!-- ESTADO -->
+    <div class="card">
+      <h2>Estado de tu anuncio</h2>
+
+      <div class="status">
+        <div class="status-dot"></div>
+        <div>
+          <strong id="statusText">Anuncio publicado</strong>
+          <span id="statusSubtext">Tu anuncio está visible para los clientes.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTADÍSTICAS -->
+    <div class="card">
+      <h2>Estadísticas</h2>
+
+      <div class="stats">
+
+        <div class="stat">
+          <div class="stat-icon">👀</div>
+          <div id="views" class="stat-number">0</div>
+          <div class="stat-label">Visitas</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-icon">📞</div>
+          <div id="contacts" class="stat-number">0</div>
+          <div class="stat-label">Contactos</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-icon">📢</div>
+          <div id="ads" class="stat-number">1</div>
+          <div class="stat-label">Anuncios</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-icon">📸</div>
+          <div id="photos" class="stat-number">0</div>
+          <div class="stat-label">Fotos</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PLAN -->
+    <div class="card">
+      <h2>💳 Mi plan</h2>
+
+      <div class="plan">
+        <div id="planName" class="plan-name">Gratis</div>
+        <div id="planDate" class="plan-date">
+          Tu anuncio está activo.
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <button class="button secondary" onclick="alert('La gestión de planes la conectaremos en el siguiente paso.')">
+          Cambiar o renovar plan
+        </button>
+      </div>
+    </div>
+
+    <!-- PERFIL -->
+    <div class="card">
+      <h2>👤 Mi perfil</h2>
+
+      <div class="grid">
+
+        <div>
+          <label>Nombre profesional</label>
+          <input id="name" type="text">
+        </div>
+
+        <div>
+          <label>Título</label>
+          <input id="title" type="text" placeholder="Tarotista y vidente">
+        </div>
+
+        <div class="full">
+          <label>Descripción</label>
+          <textarea id="description" placeholder="Cuéntales a tus clientes quién eres y qué tipo de consultas realizas..."></textarea>
+        </div>
+
+        <div>
+          <label>Ciudad</label>
+          <input id="city" type="text">
+        </div>
+
+        <div>
+          <label>Provincia</label>
+          <input id="province" type="text">
+        </div>
+
+        <div>
+          <label>WhatsApp</label>
+          <input id="whatsapp" type="text">
+        </div>
+
+        <div>
+          <label>Teléfono</label>
+          <input id="phone" type="text">
+        </div>
+
+        <div>
+          <label>Precio desde</label>
+          <input id="price" type="text">
+        </div>
+
+        <div>
+          <label>Modalidad</label>
+          <select id="modality">
+            <option value="">Seleccionar</option>
+            <option>Online</option>
+            <option>Presencial</option>
+            <option>Online y presencial</option>
+            <option>Teléfono</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Especialidades</label>
+          <input id="categories" type="text" placeholder="Amor, pareja, trabajo, tarot...">
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOTO -->
+    <div class="card">
+      <h2>📷 Foto de perfil</h2>
+
+      <div class="photo-box">
+
+        <img id="profilePhoto" class="photo-preview">
+
+        <div style="font-size:13px;color:#75657f;margin-bottom:10px">
+          Añade una foto para que los clientes puedan reconocerte.
+        </div>
+
+        <input id="profilePhotoInput" type="file" accept="image/*">
+
+      </div>
+    </div>
+
+    <!-- FOTOS -->
+    <div class="card">
+      <h2>📸 Fotos de tu anuncio</h2>
+
+      <p style="font-size:13px;color:#81728d">
+        Puedes añadir hasta 6 fotografías.
+      </p>
+
+      <input id="adPhotosInput" type="file" accept="image/*" multiple>
+
+      <div id="photoList" style="margin-top:12px;font-size:13px;color:#81728d">
+        Todavía no hay fotos.
+      </div>
+    </div>
+
+    <!-- GUARDAR -->
+    <div class="card">
+
+      <div class="buttons">
+
+        <button class="button primary" onclick="saveProfile()">
+          💾 Guardar cambios
+        </button>
+
+        <button class="button secondary" onclick="window.location.href='index.html'">
+          Ver mi anuncio
+        </button>
+
+      </div>
+
+      <div id="message" class="message"></div>
+
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+const SUPABASE_URL =
+  'https://ozbbgfxixbgffxnhqpzh.supabase.co';
+
+const SUPABASE_KEY =
+  'sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd';
+
+function getToken(){
+  return localStorage.getItem('tarotanuncia_access_token') ||
+         localStorage.getItem('access_token') ||
+         localStorage.getItem('supabase_access_token');
+}
+
+function getHeaders(){
+  const token=getToken();
+
+  return {
+    'apikey':SUPABASE_KEY,
+    'Authorization':'Bearer '+token,
+    'Content-Type':'application/json'
+  };
+}
+
+async function loadPanel(){
+
+  const token=getToken();
+
+  if(!token){
+    window.location.href='index.html';
+    return;
+  }
+
+  try{
+
+    const response=await fetch(
+      SUPABASE_URL+'/rest/v1/tarotist_ads?select=*&limit=1',
+      {
+        headers:getHeaders()
+      }
+    );
+
+    if(!response.ok){
+      throw new Error('No se pudo cargar el perfil');
+    }
+
+    const data=await response.json();
+
+    if(!data || !data.length){
+
+      document.getElementById('loading').innerHTML =
+        'Todavía no tienes un anuncio creado.';
+
+      return;
+    }
+
+    const ad=data[0];
+
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('panel').classList.remove('hidden');
+
+    fillPanel(ad);
+
+  }catch(error){
+
+    console.error(error);
+
+    document.getElementById('loading').innerHTML =
+      'No se pudo cargar el panel.';
+
+  }
+}
+
+function fillPanel(ad){
+
+  document.getElementById('name').value =
+    ad.name || '';
+
+  document.getElementById('title').value =
+    ad.title || '';
+
+  document.getElementById('description').value =
+    ad.description || '';
+
+  document.getElementById('city').value =
+    ad.city || '';
+
+  document.getElementById('province').value =
+    ad.province || '';
+
+  document.getElementById('whatsapp').value =
+    ad.whatsapp || '';
+
+  document.getElementById('phone').value =
+    ad.phone || '';
+
+  document.getElementById('price').value =
+    ad.price || '';
+
+  document.getElementById('modality').value =
+    ad.modality || '';
+
+  document.getElementById('categories').value =
+    ad.categories || '';
+
+  document.getElementById('views').textContent =
+    ad.views || 0;
+
+  document.getElementById('contacts').textContent =
+    ad.contacts_count || 0;
+
+  document.getElementById('planName').textContent =
+    ad.plan ? String(ad.plan).toUpperCase() : 'GRATIS';
+
+  if(ad.featured_until){
+
+    const date=new Date(ad.featured_until);
+
+    document.getElementById('planDate').textContent =
+      'Válido hasta: '+date.toLocaleDateString('es-ES');
+
+  }
+
+  if(ad.profile_photo_url){
+
+    const img=document.getElementById('profilePhoto');
+
+    img.src=ad.profile_photo_url;
+    img.style.display='block';
+
+  }
+
+  const status=String(ad.status || '').toLowerCase();
+
+  if(status==='approved'){
+
+    document.getElementById('statusText').textContent =
+      '🟢 Anuncio publicado';
+
+    document.getElementById('statusSubtext').textContent =
+      'Tu anuncio está visible para los clientes.';
+
+  }else{
+
+    document.getElementById('statusText').textContent =
+      'Anuncio no publicado';
+
+    document.getElementById('statusSubtext').textContent =
+      'Tu anuncio no está visible actualmente.';
+
+  }
+
+  let photos=[];
+
+  if(Array.isArray(ad.photos)){
+    photos=ad.photos;
+  }
+
+  document.getElementById('photos').textContent =
+    photos.length;
+
+  if(photos.length){
+
+    document.getElementById('photoList').innerHTML =
+      photos.map(url =>
+        '<img src="'+url+'" style="width:70px;height:70px;object-fit:cover;border-radius:10px;margin:4px">'
+      ).join('');
+
+  }
+
+}
+
+async function saveProfile(){
+
+  const token=getToken();
+
+  if(!token){
+    window.location.href='index.html';
+    return;
+  }
+
+  const message=document.getElementById('message');
+
+  message.textContent='Guardando...';
+
+  try{
+
+    const response=await fetch(
+      SUPABASE_URL+'/rest/v1/tarotist_ads',
+      {
+        method:'PATCH',
+        headers:{
+          ...getHeaders(),
+          'Prefer':'return=minimal'
+        },
+        body:JSON.stringify({
+
+          name:document.getElementById('name').value.trim(),
+
+          title:document.getElementById('title').value.trim(),
+
+          description:document.getElementById('description').value.trim(),
+
+          city:document.getElementById('city').value.trim(),
+
+          province:document.getElementById('province').value.trim(),
+
+          whatsapp:document.getElementById('whatsapp').value.trim(),
+
+          phone:document.getElementById('phone').value.trim(),
+
+          price:document.getElementById('price').value.trim(),
+
+          modality:document.getElementById('modality').value,
+
+          categories:document.getElementById('categories').value.trim()
+
+        })
+      }
+    );
+
+    if(!response.ok){
+      throw new Error(await response.text());
+    }
+
+    message.style.color='#25834a';
+    message.textContent='✓ Cambios guardados correctamente.';
+
+  }catch(error){
+
+    console.error(error);
+
+    message.style.color='#b3261e';
+    message.textContent='No se pudieron guardar los cambios.';
+
+  }
+
+}
+
+function logout(){
+
+  localStorage.removeItem('tarotanuncia_access_token');
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('supabase_access_token');
+
+  localStorage.removeItem('tarotanuncia_refresh_token');
+  localStorage.removeItem('refresh_token');
+
+  window.location.href='index.html';
+
+}
+
+loadPanel();
+</script>
+
+</body>
+</html>
