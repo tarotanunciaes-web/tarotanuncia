@@ -2119,6 +2119,28 @@ async function logoutUser(){
     msg.textContent='Sesión cerrada correctamente.';
   }
   }
+  function card(a){
+  const foto = a.profile_photo_url
+    ? `<img src="${a.profile_photo_url}" style="width:100%;height:220px;object-fit:cover;border-radius:14px;">`
+    : '';
+
+  const categorias = Array.isArray(a.categories)
+    ? a.categories.join(' · ')
+    : '';
+
+  return `
+    <article class="profile">
+      ${foto}
+      <div class="profileBody">
+        <h3>${a.display_name || 'Profesional'}</h3>
+        <p>${a.title || ''}</p>
+        <p>${categorias}</p>
+        <p>📍 ${a.city || 'Online'}</p>
+        <p><strong>${a.price_from ? 'Desde ' + a.price_from + ' €' : 'Precio a consultar'}</strong></p>
+      </div>
+    </article>
+  `;
+  }
   function renderProfiles(rows){
   const box = document.getElementById('profiles');
   if(!box) return;
