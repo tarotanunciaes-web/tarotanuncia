@@ -419,8 +419,8 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 <header><div class="wrap nav">
 <a class="brand" href="#inicio"><img src="logo-tarotanuncia.png" alt="TarotAnuncia" class="headerLogo"></a>
 <nav class="menu"><a href="#inicio">Inicio</a><a href="#profesionales">Tarotistas</a><a href="#categorias">Categorías</a><a href="#como">Cómo funciona</a><a href="#blog">Blog</a><a href="#contacto">Contacto</a></nav>
-<button class="btn small" onclick="showRegister();document.getElementById('modal').classList.add('open')">Crear cuenta</button>
-<button class="btn small" onclick="openModal('login')">Iniciar sesión</button>
+<button class="btn small" onclick="document.getElementById('modal').classList.add('open');showRegister()">＋ Publicar anuncio</button>
+<button class="btn small" onclick="document.getElementById('modal').classList.add('open');showLogin()">Iniciar sesión</button>
 </div></header>
 
 <main id="inicio">
