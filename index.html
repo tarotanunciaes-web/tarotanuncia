@@ -669,13 +669,52 @@ async function loadProfiles(){
   if(!error&&Array.isArray(data)&&data.length)renderProfiles(filterRows(data));
  }catch(e){console.warn('Supabase no disponible',e);}
 }
-function openProfile(raw){
- try{
-  const a=JSON.parse(raw);
-  document.getElementById('profileTitle').textContent=a.n||a.display_name||'Profesional';
-  document.getElementById('profileContent').innerHTML=`<div class="profileLarge"><div class="profileAvatar">${a.emoji||'🔮'}</div><div><div class="rating"><b>★</b> ${esc(a.r||'Nuevo')}</div><p><b>Ubicación:</b> ${esc(a.city||'España')}</p><p><b>Especialidades:</b> ${(a.tags||a.categories||['Tarot']).map(x=>esc(x)).join(' · ')}</p><p><b>Modalidad:</b> ${esc(a.modality||'Online')}</p><p><b>Precio:</b> ${a.price||a.price_from?`Desde ${esc(a.price||a.price_from)} € / 30 min`:'Consultar'}</p><div class="actions" style="margin-top:12px">${contactButtons(a)}</div><p class="profileText">Consulta privada y confidencial. Contacta con este profesional para conocer disponibilidad y servicios.</p></div></div>`;
-  document.getElementById('profileModal').classList.add('open');
- }catch(e){alert('No se pudo abrir el perfil.')}
+async function openProfile(raw){
+  try{
+    const a=JSON.parse(raw);
+
+    if(a.id){
+      const viewKey='tarotanuncia_viewed_'+a.id;
+
+      if(!sessionStorage.getItem(viewKey)){
+        sessionStorage.setItem(viewKey,'1');
+
+        fetch(URL+'/rest/v1/rpc/increment_tarotanuncia_view',{
+          method:'POST',
+          headers:{
+            apikey:KEY,
+            Authorization:'Bearer '+getAccessToken(),
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({p_ad_id:a.id})
+        }).catch(()=>{});
+      }
+    }
+
+    document.getElementById('profileTitle').textContent=
+      a.n||a.display_name||'Profesional';
+
+    document.getElementById('profileContent').innerHTML=
+      `<div class="profileLarge">
+        <div class="profileAvatar">${a.profile_photo_url
+          ? `<img src="${esc(a.profile_photo_url)}" style="width:110px;height:110px;border-radius:50%;object-fit:cover">`
+          : (a.emoji||'🔮')}</div>
+        <div>
+          <div class="rating"><b>★</b> ${esc(a.r||'Nuevo')}</div>
+          <p><b>Ubicación:</b> ${esc(a.city||'España')}</p>
+          <p><b>Especialidades:</b> ${(a.tags||a.categories||['Tarot']).map(x=>esc(x)).join(' · ')}</p>
+          <p><b>Modalidad:</b> ${esc(a.modality||'Online')}</p>
+          <p><b>Precio:</b> ${a.price||a.price_from?`Desde ${esc(a.price||a.price_from)} € / 30 min`:'Consultar'}</p>
+          <div class="actions" style="margin-top:12px">${contactButtons(a)}</div>
+          <p class="profileText">Consulta privada y confidencial. Contacta directamente con este profesional.</p>
+        </div>
+      </div>`;
+
+    document.getElementById('profileModal').classList.add('open');
+  }catch(e){
+    alert('No se pudo abrir el perfil.');
+  }
+}
 }
 function closeProfile(){document.getElementById('profileModal').classList.remove('open')}
 function contactProfile(raw){
