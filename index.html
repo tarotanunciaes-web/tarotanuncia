@@ -642,10 +642,40 @@ function contactButtons(a){
  const phone=normalizePhone(a.phone);
  const wa=waUrl(a.whatsapp||a.phone);
  let out='';
- if(phone) out+=`<a class="btn" href="tel:${encodeURIComponent(phone)}">📞 Llamar</a>`;
- if(wa) out+=`<a class="btn ghost" href="${wa}" target="_blank" rel="noopener">💬 WhatsApp</a>`;
- if(!out) out=`<button class="btn" onclick='openProfile(decodeURIComponent(${JSON.stringify(encodeURIComponent(JSON.stringify(a)))}))'>◉ Contactar</button>`;
+
+ if(phone){
+   out+=`<a class="btn" href="tel:${encodeURIComponent(phone)}" onclick="registerContact('${a.id||''}','phone')">📞 Llamar</a>`;
+ }
+
+ if(wa){
+   out+=`<a class="btn ghost" href="${wa}" target="_blank" rel="noopener" onclick="registerContact('${a.id||''}','whatsapp')">💬 WhatsApp</a>`;
+ }
+
+ if(!out){
+   out=`<button class="btn" onclick='openProfile(decodeURIComponent(${JSON.stringify(encodeURIComponent(JSON.stringify(a)))}))'>◉ Contactar</button>`;
+ }
+
  return out;
+}
+
+async function registerContact(adId,type){
+ if(!adId)return;
+
+ try{
+   await fetch(URL+'/rest/v1/rpc/register_tarotanuncia_contact',{
+     method:'POST',
+     headers:{
+       apikey:KEY,
+       Authorization:'Bearer '+getAccessToken(),
+       'Content-Type':'application/json'
+     },
+     body:JSON.stringify({
+       p_ad_id:adId,
+       p_type:type
+     })
+   });
+ }catch(e){}
+}
 }
 function card(a){
  const id=encodeURIComponent(JSON.stringify(a));
@@ -662,7 +692,7 @@ function renderProfiles(rows){
 async function loadProfiles(){
  const box=document.getElementById('profiles');if(!box)return;
  // Mostrar ejemplos aunque Supabase no cargue.
- renderProfiles(filterRows(demo));
+ 
  if(!db)return;
  try{
   const {data,error}=await db.from('tarotist_ads').select('*').eq('status','approved').order('created_at',{ascending:false}).limit(30);
