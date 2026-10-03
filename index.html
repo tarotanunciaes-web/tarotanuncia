@@ -2119,74 +2119,7 @@ async function logoutUser(){
     msg.textContent='Sesión cerrada correctamente.';
   }
   }
-  function card(a){
-  const foto = a.profile_photo_url
-    ? `<img src="${a.profile_photo_url}" style="width:100%;height:220px;object-fit:cover;border-radius:14px;">`
-    : '';
-
-  const categorias = Array.isArray(a.categories)
-    ? a.categories.join(' · ')
-    : '';
-
-  return `
-    <article class="profile">
-      ${foto}
-      <div class="profileBody">
-        <h3>${a.display_name || 'Profesional'}</h3>
-        <p>${a.title || ''}</p>
-        <p>${categorias}</p>
-        <p>📍 ${a.city || 'Online'}</p>
-        <p><strong>${a.price_from ? 'Desde ' + a.price_from + ' €' : 'Precio a consultar'}</strong></p>
-      </div>
-    </article>
-  `;
-  }
-  function renderProfiles(rows){
-  const box = document.getElementById('profiles');
-  if(!box) return;
-
-  if(!rows || !rows.length){
-    box.innerHTML = '<p>No hay anuncios publicados todavía.</p>';
-    return;
-  }
-
-  box.innerHTML = rows.map(a => card(a)).join('');
-  }
-  async function loadProfiles(){
-  const box = document.getElementById('profiles');
-  if(!box) return;
-
-  box.innerHTML = '<p>Cargando anuncios...</p>';
-
-  try{
-    const response = await fetch(
-      URL + '/rest/v1/tarotist_ads?select=*&status=eq.approved&order=created_at.desc&limit=30',
-      {
-        method: 'GET',
-        headers: {
-          apikey: KEY,
-          Authorization: 'Bearer ' + KEY
-        }
-      }
-    );
-
-    if(!response.ok){
-      throw new Error(await response.text());
-    }
-
-    const data = await response.json();
-
-    if(data.length){
-      renderProfiles(filterRows(data));
-    }else{
-      box.innerHTML = '<p>No hay anuncios publicados todavía.</p>';
-    }
-
-}catch(error){
-  console.error(error);
-  box.innerHTML = '<p style="color:red;padding:20px"><b>ERROR:</b> ' + error.message + '</p>';
-}
-  }
+  
 
 
 loadProfiles();
