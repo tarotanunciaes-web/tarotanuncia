@@ -596,8 +596,7 @@ async function loadPanel(){
 function fillPanel(ad){
 
   document.getElementById('name').value =
-    ad.name || '';
-
+    ad.display_name || '';
   document.getElementById('title').value =
     ad.title || '';
 
@@ -617,14 +616,13 @@ function fillPanel(ad){
     ad.phone || '';
 
   document.getElementById('price').value =
-    ad.price || '';
+    ad.price_from ?? '';
 
   document.getElementById('modality').value =
     ad.modality || '';
 
   document.getElementById('categories').value =
-    ad.categories || '';
-
+    Array.isArray(ad.categories) ? ad.categories.join(', ') : '';
   document.getElementById('views').textContent =
     ad.views || 0;
 
@@ -674,9 +672,10 @@ function fillPanel(ad){
 
   let photos=[];
 
-  if(Array.isArray(ad.photos)){
-    photos=ad.photos;
-  }
+ if(Array.isArray(ad.photo_urls)){
+    photos=ad.photo_urls;
+ }
+  
 
   document.getElementById('photos').textContent =
     photos.length;
