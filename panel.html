@@ -775,7 +775,7 @@ async function saveProfile(){
     console.error(error);
 
     message.style.color='#b3261e';
-    message.textContent='No se pudieron guardar los cambios.';
+    message.textContent='Error: '+error.message;
 
   }
 
