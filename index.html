@@ -227,10 +227,143 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
   }
 
   }
-  @media(max-width:650px){
+   .profiles{
+  display:grid!important;
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:18px!important;
+}
+
+.profile{
+  background:#fff!important;
+  border:1px solid #eee7f6!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  box-shadow:0 8px 24px rgba(40,20,60,.08)!important;
+  min-width:0!important;
+}
+
+.photo{
+  height:190px!important;
+  background:linear-gradient(135deg,#f0e2ff,#fdebf4)!important;
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  font-size:85px!important;
+}
+
+.photo .badge{
+  position:absolute!important;
+  top:10px!important;
+  left:10px!important;
+  background:#7027c9!important;
+  color:#fff!important;
+  padding:6px 10px!important;
+  border-radius:20px!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  z-index:2!important;
+}
+
+.photo .badge.premium{
+  background:#b8860b!important;
+}
+
+.photo .badge.new{
+  background:#15966a!important;
+}
+
+.photo .heart{
+  position:absolute!important;
+  top:8px!important;
+  right:8px!important;
+  width:38px!important;
+  height:38px!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.92)!important;
+  color:#7027c9!important;
+  font-size:23px!important;
+  z-index:2!important;
+}
+
+.profileBody{
+  padding:16px!important;
+}
+
+.pname{
+  display:block!important;
+  font-size:18px!important;
+  font-weight:900!important;
+  margin-bottom:5px!important;
+}
+
+.rating{
+  display:block!important;
+  font-size:13px!important;
+  color:#555!important;
+}
+
+.rating b{
+  color:#f2a900!important;
+}
+
+.tags{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:5px!important;
+  margin:10px 0!important;
+}
+
+.tag{
+  background:#f5efff!important;
+  color:#5e2aa8!important;
+  padding:5px 8px!important;
+  border-radius:12px!important;
+  font-size:11px!important;
+  font-weight:800!important;
+}
+
+.meta{
+  font-size:13px!important;
+  margin-top:8px!important;
+}
+
+.online{
+  color:#15966a!important;
+}
+
+.price{
+  font-size:14px!important;
+  font-weight:800!important;
+  margin-top:8px!important;
+}
+
+.actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:7px!important;
+  margin-top:14px!important;
+}
+
+.actions .btn{
+  width:100%!important;
+  padding:10px 6px!important;
+  font-size:12px!important;
+  box-sizing:border-box!important;
+}
+
+@media(max-width:1000px){
+  .profiles{
+    grid-template-columns:repeat(2,1fr)!important;
+  }
+}
+
+@media(max-width:650px){
 
   #profesionales{
-    padding:35px 0!important;
+    padding:38px 0!important;
   }
 
   #profesionales .wrap{
@@ -244,9 +377,9 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
   }
 
   #profesionales .title h2{
-    font-size:32px!important;
+    font-size:34px!important;
     line-height:1.05!important;
-    margin:0 auto 10px!important;
+    margin:0 auto 12px!important;
   }
 
   #profesionales .all{
@@ -254,26 +387,17 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
   }
 
   #profesionales .profiles{
-    display:grid!important;
     grid-template-columns:1fr!important;
     gap:18px!important;
   }
 
   #profesionales .profile{
     width:100%!important;
-    box-sizing:border-box!important;
-    border-radius:18px!important;
-    overflow:hidden!important;
   }
 
   #profesionales .photo{
-    height:180px!important;
-    display:flex!important;
-    align-items:flex-start!important;
-    justify-content:flex-end!important;
-    padding:10px!important;
-    box-sizing:border-box!important;
-    font-size:70px!important;
+    height:190px!important;
+    font-size:85px!important;
   }
 
   #profesionales .profileBody{
@@ -284,39 +408,11 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
     font-size:18px!important;
   }
 
-  #profesionales .rating{
-    font-size:14px!important;
-  }
-
-  #profesionales .tags{
-    margin-top:8px!important;
-  }
-
-  #profesionales .meta{
-    margin-top:9px!important;
-    font-size:14px!important;
-  }
-
-  #profesionales .price{
-    margin-top:8px!important;
-    font-size:15px!important;
-  }
-
   #profesionales .actions{
-    display:grid!important;
     grid-template-columns:1fr 1fr!important;
-    gap:8px!important;
-    margin-top:14px!important;
   }
 
-  #profesionales .actions .btn{
-    width:100%!important;
-    box-sizing:border-box!important;
-    padding:11px 8px!important;
-    font-size:14px!important;
-  }
-
-  }
+}   
 </style>
 </head>
 <body>
