@@ -9,6 +9,32 @@
 :root{--ink:#11152f;--purple:#7027c9;--muted:#666477}
 *{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#fff}button,input,select{font:inherit}a{text-decoration:none;color:inherit}
 .wrap{max-width:1180px;margin:auto;padding:0 22px}
+@media (min-width:1001px){
+  .hero .wrap{
+    max-width:none;
+    width:100%;
+    padding:0;
+  }
+
+  .heroGrid{
+    width:100%;
+    min-height:520px;
+  }
+
+  .heroText{
+    padding-left:7vw;
+    padding-right:4vw;
+  }
+
+  .heroVisual{
+    height:520px;
+  }
+
+  .search{
+    width:calc(100% - 60px);
+    max-width:1500px;
+  }
+}
 header{height:70px;border-bottom:1px solid #eee;background:#fff;position:sticky;top:0;z-index:30}.nav{height:70px;display:flex;align-items:center;gap:20px}.brand{display:flex;align-items:center;gap:8px;margin-right:auto}.lotus{font-size:38px;color:var(--purple)}.brand strong{font:800 28px Georgia,serif}.brand strong span{color:var(--purple)}.brand small{display:block;color:#777;font-size:12px}
 .menu{display:flex;gap:20px;font-size:14px}.menu a:first-child{color:var(--purple)}.btn{border:0;background:linear-gradient(135deg,#7027c9,#8b43df);color:#fff;font-weight:800;border-radius:25px;padding:12px 20px;cursor:pointer;box-shadow:0 7px 20px #7027c926}.btn.ghost{background:#fff;color:var(--purple);border:1px solid var(--purple);box-shadow:none}.btn.small{padding:9px 15px;font-size:13px}.mobileMenu{display:none}
 .hero{background:linear-gradient(90deg,#fff 0,#fff 47%,#f4edff 100%)}.heroGrid{min-height:305px;display:grid;grid-template-columns:47% 53%;align-items:center}.heroText{padding:35px 25px 35px 16px}.eyebrow{font-size:12px;font-weight:900;letter-spacing:1.5px;color:var(--purple);text-transform:uppercase}.hero h1{font:800 54px/.98 Georgia,serif;letter-spacing:-2px;margin:12px 0}.hero h1 span{color:var(--purple)}.hero p{font-size:21px;line-height:1.35;margin:0 0 20px}.trust{display:flex;gap:18px;font-size:12px;font-weight:750}.trust i{font-style:normal;color:var(--purple);font-size:25px}.heroVisual{height:305px;background:radial-gradient(circle at 55% 48%,#ead6ff,#f9eaf7 55%,#fff);display:flex;align-items:center;justify-content:center}.woman{font-size:135px;text-align:center}
