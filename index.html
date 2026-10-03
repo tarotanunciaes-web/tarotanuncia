@@ -689,14 +689,37 @@ function renderProfiles(rows){
  box.innerHTML=rows.length?rows.map(card).join(''):'<p style="grid-column:1/-1;text-align:center;color:#666">No hay perfiles que coincidan.</p>';
 }
 async function loadProfiles(){
- const box=document.getElementById('profiles');if(!box)return;
- // Mostrar ejemplos aunque Supabase no cargue.
- 
- if(!db)return;
- try{
-  const {data,error}=await db.from('tarotist_ads').select('*').eq('status','approved').order('created_at',{ascending:false}).limit(30);
-  if(!error&&Array.isArray(data)&&data.length)renderProfiles(filterRows(data));
- }catch(e){console.warn('Supabase no disponible',e);}
+  const box=document.getElementById('profiles');
+  if(!box)return;
+
+  box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">Cargando anuncios...</p>';
+
+  if(!db){
+    box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">No se pueden cargar los anuncios.</p>';
+    return;
+  }
+
+  try{
+    const {data,error}=await db
+      .from('tarotist_ads')
+      .select('*')
+      .eq('status','approved')
+      .order('created_at',{ascending:false})
+      .limit(30);
+
+    if(error) throw error;
+
+    if(Array.isArray(data) && data.length){
+      renderProfiles(filterRows(data));
+    }else{
+      box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">No hay anuncios publicados todavía.</p>';
+    }
+
+  }catch(e){
+    console.error('Error cargando anuncios:',e);
+    box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">No se pudieron cargar los anuncios.</p>';
+  }
+}
 }
 async function openProfile(raw){
   try{
