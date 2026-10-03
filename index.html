@@ -2119,6 +2119,17 @@ async function logoutUser(){
     msg.textContent='Sesión cerrada correctamente.';
   }
   }
+  function renderProfiles(rows){
+  const box = document.getElementById('profiles');
+  if(!box) return;
+
+  if(!rows || !rows.length){
+    box.innerHTML = '<p>No hay anuncios publicados todavía.</p>';
+    return;
+  }
+
+  box.innerHTML = rows.map(a => card(a)).join('');
+  }
   async function loadProfiles(){
   const box = document.getElementById('profiles');
   if(!box) return;
