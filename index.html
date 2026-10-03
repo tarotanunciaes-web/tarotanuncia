@@ -603,7 +603,7 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
   <input id="lpass" type="password" autocomplete="current-password" placeholder="Contraseña" style="padding-right:105px">
 
   <button type="button" id="loginPassBtn
-          onclick="toggleLoginPass()"
+          onclick="toggleLoginPass(this)"
           style="position:absolute;right:8px;top:8px;border:0;background:#f4effa;color:#7027c9;border-radius:9px;padding:7px 9px;font-size:12px;font-weight:800">
     👁 Ver
   </button>
@@ -870,9 +870,9 @@ async function registerUser(){
  }
 }
 window.registerUser=registerUser;
-function toggleLoginPass(){
+function toggleLoginPass(btn){
   const el=document.getElementById('lpass');
-  const btn=document.getElementById('loginPassBtn');
+
   if(!el)return;
 
   if(el.type==='password'){
