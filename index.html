@@ -787,7 +787,7 @@ async function openProfile(raw){
   a.profile_photo_url,
   ...(Array.isArray(a.photo_urls) ? a.photo_urls : [])
 ].filter((foto, i, arr) => foto && arr.indexOf(foto) === i);
-
+window.currentGalleryPhotos = fotos;
 document.getElementById('profileContent').innerHTML = `
   <div style="padding:4px 0">
 
