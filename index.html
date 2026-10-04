@@ -750,7 +750,7 @@ alert('DESPUES DEL FETCH');
     }
 
     const data=await response.json();
-
+alert('ANUNCIOS: ' + data.length);
     console.log('Anuncios aprobados:',data);
 
     if(Array.isArray(data) && data.length){
