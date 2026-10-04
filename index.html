@@ -630,6 +630,7 @@ function waUrl(v){
  const digits=String(v||'').replace(/\D/g,'');
  return digits ? 'https://wa.me/'+digits : '';
 }
+  alert('LLEGA A CONTACTBUTTONS');
 function contactButtons(a){
  const phone=normalizePhone(a.phone);
  const wa=waUrl(a.whatsapp||a.phone);
