@@ -832,7 +832,38 @@ document.getElementById('profileContent').innerHTML = `
   }catch(e){
   }
 }
+function openGallery(){
+  const fotos = window.currentGalleryPhotos || [];
+  if(!fotos.length) return;
 
+  const gallery = document.createElement('div');
+  gallery.id = 'photoGallery';
+  gallery.style.cssText =
+    'position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99999;' +
+    'display:flex;align-items:center;justify-content:center;padding:20px;';
+
+  gallery.innerHTML = `
+    <button onclick="document.getElementById('photoGallery').remove()"
+      style="position:absolute;top:20px;right:20px;width:48px;height:48px;
+      border:0;border-radius:50%;background:white;font-size:26px;z-index:2">
+      ×
+    </button>
+
+    <div style="width:100%;max-width:600px;text-align:center">
+      ${fotos.map(foto => `
+        <img src="${esc(foto)}"
+          style="width:100%;max-height:75vh;object-fit:contain;
+          border-radius:16px;margin:8px 0">
+      `).join('')}
+    </div>
+  `;
+
+  gallery.onclick = function(e){
+    if(e.target === gallery) gallery.remove();
+  };
+
+  document.body.appendChild(gallery);
+}
 function closeProfile(){document.getElementById('profileModal').classList.remove('open')}
 function contactProfile(raw){
  try{openProfile(raw)}catch(e){alert('No se pudo abrir el contacto.')}
