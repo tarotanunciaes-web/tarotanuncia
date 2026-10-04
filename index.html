@@ -678,10 +678,9 @@ function card(a){
   const id=encodeURIComponent(JSON.stringify(a));
 alert('ID CREADO');
   const foto=a.profile_photo_url
-    alert('FOTO CREADA');
     ? `<img src="${esc(a.profile_photo_url)}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">`
     : '🔮';
-
+alert('FOTO CREADA');
   const categorias=Array.isArray(a.categories)
     ? a.categories
     : ['Tarot'];
