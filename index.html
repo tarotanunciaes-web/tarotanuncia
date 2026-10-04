@@ -783,21 +783,42 @@ async function openProfile(raw){
     document.getElementById('profileTitle').textContent=
       a.n||a.display_name||'Profesional';
 
-    document.getElementById('profileContent').innerHTML=
-      `<div class="profileLarge">
-        <div class="profileAvatar">${a.profile_photo_url
-          ? `<img src="${esc(a.profile_photo_url)}" style="width:110px;height:110px;border-radius:50%;object-fit:cover">`
-          : (a.emoji||'🔮')}</div>
-        <div>
-          <div class="rating"><b>★</b> ${esc(a.r||'Nuevo')}</div>
-          <p><b>Ubicación:</b> ${esc(a.city||'España')}</p>
-          <p><b>Especialidades:</b> ${(a.tags||a.categories||['Tarot']).map(x=>esc(x)).join(' · ')}</p>
-          <p><b>Modalidad:</b> ${esc(a.modality||'Online')}</p>
-          <p><b>Precio:</b> ${a.price||a.price_from?`Desde ${esc(a.price||a.price_from)} € / 30 min`:'Consultar'}</p>
-          <div class="actions" style="margin-top:12px">${contactButtons(a)}</div>
-          <p class="profileText">Consulta privada y confidencial. Contacta directamente con este profesional.</p>
-        </div>
-      </div>`;
+    const fotos = [
+  a.profile_photo_url,
+  ...(Array.isArray(a.photo_urls) ? a.photo_urls : [])
+].filter((foto, i, arr) => foto && arr.indexOf(foto) === i);
+
+document.getElementById('profileContent').innerHTML = `
+  <div style="padding:4px 0">
+
+    <div style="display:grid;grid-template-columns:${fotos.length > 1 ? '2fr 1fr' : '1fr'};gap:8px;margin-bottom:20px">
+      ${fotos.slice(0,2).map((foto,i)=>`
+        <img src="${esc(foto)}"
+             style="width:100%;height:${i===0?'210px':'210px'};object-fit:cover;border-radius:18px">
+      `).join('')}
+    </div>
+
+    <div class="rating" style="margin-bottom:18px">
+      <b>★</b> ${esc(a.r||'Nuevo')}
+    </div>
+
+    <div style="font-size:17px;line-height:1.7">
+      <p><b>📍 Ubicación:</b> ${esc(a.city||'España')}</p>
+      <p><b>🔮 Especialidades:</b> ${(a.tags||a.categories||['Tarot']).map(x=>esc(x)).join(' · ')}</p>
+      <p><b>💻 Modalidad:</b> ${esc(a.modality||'Online')}</p>
+      <p><b>💶 Precio:</b> ${a.price||a.price_from ? `Desde ${esc(a.price||a.price_from)} € / 30 min` : 'Consultar'}</p>
+    </div>
+
+    <div class="actions" style="margin-top:20px">
+      ${contactButtons(a)}
+    </div>
+
+    <p class="profileText" style="margin-top:22px">
+      Consulta privada y confidencial.<br>
+      Contacta directamente con este profesional.
+    </p>
+
+  </div>`;
 
     document.getElementById('profileModal').classList.add('open');
   }catch(e){
