@@ -1036,246 +1036,46 @@ footer small,footer a{color:#6d626e!important}
   }
 }
 </style>
-<style id="desktop-featured-controls-up">
-/* Solo ordenador: subir flechas y corazón del anuncio destacado.
-   No modifica móvil ni la galería ampliada. */
-@media (min-width:651px){
-  #profesionales .profile .photo > button.galleryArrow{
-    top:30%!important;
-  }
-  #profesionales .profile .photo > .heart{
-    top:8px!important;
-  }
-}
-</style>
 
-<style id="desktop-featured-controls-final">
-/* Solo ordenador: controles de Tarotistas destacados */
-@media (min-width: 651px){
-  #profesionales .profile .photo .badge{
-    top:12px!important; left:12px!important;
-    padding:5px 9px!important; font-size:10px!important;
-    border-radius:16px!important;
-  }
-  #profesionales .profile .photo .heart{
-    top:10px!important; right:10px!important;
-    width:34px!important; height:34px!important;
-    font-size:20px!important;
-  }
-  #profesionales .profile .photo .galleryArrow{
-    display:grid!important; top:50%!important;
-    transform:translateY(-50%)!important;
-    width:30px!important; height:30px!important;
-    font-size:20px!important;
-  }
-  #profesionales .profile .photo .galleryArrow.prev{left:20px!important;}
-  #profesionales .profile .photo .galleryArrow.next{right:20px!important;}
-}
-</style>
-
-<style id="desktop-featured-more-centered">
-/* Solo ordenador: flechas centradas verticalmente en los laterales */
-@media (min-width:651px){
-  #profesionales .profile .photo .galleryArrow.prev{left:14px!important;}
-  #profesionales .profile .photo .galleryArrow.next{right:14px!important;}
-  #profesionales .profile .photo .heart{right:10px!important;}
-  #profesionales .profile .photo .badge{left:12px!important;}
-}
-</style>
-
-<style id="featured-unified-final">
-/* Destacado: escritorio inspirado en móvil + contenido centrado en móvil */
-@media (min-width:651px){
-  #profesionales .profile{
-    display:block!important; max-width:640px!important; margin:0 auto!important;
-    min-height:0!important; border-radius:26px!important; overflow:hidden!important;
-  }
-  #profesionales .photo{
-    width:100%!important; height:390px!important; position:relative!important;
-    display:flex!important; align-items:center!important; justify-content:center!important;
-    overflow:hidden!important; background:#fffaf3!important;
-  }
-  #profesionales .photo>img{
-    width:330px!important; height:330px!important; border-radius:50%!important;
-    object-fit:cover!important; border:3px solid var(--taGold)!important;
-  }
-  #profesionales .profileBody{
-    display:flex!important; flex-direction:column!important; align-items:center!important;
-    text-align:center!important; padding:22px 24px 26px!important;
-  }
-  #profesionales .pname{font-size:32px!important; margin:0 0 10px!important; padding:0!important;}
-  #profesionales .meta{font-size:17px!important; margin:0 0 10px!important;}
-  #profesionales .tags{display:flex!important; justify-content:center!important; margin:0 0 11px!important;}
-  #profesionales .price{font-size:22px!important; margin:0 0 16px!important;}
-  #profesionales .actions{width:100%!important; display:grid!important; grid-template-columns:1fr 1fr!important; gap:10px!important; padding:0!important;}
-  #profesionales .actions .btn:last-child{grid-column:1/-1!important;}
-  #profesionales .profile .photo .galleryArrow{top:50%!important; transform:translateY(-50%)!important; width:38px!important; height:38px!important; font-size:23px!important;}
-  #profesionales .profile .photo .galleryArrow.prev{left:24px!important;}
-  #profesionales .profile .photo .galleryArrow.next{right:24px!important;}
-  #profesionales .profile .photo .badge{top:18px!important; left:20px!important;}
-  #profesionales .profile .photo .heart{top:18px!important; right:20px!important; width:42px!important; height:42px!important;}
-}
-@media (max-width:650px){
-  #profesionales .profileBody{align-items:center!important; text-align:center!important;}
-  #profesionales .pname,#profesionales .meta,#profesionales .price{width:100%!important; text-align:center!important; padding-right:0!important;}
-  #profesionales .tags{width:100%!important; justify-content:center!important;}
-}
-</style>
-<style id="desktop-featured-smaller-final">
-/* Solo ordenador: anuncio destacado más pequeño y centrado. Móvil sin cambios. */
-@media (min-width:651px){
-  #profesionales .profile{max-width:520px!important;margin-left:auto!important;margin-right:auto!important;}
-  #profesionales .photo{height:315px!important;}
-  #profesionales .photo>img{width:270px!important;height:270px!important;}
-  #profesionales .profileBody{padding:18px 20px 22px!important;}
-  #profesionales .pname{font-size:28px!important;}
-  #profesionales .meta{font-size:15px!important;}
-  #profesionales .tag{font-size:11px!important;padding:5px 9px!important;}
-  #profesionales .price{font-size:20px!important;margin-bottom:13px!important;}
-  #profesionales .actions .btn{min-height:44px!important;font-size:14px!important;padding:11px 8px!important;}
-  #profesionales .profile .photo .galleryArrow{width:32px!important;height:32px!important;font-size:20px!important;}
-  #profesionales .profile .photo .galleryArrow.prev{left:18px!important;}
-  #profesionales .profile .photo .galleryArrow.next{right:18px!important;}
-  #profesionales .profile .photo .heart{top:14px!important;right:16px!important;width:36px!important;height:36px!important;font-size:21px!important;}
-  #profesionales .profile .photo .badge{top:14px!important;left:16px!important;padding:6px 10px!important;font-size:10px!important;}
-}
-</style>
-
-<style id="desktop-featured-arrows-image-sides-final">
-/* Escritorio: flechas a media altura, pegadas a los laterales de la imagen destacada. */
-@media (min-width:651px){
-  #profesionales .profile .photo > .galleryArrow{
-    top:50%!important;
-    transform:translateY(-50%)!important;
-  }
-  #profesionales .profile .photo > .galleryArrow.prev{
-    left:calc(50% - 167px)!important;
-  }
-  #profesionales .profile .photo > .galleryArrow.next{
-    right:calc(50% - 167px)!important;
-  }
-}
-</style>
-
-<style id="featured-arrows-true-middle-final">
-/* Flechas: exactamente en el centro vertical de la zona de imagen, a ambos lados. */
-#profesionales .profile .photo > button.galleryArrow.prev,
-#profesionales .profile .photo > button.galleryArrow.next{
-  top:50%!important;
-  bottom:auto!important;
-  transform:translateY(-50%)!important;
-}
-</style>
-
-<style id="desktop-featured-final-position">
-/* SOLO ORDENADOR: flechas ligeramente por debajo del centro y nombre Taroteame centrado. */
-@media (min-width:651px){
-  #profesionales .profile .photo > button.galleryArrow.prev,
-  #profesionales .profile .photo > button.galleryArrow.next{
-    top:57%!important;
-    bottom:auto!important;
-    transform:translateY(-50%)!important;
-  }
-  #profesionales .profileBody .pname{
-    width:100%!important;
-    display:block!important;
-    text-align:center!important;
-    align-self:center!important;
-    margin-left:auto!important;
-    margin-right:auto!important;
-  }
-}
-</style>
-
-<style id="tarotanuncia-desktop-wide-final">
-/* Mejora exclusiva para ordenador: aprovecha mejor pantallas grandes. */
+<style id="ta-desktop-wide-final">
+/* Vista de ordenador: más ancha y con escala de escritorio. Móvil no se modifica. */
 @media (min-width: 901px){
-  .wrap{max-width:1440px!important;padding-left:40px!important;padding-right:40px!important}
-  .nav{max-width:1440px!important;padding-left:40px!important;padding-right:40px!important}
-  .premiumHeroInner{max-width:1440px!important;margin:0 auto!important;padding-left:48px!important;padding-right:48px!important}
-  .premiumSearch{left:48px!important;right:48px!important}
-  .premiumCats .wrap,.premiumSection .wrap,.premiumPro .wrap{max-width:1440px!important;padding-left:40px!important;padding-right:40px!important}
-  .premiumCats .cats{max-width:1360px!important;margin-left:auto!important;margin-right:auto!important;justify-content:space-between!important}
-  .premiumCats .cat{max-width:none!important;min-width:112px!important;height:138px!important}
-  .premiumHeading h2{font-size:40px!important}
-  #profesionales .profiles{max-width:1240px!important;margin-left:auto!important;margin-right:auto!important}
-  #profesionales .profile{grid-template-columns:360px minmax(330px,1fr) 330px!important;min-height:330px!important}
-  #profesionales .profile .photo{height:330px!important}
-  #profesionales .profile .photo>img{width:300px!important;height:300px!important;border-radius:18px!important;object-fit:contain!important;border:0!important}
-  #profesionales .profileBody{padding:32px 26px!important}
-  #profesionales .pname{font-size:34px!important}
-  #profesionales .meta{font-size:18px!important}
-  #profesionales .price{font-size:24px!important}
-  #profesionales .actions{padding-left:26px!important;padding-right:26px!important}
-  #profesionales .actions .btn{font-size:17px!important;padding:16px 18px!important}
-  .recentSection .compactList,.nearbySection .compactList{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:20px!important}
-  .miniProfile{grid-template-columns:112px 1fr auto!important;padding:16px!important;min-height:138px!important}
-  .miniProfile img{width:112px!important;height:112px!important}
-  .miniProfile h3{font-size:20px!important}
-  .premiumProCard{min-height:220px!important;padding:38px 52px!important}
+  body{overflow-x:hidden;}
+  .wrap{max-width:1380px!important;padding-left:38px!important;padding-right:38px!important;}
+  header .wrap{max-width:1380px!important;}
+
+  .premiumHeroInner{min-height:430px!important;}
+  .premiumHero h1{font-size:58px!important;line-height:1.02!important;max-width:650px!important;}
+  .premiumHero p{font-size:20px!important;line-height:1.45!important;}
+  .premiumSearch{width:min(1120px,calc(100% - 76px))!important;max-width:1120px!important;margin-left:auto!important;margin-right:auto!important;}
+
+  .premiumCats .wrap,.categories .wrap{max-width:1380px!important;}
+  .premiumCatRow,.cats{width:100%!important;justify-content:center!important;overflow:visible!important;display:grid!important;grid-template-columns:repeat(9,minmax(100px,1fr))!important;gap:14px!important;}
+  .premiumCatRow .cat,.cats .cat{min-width:0!important;width:100%!important;}
+
+  .premiumSection{padding-top:48px!important;padding-bottom:48px!important;}
+  .premiumHeading h2{font-size:38px!important;}
+
+  #profesionales .profiles{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:28px!important;align-items:start!important;}
+  #profesionales .profile{width:100%!important;max-width:430px!important;min-width:0!important;margin:0 auto!important;}
+  #profesionales .profile .photo{height:330px!important;}
+  #profesionales .profile h3{font-size:30px!important;}
+  #profesionales .profile .actions .btn{min-height:48px!important;font-size:15px!important;}
+
+  .compactList{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:22px!important;}
+  .compactList>*{width:100%!important;max-width:none!important;margin:0!important;}
+  .premiumProCard{min-height:190px!important;padding:34px 48px!important;}
+  .premiumProCard h2{font-size:38px!important;}
+  .whyCards{grid-template-columns:repeat(4,1fr)!important;gap:0!important;}
+  .spainCard{padding:34px!important;}
 }
 @media (min-width: 1400px){
-  .wrap,.nav,.premiumHeroInner,.premiumCats .wrap,.premiumSection .wrap,.premiumPro .wrap{max-width:1540px!important}
-  #profesionales .profiles{max-width:1340px!important}
-  #profesionales .profile{grid-template-columns:400px minmax(360px,1fr) 350px!important}
+  .wrap{max-width:1460px!important;}
+  header .wrap{max-width:1460px!important;}
+  .premiumCats .wrap,.categories .wrap{max-width:1460px!important;}
 }
 </style>
 
-<style id="tarotanuncia-desktop-bigger-v2">
-/* Vista de ordenador más grande y legible, sin alterar el móvil. */
-@media (min-width:901px){
-  body{font-size:17px!important}
-  header,.nav{height:104px!important}
-  .nav{max-width:1500px!important;padding-left:34px!important;padding-right:34px!important}
-  .headerLogo{height:88px!important}
-  .nav>.btn.small:first-of-type{font-size:17px!important;padding:16px 28px!important}
-
-  .premiumHero{min-height:430px!important}
-  .premiumHeroInner{min-height:430px!important;max-width:1500px!important;padding:58px 42px 125px!important}
-  .premiumHero h1{font-size:64px!important;max-width:720px!important}
-  .premiumHero p{font-size:22px!important}
-  .premiumSearch{left:42px!important;right:42px!important;bottom:-78px!important;padding:16px!important}
-  .premiumQ{height:66px!important}
-  .premiumQ input{font-size:21px!important}
-  .premiumFilters>div{height:60px!important}
-  .premiumFilters input,.premiumFilters select{font-size:18px!important}
-
-  .premiumCats{padding-top:110px!important}
-  .premiumCats .wrap,.premiumSection .wrap,.premiumPro .wrap{max-width:1500px!important;padding-left:34px!important;padding-right:34px!important}
-  .premiumCats .cat{min-width:104px!important;height:140px!important;min-height:140px!important}
-  .catIcon{font-size:42px!important}
-  .premiumCats .cat span{font-size:15px!important}
-
-  .premiumSection{padding:30px 0!important}
-  .premiumHeading h2{font-size:42px!important}
-  .premiumHeading a{font-size:15px!important;padding:12px 20px!important}
-  #profesionales .profiles{width:100%!important;max-width:1320px!important}
-  #profesionales .profile{width:100%!important;grid-template-columns:340px minmax(300px,1fr) 300px!important;min-height:340px!important}
-  #profesionales .profile .photo{height:340px!important}
-  #profesionales .profile .photo>img{width:305px!important;height:305px!important}
-  #profesionales .pname{font-size:36px!important}
-  #profesionales .tag{font-size:14px!important}
-  #profesionales .meta{font-size:18px!important}
-  #profesionales .price{font-size:25px!important}
-  #profesionales .actions .btn{font-size:17px!important;padding:16px 14px!important}
-
-  .recentSection .compactList,.nearbySection .compactList{max-width:1320px!important;margin:0 auto!important}
-  .miniProfile{min-height:150px!important;grid-template-columns:120px 1fr auto!important;padding:18px!important}
-  .miniProfile img{width:120px!important;height:120px!important}
-  .miniProfile h3{font-size:22px!important}
-  .miniProfile p{font-size:15px!important}
-  .premiumProCard{max-width:1320px!important;margin:0 auto!important}
-}
-@media (min-width:901px) and (max-width:1150px){
-  .premiumHero h1{font-size:56px!important}
-  #profesionales .profiles{max-width:940px!important}
-  #profesionales .profile{grid-template-columns:300px minmax(280px,1fr) 250px!important}
-  #profesionales .profile .photo{height:310px!important}
-  #profesionales .profile .photo>img{width:275px!important;height:275px!important}
-  #profesionales .actions{padding-left:14px!important;padding-right:14px!important}
-  .premiumCats .cat{min-width:94px!important}
-}
-</style>
 </head>
 <body>
 <header><div class="wrap nav">
