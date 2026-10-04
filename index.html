@@ -754,6 +754,7 @@ alert('ANUNCIOS: ' + data.length);
     console.log('Anuncios aprobados:',data);
 
     if(Array.isArray(data) && data.length){
+      alert('VA A RENDERIZAR');
       renderProfiles(filterRows(data));
     }else{
       box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">No hay anuncios publicados todavía.</p>';
