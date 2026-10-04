@@ -1140,6 +1140,22 @@ footer small,footer a{color:#6d626e!important}
   #profesionales .profile .photo .badge{top:14px!important;left:16px!important;padding:6px 10px!important;font-size:10px!important;}
 }
 </style>
+
+<style id="desktop-featured-arrows-image-sides-final">
+/* Escritorio: flechas a media altura, pegadas a los laterales de la imagen destacada. */
+@media (min-width:651px){
+  #profesionales .profile .photo > .galleryArrow{
+    top:50%!important;
+    transform:translateY(-50%)!important;
+  }
+  #profesionales .profile .photo > .galleryArrow.prev{
+    left:calc(50% - 167px)!important;
+  }
+  #profesionales .profile .photo > .galleryArrow.next{
+    right:calc(50% - 167px)!important;
+  }
+}
+</style>
 </head>
 <body>
 <header><div class="wrap nav">
