@@ -738,7 +738,7 @@ async function loadProfiles(){
 
     const data=await response.json();
     console.log('Anuncios aprobados:',data);
-
+alert('ANUNCIOS: ' + data.length);
     if(Array.isArray(data) && data.length){
       renderProfiles(filterRows(data));
     }else{
