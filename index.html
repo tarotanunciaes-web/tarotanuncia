@@ -791,13 +791,21 @@ async function openProfile(raw){
 document.getElementById('profileContent').innerHTML = `
   <div style="padding:4px 0">
 
-    <div style="display:grid;grid-template-columns:${fotos.length > 1 ? '2fr 1fr' : '1fr'};gap:8px;margin-bottom:20px">
-      ${fotos.slice(0,2).map((foto,i)=>`
-        <img src="${esc(foto)}"
-             style="width:100%;height:${i===0?'210px':'210px'};object-fit:cover;border-radius:18px">
-      `).join('')}
-    </div>
+    <div style="margin-bottom:20px">
+  ${fotos.length ? `
+    <img src="${esc(fotos[0])}"
+         style="width:100%;height:230px;object-fit:cover;border-radius:18px">
 
+    ${fotos.length > 1 ? `
+      <button type="button"
+              class="btn ghost"
+              style="width:100%;margin-top:10px"
+              onclick="openGallery()">
+        📷 Ver galería (${fotos.length} fotos)
+      </button>
+    ` : ''}
+  ` : ''}
+</div>
     <div class="rating" style="margin-bottom:18px">
       <b>★</b> ${esc(a.r||'Nuevo')}
     </div>
