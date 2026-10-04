@@ -618,10 +618,10 @@ footer{background:#21152e;color:#fff;padding:35px 0}.foot{display:flex;justify-c
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  alert('SCRIPT INICIADO');
+  
 const URL='https://ozbbgfxixbgffxnhqpzh.supabase.co',KEY='sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd';
 const db = null;
-  alert('SUPABASE CREADO');
+  
 let plan='free';
 function esc(s){return String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]))}
 function normalizePhone(v){
@@ -631,7 +631,7 @@ function waUrl(v){
  const digits=String(v||'').replace(/\D/g,'');
  return digits ? 'https://wa.me/'+digits : '';
 }
-  alert('LLEGA A CONTACTBUTTONS');
+  
 function contactButtons(a){
  const phone=normalizePhone(a.phone);
  const wa=waUrl(a.whatsapp||a.phone);
@@ -670,7 +670,7 @@ async function registerContact(adId,type){
    });
  }catch(e){}
 }
-  alert('LLEGA HASTA CARD');
+  
 function card(a){
   const id=encodeURIComponent(JSON.stringify(a));
   const foto=a.profile_photo_url
@@ -723,7 +723,7 @@ async function loadProfiles(){
   if(!box)return;
 
   box.innerHTML='<p style="grid-column:1/-1;text-align:center;color:#666">Cargando anuncios...</p>';
-alert('LOADPROFILES FUNCIONA');
+
   try{
     const response=await fetch(
 
@@ -743,7 +743,7 @@ alert('LOADPROFILES FUNCIONA');
 
     const data=await response.json();
     console.log('Anuncios aprobados:',data);
-alert('ANUNCIOS: ' + data.length);
+
     if(Array.isArray(data) && data.length){
       renderProfiles(filterRows(data));
     }else{
