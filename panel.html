@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel profesional - Tarotanuncia</title>
+<title>Panel profesional - TarotAnuncia</title>
+<!-- PANEL REDISEÑO V4: navegación por páginas independientes -->
 
 <style>
 *{
@@ -344,6 +345,17 @@ input:focus,textarea:focus,select:focus{border-color:#d8b35d;box-shadow:0 0 0 3p
 #adsList{display:grid;gap:14px}.multi-ad{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.multi-ad img{width:150px;height:150px;object-fit:cover;border-radius:14px;background:#fff8ed}.multi-ad h3{font-family:Georgia,serif;font-size:23px;margin:0 0 4px}.multi-ad-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.multi-ad-actions button{background:#fff;border:1px solid #e4d8c2;border-radius:9px;padding:8px 12px;font-weight:800}.multi-ad-actions .danger{color:#c93030;border-color:#efb7b7}.page-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.page-head h1{font-family:Georgia,serif;font-size:34px;color:var(--ink)}.publish-btn{border:0;border-radius:12px;background:linear-gradient(90deg,var(--gold2),var(--gold));color:white;padding:12px 18px;font-weight:900}.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.plan-choice{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.plan-choice.featured{border:2px solid var(--gold)}.plan-choice h3{font-family:Georgia,serif;font-size:24px;margin:0 0 8px}.plan-choice .price{font-size:25px;font-weight:900;margin-bottom:12px}.plan-choice ul{padding-left:18px;color:#665d60;line-height:1.8}.plan-choice button{width:100%;border:0;border-radius:10px;padding:11px;background:linear-gradient(90deg,var(--gold2),var(--gold));font-weight:900;color:#fff}.edit-layout{display:grid;grid-template-columns:1fr;gap:14px}.edit-photo-grid{display:flex;gap:10px;flex-wrap:wrap}.edit-photo{position:relative}.edit-photo img{width:110px;height:110px;object-fit:cover;border-radius:12px;border:2px solid transparent}.edit-photo.primary-photo img{border-color:var(--gold)}.edit-photo button{display:block;width:100%;margin-top:5px;border:1px solid #e6d8ba;background:#fff;border-radius:8px;font-size:11px;padding:5px}.page-save{margin-top:14px}.profile-combined .card{margin-bottom:14px}
 @media(max-width:760px){.panel-nav{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible}.panel-nav button{white-space:normal;text-align:center;font-size:11px}.page-head h1{font-size:27px}.multi-ad{grid-template-columns:110px 1fr}.multi-ad img{width:110px;height:130px}.plan-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.multi-ad{grid-template-columns:1fr}.multi-ad img{width:100%;height:auto;max-height:280px;object-fit:contain}.panel-nav{grid-template-columns:repeat(2,1fr)}}
+/* v4: páginas reales del panel. Nunca apilar secciones. */
+#panel > .card{display:none}
+#panel > .ta-page{display:none!important}
+#panel > .ta-page.active{display:block!important}
+#profilePage .card,#editPage .card,#statsPage .card,#accountPage .card{display:block}
+@media(max-width:760px){
+  .dashboard-shell{display:block}
+  .panel-nav{position:sticky;top:73px;z-index:8;margin:10px;border-radius:16px;background:#fffdf9}
+  .panel-content{padding:10px 12px 36px}
+  main{padding:0}
+}
 </style>
 </head>
 
@@ -381,10 +393,7 @@ input:focus,textarea:focus,select:focus{border-color:#d8b35d;box-shadow:0 0 0 3p
 
   <div id="panel" class="hidden">
 
-    <h1>🧑‍💼 Panel profesional</h1>
-    <p class="intro">
-      Gestiona tu perfil, tu anuncio y tu información profesional.
-    </p>
+    <div class="legacy-panel-heading" style="display:none"></div>
 
     <section id="adsPage" class="ta-page active">
       <div class="page-head"><div><h1>Mis anuncios</h1><p class="dash-sub">Aquí puedes ver, editar y gestionar todos tus anuncios.</p></div><button class="publish-btn" onclick="window.location.href='index.html#publicar'">+ Publicar nuevo anuncio</button></div>
