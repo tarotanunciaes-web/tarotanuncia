@@ -1156,6 +1156,36 @@ footer small,footer a{color:#6d626e!important}
   }
 }
 </style>
+
+<style id="featured-arrows-true-middle-final">
+/* Flechas: exactamente en el centro vertical de la zona de imagen, a ambos lados. */
+#profesionales .profile .photo > button.galleryArrow.prev,
+#profesionales .profile .photo > button.galleryArrow.next{
+  top:50%!important;
+  bottom:auto!important;
+  transform:translateY(-50%)!important;
+}
+</style>
+
+<style id="desktop-featured-final-position">
+/* SOLO ORDENADOR: flechas ligeramente por debajo del centro y nombre Taroteame centrado. */
+@media (min-width:651px){
+  #profesionales .profile .photo > button.galleryArrow.prev,
+  #profesionales .profile .photo > button.galleryArrow.next{
+    top:57%!important;
+    bottom:auto!important;
+    transform:translateY(-50%)!important;
+  }
+  #profesionales .profileBody .pname{
+    width:100%!important;
+    display:block!important;
+    text-align:center!important;
+    align-self:center!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+}
+</style>
 </head>
 <body>
 <header><div class="wrap nav">
