@@ -679,7 +679,7 @@ function card(a){
 ].filter((foto,i,arr)=>foto && arr.indexOf(foto)===i);
 
 const foto=fotos.length
-  ? `<img id="cardPhoto-${a.id}" src="${esc(fotos[0])}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">`
+  ? `<img id="cardPhoto-${a.id}" src="${esc(fotos[0])}" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">`
   : '🔮';
   const categorias=Array.isArray(a.categories)
     ? a.categories
