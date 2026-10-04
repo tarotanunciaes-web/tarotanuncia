@@ -729,7 +729,7 @@ function renderProfiles(rows){
  const box=document.getElementById('profiles');if(!box)return;
   alert('ANTES DE CARD');
  box.innerHTML=rows.length?rows.map(card).join(''):'<p style="grid-column:1/-1;text-align:center;color:#666">No hay perfiles que coincidan.</p>';
-  
+alert('HTML INSERTADO');  
 }
 async function loadProfiles(){
   const box=document.getElementById('profiles');
