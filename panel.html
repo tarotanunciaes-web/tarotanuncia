@@ -378,6 +378,22 @@ header{background:rgba(255,253,250,.97)!important;border-bottom:1px solid var(--
 #adsPage:before{display:none!important}#adsPage .page-head{margin:0!important;padding:0!important}.panel-nav button:nth-last-child(1){margin-top:8px;border-top:1px solid var(--line)!important;border-radius:0!important}
 @media(max-width:760px){.pro-hero{min-height:155px;padding:20px 18px;margin-bottom:12px}.pro-hero h2{font-size:28px}.pro-hero h3{font-size:19px;max-width:240px}.pro-hero p{font-size:12px;max-width:245px}.hero-art{width:82px;height:82px;font-size:42px;flex:none}.top-kpis{grid-template-columns:1fr 1fr;gap:9px;margin-bottom:22px}.kpi-card{min-height:112px;padding:12px;grid-template-columns:32px 1fr}.kpi-card>span{width:32px;height:32px;font-size:16px}.kpi-card b{font-size:22px}.kpi-card em{display:none}.page-head{align-items:center!important}.page-head h1{font-size:27px!important}.dash-sub{font-size:12px!important}.ad-filters{overflow:auto;padding-bottom:3px}.multi-ad{grid-template-columns:105px 1fr!important}.multi-ad>img,.multi-ad>.ad-summary-photo{width:105px!important;height:145px!important}.panel-nav{grid-template-columns:repeat(5,1fr)!important}.panel-nav .nav-profile{display:none!important}.panel-nav button{font-size:9.5px!important}.panel-nav button:nth-last-child(1){display:none!important}.panel-nav:after{display:none!important}.nav-create{display:block!important}.publish-btn{max-width:145px!important}.multi-ad-actions{grid-template-columns:1fr 1fr!important}.multi-ad-actions .danger{grid-column:1/-1}.multi-ad h3{font-size:18px!important}}
 </style>
+
+<style id="panel-final-complete-v6">
+.profile-form-card,.stats-pro-card,.account-pro-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px}
+.profile-form-card h2,.stats-pro-card h2,.account-pro-card h2{font-family:Georgia,serif;color:var(--ink);margin:0 0 15px;font-size:24px}
+.stats-pro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stats-pro-item{background:#fffaf0;border:1px solid #f1dfb5;border-radius:16px;padding:17px}.stats-pro-item small{display:block;color:var(--muted);margin-bottom:6px}.stats-pro-item b{font:800 28px Georgia,serif;color:var(--ink)}
+.account-row{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}.account-row:last-child{border-bottom:0}.account-row small{display:block;color:var(--muted);margin-top:4px}.account-row button{border:1px solid #e7d7b4;background:#fff9eb;color:#8b6200;border-radius:10px;padding:9px 13px;font-weight:800}
+.profile-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.profile-actions button{border:0;border-radius:11px;padding:12px 16px;font-weight:850}.profile-actions .save{background:linear-gradient(135deg,var(--gold2),var(--gold));color:white}.profile-actions .view{background:#fff;border:1px solid #e4d6ba;color:#76551a}
+.photo-upload-note{font-size:12px;color:var(--muted);margin:7px 0 0}.upload-progress{font-size:12px;color:#8b6200;margin-top:8px}
+@media(max-width:900px){
+ .dashboard-shell{display:block!important;padding:12px 12px 92px!important}
+ .panel-nav{position:fixed!important;left:8px!important;right:8px!important;bottom:8px!important;top:auto!important;z-index:100!important;display:grid!important;grid-template-columns:repeat(5,1fr)!important;padding:7px!important;border-radius:18px!important;box-shadow:0 8px 30px rgba(35,25,20,.16)!important;background:#fff!important}
+ .panel-nav .nav-profile,.panel-nav button:last-child{display:none!important}.panel-nav:after{display:none!important}.panel-nav button{font-size:9.5px!important;text-align:center!important;padding:9px 3px!important;white-space:normal!important;margin:0!important;border:0!important}.panel-content{width:100%!important}.stats-pro-grid{grid-template-columns:1fr 1fr}.plan-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:520px){.stats-pro-grid{grid-template-columns:1fr 1fr}.account-row{align-items:flex-start;flex-direction:column}.profile-form-card,.stats-pro-card,.account-pro-card{padding:15px}}
+</style>
+
 </head>
 
 <body>
@@ -440,6 +456,7 @@ header{background:rgba(255,253,250,.97)!important;border-bottom:1px solid var(--
 
     <section id="profilePage" class="ta-page profile-combined">
       <div class="page-head"><div><h1>Mi perfil</h1><p class="dash-sub">Gestiona la información que verán tus clientes.</p></div></div>
+      <div id="profileMount"></div>
     </section>
 
     <section id="statsPage" class="ta-page">
@@ -704,8 +721,9 @@ async function loadPanel(){
     }
 
     const user=await userResponse.json();
+    window.taUser=user;
 
-    /* Buscar SOLO el anuncio de este usuario */
+    /* Buscar SOLO los anuncios de este usuario */
     const response=await fetch(
       SUPABASE_URL+
       '/rest/v1/tarotist_ads?select=*&owner_id=eq.'+
@@ -727,6 +745,9 @@ async function loadPanel(){
     if(window.taAds.length){ fillPanel(window.taAds[0]); }
     renderAds(window.taAds);
     preparePages();
+    renderStatsPage();
+    renderAccountPage(user);
+    handlePhotoInputs();
 
   }catch(error){
 
@@ -857,7 +878,7 @@ function fillPanel(ad){
 
 
 function newAd(){
-  currentAdId='new';
+  currentAdId='new'; window.pendingAdPhotos=[]; window.pendingProfilePhoto=null;
   ['name','title','description','city','province','whatsapp','phone','price','categories'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
   const m=document.getElementById('modality'); if(m)m.value='Online';
   const pp=document.getElementById('profilePhoto'); if(pp){pp.removeAttribute('src');pp.style.display='none';}
@@ -865,7 +886,7 @@ function newAd(){
   showPage('editPage');
   const mount=document.getElementById('editMount'); if(mount)mount.innerHTML='';
   const profile=document.getElementById('profileCard'), photos=document.getElementById('photosCard'), save=document.getElementById('saveCard');
-  if(profile&&mount)mount.appendChild(profile); if(photos&&mount)mount.appendChild(photos); if(save&&mount)mount.appendChild(save);
+  if(profile&&mount)mount.appendChild(profile); if(photos&&mount){photos.style.display='block';mount.appendChild(photos);} if(save&&mount)mount.appendChild(save);
   const h=document.querySelector('#editPage h1'); if(h)h.textContent='Publicar nuevo anuncio';
   const sub=document.querySelector('#editPage .dash-sub'); if(sub)sub.textContent='Completa los datos y publica tu anuncio sin salir del panel.';
 }
@@ -940,7 +961,9 @@ modality:(function(){
   return 'online';
 })(),
 
-photo_urls:(function(){if(currentAdId==='new')return [];const a=(window.taAds||[]).find(x=>x.id===currentAdId);return a&&Array.isArray(a.photo_urls)?a.photo_urls:undefined;})(),
+photo_urls:(function(){const a=(window.taAds||[]).find(x=>x.id===currentAdId);const old=a&&Array.isArray(a.photo_urls)?a.photo_urls:[];return window.pendingAdPhotos&&window.pendingAdPhotos.length?window.pendingAdPhotos:old;})(),
+
+profile_photo_url:(function(){const a=(window.taAds||[]).find(x=>x.id===currentAdId);return window.pendingProfilePhoto||(a&&a.profile_photo_url)||null;})(),
 
 categories:document.getElementById('categories').value
   .split(',')
@@ -956,10 +979,8 @@ categories:document.getElementById('categories').value
 
     message.style.color='#25834a';
     message.textContent='✓ Cambios guardados correctamente.';
-
-    setTimeout(function(){
-      loadPanel();
-    },700);
+    window.pendingAdPhotos=[]; window.pendingProfilePhoto=null;
+    setTimeout(function(){ loadPanel(); showPage('adsPage',document.querySelectorAll('.panel-nav button')[1]); },500);
 
   }catch(error){
 
@@ -973,6 +994,8 @@ categories:document.getElementById('categories').value
 }
 let currentAdId=null;
 function showPage(id,button){
+  if(id==='profilePage'){const pm=document.getElementById('profileMount'),profile=document.getElementById('profileCard'),save=document.getElementById('saveCard');if(pm&&profile)pm.appendChild(profile);if(pm&&save)pm.appendChild(save);}
+  if(id==='statsPage')renderStatsPage(); if(id==='accountPage')renderAccountPage(window.taUser);
   document.querySelectorAll('.ta-page').forEach(p=>p.classList.remove('active'));
   const page=document.getElementById(id); if(page) page.classList.add('active');
   document.querySelectorAll('.panel-nav button').forEach(b=>b.classList.remove('active'));
@@ -990,7 +1013,7 @@ function renderAds(data){
   const contacts=data.reduce((n,a)=>n+Number(a.contacts_count||0),0);
   const active=data.filter(a=>a.status!=='paused'&&a.status!=='draft').length;
   const setText=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
-  setText('kpiAds',active+'/2'); setText('kpiViews',views); setText('kpiContacts',contacts); setText('adsCountTitle','('+data.length+')');
+  setText('kpiAds',active+'/2'); setText('kpiPlan',data[0]&&data[0].plan?({free:'Gratis',featured:'Destacado',premium:'Premium',professional:'Profesional'}[data[0].plan]||data[0].plan):'Gratis'); setText('kpiViews',views); setText('kpiContacts',contacts); setText('adsCountTitle','('+data.length+')');
   if(!data || !data.length){box.innerHTML='<div class="card"><h2>Aún no tienes anuncios</h2><p>Publica tu primer anuncio desde este panel.</p><button class="publish-btn" onclick="newAd()">+ Publicar nuevo anuncio</button></div>';return;}
   box.innerHTML=data.map((ad,i)=>{
     const cats=Array.isArray(ad.categories)?ad.categories:[];
@@ -1025,16 +1048,55 @@ function setPrimaryPhoto(i){
   const a=ad.photo_urls.slice(); const chosen=a.splice(i,1)[0]; a.unshift(chosen); ad.photo_urls=a; renderEditablePhotos(ad);
   document.getElementById('message').style.color='#9b6a00'; document.getElementById('message').textContent='Foto principal seleccionada. Pulsa Guardar cambios.';
 }
+
+function renderStatsPage(){
+  const data=Array.isArray(window.taAds)?window.taAds:[];
+  const views=data.reduce((n,a)=>n+Number(a.views||0),0);
+  const contacts=data.reduce((n,a)=>n+Number(a.contacts_count||0),0);
+  const phone=data.reduce((n,a)=>n+Number(a.phone_contacts||0),0);
+  const wa=data.reduce((n,a)=>n+Number(a.whatsapp_contacts||0),0);
+  const mount=document.getElementById('statsMount'); if(!mount)return;
+  mount.innerHTML=`<div class="stats-pro-card"><h2>Resumen de rendimiento</h2><div class="stats-pro-grid">
+    <div class="stats-pro-item"><small>Visualizaciones</small><b>${views}</b></div>
+    <div class="stats-pro-item"><small>Contactos</small><b>${contacts}</b></div>
+    <div class="stats-pro-item"><small>Llamadas</small><b>${phone}</b></div>
+    <div class="stats-pro-item"><small>WhatsApp</small><b>${wa}</b></div>
+  </div></div>` + (data.length?`<div class="stats-pro-card"><h2>Por anuncio</h2>${data.map(a=>`<div class="account-row"><div><b>${a.display_name||a.title||'Anuncio'}</b><small>${a.status==='approved'?'Publicado':a.status||'Pendiente'}</small></div><div><b>${a.views||0}</b> vistas · <b>${a.contacts_count||0}</b> contactos</div></div>`).join('')}</div>`:'<div class="stats-pro-card"><h2>Sin datos todavía</h2><p>Cuando publiques tu primer anuncio, aquí verás su rendimiento.</p></div>');
+}
+function renderAccountPage(user){
+  const mount=document.getElementById('accountMount'); if(!mount)return;
+  mount.innerHTML=`<div class="account-pro-card"><h2>Datos de acceso</h2><div class="account-row"><div><b>Correo electrónico</b><small>${user&&user.email?user.email:'Cuenta de TarotAnuncia'}</small></div></div><div class="account-row"><div><b>Contraseña</b><small>Gestiona la seguridad de tu acceso.</small></div><button type="button" onclick="sendPasswordReset()">Cambiar contraseña</button></div></div>`;
+}
+async function sendPasswordReset(){
+  const email=window.taUser&&window.taUser.email; if(!email)return alert('No se pudo obtener el correo de la cuenta.');
+  const r=await fetch(SUPABASE_URL+'/auth/v1/recover',{method:'POST',headers:{'apikey':SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email})});
+  alert(r.ok?'Te hemos enviado un correo para cambiar la contraseña.':'No se pudo enviar el correo.');
+}
+async function uploadToStorage(file,userId,prefix){
+  const safe=(file.name||'foto.jpg').replace(/[^a-zA-Z0-9._-]/g,'_');
+  const path=userId+'/'+prefix+'-'+Date.now()+'-'+safe;
+  const r=await fetch(SUPABASE_URL+'/storage/v1/object/tarotanuncia-photos/'+path,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+getToken(),'Content-Type':file.type||'application/octet-stream','x-upsert':'true'},body:file});
+  if(!r.ok) throw new Error(await r.text());
+  return SUPABASE_URL+'/storage/v1/object/public/tarotanuncia-photos/'+path;
+}
+async function handlePhotoInputs(){
+  const adInput=document.getElementById('adPhotosInput'); const profileInput=document.getElementById('profilePhotoInput');
+  if(adInput&&!adInput.dataset.bound){adInput.dataset.bound='1';adInput.addEventListener('change',async()=>{try{const files=[...adInput.files].slice(0,6);if(!files.length)return;const user=window.taUser;if(!user)throw new Error('Sesión no disponible');const urls=[];for(const f of files)urls.push(await uploadToStorage(f,user.id,'ad'));window.pendingAdPhotos=urls;document.getElementById('photoList').innerHTML=urls.map((u,i)=>`<img src="${u}" style="width:80px;height:80px;object-fit:cover;border-radius:10px;margin:4px;border:${i===0?'2px solid #d99b18':'1px solid #ddd'}">`).join('');}catch(e){alert('No se pudieron subir las fotos: '+e.message)}})}
+  if(profileInput&&!profileInput.dataset.bound){profileInput.dataset.bound='1';profileInput.addEventListener('change',async()=>{try{const f=profileInput.files[0];if(!f)return;const user=window.taUser;if(!user)throw new Error('Sesión no disponible');const u=await uploadToStorage(f,user.id,'profile');window.pendingProfilePhoto=u;const img=document.getElementById('profilePhoto');if(img){img.src=u;img.style.display='block'}}catch(e){alert('No se pudo subir la foto: '+e.message)}})}
+}
+
 function preparePages(){
-  const profile=document.getElementById('profileCard'), profilePhoto=document.querySelector('.photo-box')?.closest('.card');
-  const stats=document.getElementById('statsCard'), account=document.getElementById('accountCard');
+  const profile=document.getElementById('profileCard');
+  const profilePhoto=document.querySelector('.photo-box')?.closest('.card');
+  const photos=document.getElementById('photosCard');
   const save=[...document.querySelectorAll('.card')].find(c=>c.querySelector('button[onclick="saveProfile()"]')); if(save) save.id='saveCard';
-  const pp=document.getElementById('profilePage'); if(profile) pp.appendChild(profile); if(profilePhoto) pp.appendChild(profilePhoto);
-  const sm=document.getElementById('statsMount'); if(stats) sm.appendChild(stats);
-  const am=document.getElementById('accountMount'); if(account) am.appendChild(account);
-  // hide legacy cards not part of current page flow
+  const pm=document.getElementById('profileMount');
+  if(pm){ if(profile)pm.appendChild(profile); if(profilePhoto)pm.appendChild(profilePhoto); if(save)pm.appendChild(save); }
   const adCard=document.getElementById('adCard'); if(adCard) adCard.style.display='none';
   const oldPlan=document.getElementById('planCard'); if(oldPlan) oldPlan.style.display='none';
+  const oldStats=document.getElementById('statsCard'); if(oldStats) oldStats.style.display='none';
+  const oldAccount=document.getElementById('accountCard'); if(oldAccount) oldAccount.style.display='none';
+  if(photos) photos.style.display='none';
   showPage('adsPage',document.querySelectorAll('.panel-nav button')[1]);
 }
 function goPanelSection(id,button){
