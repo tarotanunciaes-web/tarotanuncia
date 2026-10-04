@@ -313,6 +313,13 @@ main{max-width:none;margin:0;padding:0;}
  .brand-mark{width:38px;height:38px}.logo{font-size:21px}.subtitle{font-size:11px}
 }
 </style>
+
+<style id="tarotanuncia-dashboard-final">
+.dashboard-home{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;margin-bottom:18px}.dash-main-title{font-family:Georgia,serif;font-size:38px;margin:0;color:#24152f}.dash-sub{color:#766680;margin:5px 0 18px}.ad-summary{display:grid;grid-template-columns:190px minmax(0,1fr);gap:18px;align-items:center;background:#fff;border:1px solid #eee5f5;border-radius:20px;padding:16px;box-shadow:0 8px 25px rgba(74,49,93,.06)}.ad-summary-photo{width:190px;height:190px;border-radius:15px;object-fit:cover;background:#f5eefb}.ad-summary h3{font-family:Georgia,serif;font-size:26px;margin:0 0 5px;color:#24152f}.dash-price{font-size:21px;font-weight:900;color:#c98700;margin-bottom:10px}.dash-meta{font-size:14px;color:#766680;margin:7px 0}.dash-tags{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.dash-tag{background:#f3e6fb;color:#7027c9;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800}.dash-metrics{display:flex;gap:9px;flex-wrap:wrap;margin:13px 0}.dash-metric{background:#fbf9fc;border:1px solid #eee5f5;border-radius:12px;padding:9px 12px;font-size:12px}.dash-metric b{font-size:18px;color:#24152f;margin-right:4px}.dash-actions{display:flex;gap:8px;flex-wrap:wrap}.dash-actions button{border:1px solid #dfd3e8;background:#fff;border-radius:10px;padding:9px 14px;font-weight:800;cursor:pointer}.dash-actions .danger{color:#d62323;border-color:#efb5b5}.dash-side .card{margin-bottom:14px}.summary-line{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f1eaf5}.summary-line:last-child{border:0}.summary-line b{font-size:20px;color:#7027c9}.gold-btn{width:100%;border:0;border-radius:12px;padding:11px;background:linear-gradient(90deg,#f3bd35,#df9900);font-weight:900;color:#fff;cursor:pointer}.dashboard-home + #adCard{display:none}
+@media(max-width:900px){.dashboard-home{grid-template-columns:1fr}.dash-side{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ad-summary{grid-template-columns:150px 1fr}.ad-summary-photo{width:150px;height:150px}}
+@media(max-width:650px){.dash-main-title{font-size:27px}.ad-summary{grid-template-columns:1fr;text-align:center;padding:12px}.ad-summary-photo{width:100%;height:auto;max-height:310px;object-fit:contain}.dash-tags,.dash-metrics,.dash-actions{justify-content:center}.dash-side{grid-template-columns:1fr}.dashboard-home{gap:12px}.panel-content{width:100%}}
+</style>
+
 </head>
 
 <body>
@@ -353,6 +360,46 @@ main{max-width:none;margin:0;padding:0;}
     <p class="intro">
       Gestiona tu perfil, tu anuncio y tu información profesional.
     </p>
+
+    <section class="dashboard-home" aria-label="Resumen del panel">
+      <div>
+        <h1 class="dash-main-title">Mis anuncios</h1>
+        <p class="dash-sub">Aquí puedes ver, editar y gestionar tus anuncios.</p>
+        <div class="ad-summary">
+          <img id="dashboardAdImage" class="ad-summary-photo" alt="Foto del anuncio">
+          <div>
+            <h3 id="dashboardAdName">Tu anuncio</h3>
+            <div id="dashboardAdPrice" class="dash-price">Desde 0 €</div>
+            <div id="dashboardAdLocation" class="dash-meta">📍 —</div>
+            <div id="dashboardAdTags" class="dash-tags"></div>
+            <div class="dash-metrics">
+              <div class="dash-metric">👁 <b id="dashboardViews">0</b> visualizaciones</div>
+              <div class="dash-metric">💬 <b id="dashboardContacts">0</b> contactos</div>
+            </div>
+            <div class="dash-actions">
+              <button onclick="goPanelSection('profileCard',document.querySelectorAll('.panel-nav button')[0])">✎ Editar</button>
+              <button onclick="goPanelSection('photosCard',null)">▣ Editar fotos</button>
+              <button class="danger" onclick="alert('La eliminación del anuncio la conectaremos de forma segura después.')">🗑 Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="dash-side">
+        <div class="card">
+          <h2>📊 Resumen</h2>
+          <div class="summary-line"><span>Visualizaciones</span><b id="summaryViews">0</b></div>
+          <div class="summary-line"><span>Contactos</span><b id="summaryContacts">0</b></div>
+          <div class="summary-line"><span>Anuncios</span><b id="summaryAds">1</b></div>
+          <div class="summary-line"><span>Fotos</span><b id="summaryPhotos">0</b></div>
+        </div>
+        <div class="card">
+          <h2>👑 Mi plan</h2>
+          <div style="font-size:12px;color:#81728d">Plan actual</div>
+          <div id="summaryPlan" style="font-family:Georgia,serif;font-size:25px;font-weight:900;color:#24152f;margin:4px 0 12px">Gratis</div>
+          <button class="gold-btn" onclick="goPanelSection('planCard',document.querySelectorAll('.panel-nav button')[3])">Cambiar plan →</button>
+        </div>
+      </aside>
+    </section>
 
     <!-- ESTADO -->
     <div id="adCard" class="card">
@@ -501,7 +548,7 @@ main{max-width:none;margin:0;padding:0;}
     </div>
 
     <!-- FOTOS -->
-    <div class="card">
+    <div id="photosCard" class="card">
       <h2>📸 Fotos de tu anuncio</h2>
 
       <p style="font-size:13px;color:#81728d">
@@ -697,6 +744,23 @@ function fillPanel(ad){
     img.style.display='block';
 
   }
+
+  // Resumen visual del anuncio
+  document.getElementById('dashboardAdName').textContent = ad.display_name || ad.title || 'Tu anuncio';
+  document.getElementById('dashboardAdPrice').textContent = 'Desde ' + (ad.price_from ?? 0) + ' €';
+  document.getElementById('dashboardAdLocation').textContent = '📍 ' + (ad.city || ad.province || 'Sin ubicación') + '  •  ' + (ad.modality || 'online');
+  const dashCats = Array.isArray(ad.categories) ? ad.categories : [];
+  document.getElementById('dashboardAdTags').innerHTML = dashCats.slice(0,4).map(function(c){return '<span class="dash-tag">'+c+'</span>';}).join('');
+  document.getElementById('dashboardViews').textContent = ad.views || 0;
+  document.getElementById('dashboardContacts').textContent = ad.contacts_count || 0;
+  document.getElementById('summaryViews').textContent = ad.views || 0;
+  document.getElementById('summaryContacts').textContent = ad.contacts_count || 0;
+  document.getElementById('summaryPlan').textContent = ad.plan ? String(ad.plan).toUpperCase() : 'GRATIS';
+  const dashPhotos = Array.isArray(ad.photo_urls) ? ad.photo_urls : [];
+  document.getElementById('summaryPhotos').textContent = dashPhotos.length;
+  const dashImg = document.getElementById('dashboardAdImage');
+  dashImg.src = dashPhotos[0] || ad.profile_photo_url || '';
+  dashImg.style.display = dashImg.src ? 'block' : 'none';
 
   const status=String(ad.status || '').toLowerCase();
 
