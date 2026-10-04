@@ -286,22 +286,62 @@ textarea{
   }
 }
 </style>
+
+<style id="tarotanuncia-dashboard-redesign">
+:root{--ta-purple:#7027c9;--ta-dark:#4a315d;--ta-soft:#f7f1fb;--ta-border:#eee5f5;}
+body{background:#faf7fd;}
+header{padding:14px 20px;}
+.header-inner{max-width:1180px;}
+.brand-wrap{display:flex;align-items:center;gap:11px;}
+.brand-mark{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#fff8df,#f2e6ff);border:1px solid #eadcf4;font-size:23px;box-shadow:0 3px 12px rgba(112,39,201,.10);}
+.logo{font-family:Georgia,serif;font-size:25px;}
+.dashboard-shell{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:220px minmax(0,1fr);gap:22px;padding:24px 14px 50px;}
+.panel-nav{background:#fff;border:1px solid var(--ta-border);border-radius:18px;padding:12px;height:max-content;position:sticky;top:90px;box-shadow:0 5px 20px rgba(112,39,201,.05);}
+.panel-nav button{width:100%;border:0;background:transparent;text-align:left;padding:12px 13px;border-radius:11px;color:#685675;font-weight:800;cursor:pointer;margin:2px 0;}
+.panel-nav button:hover,.panel-nav button.active{background:#f3eafa;color:var(--ta-purple);}
+main{max-width:none;margin:0;padding:0;}
+.panel-content{min-width:0;}
+#panel>h1,#panel>.intro{display:none;}
+.section-title{margin:0 0 5px;font-size:27px;color:#3d2850;}
+.section-intro{margin:0 0 18px;color:#81728d;font-size:14px;}
+.card{scroll-margin-top:95px;}
+#accountCard .account-note{font-size:13px;color:#81728d;margin:0;}
+@media(max-width:760px){
+ .dashboard-shell{display:block;padding:14px 12px 40px;}
+ .panel-nav{position:static;display:flex;overflow-x:auto;gap:6px;margin-bottom:14px;padding:8px;border-radius:14px;}
+ .panel-nav button{width:auto;white-space:nowrap;padding:10px 12px;}
+ .brand-mark{width:38px;height:38px}.logo{font-size:21px}.subtitle{font-size:11px}
+}
+</style>
 </head>
 
 <body>
 
 <header>
   <div class="header-inner">
-    <div>
-      <div class="logo">TarotAnuncia</div>
-      <div class="subtitle">Panel profesional</div>
+    <div class="brand-wrap">
+      <div class="brand-mark" aria-hidden="true">✦</div>
+      <div>
+        <div class="logo">TarotAnuncia</div>
+        <div class="subtitle">Panel profesional</div>
+      </div>
     </div>
 
     <button class="logout" onclick="logout()">Cerrar sesión</button>
   </div>
 </header>
 
-<main>
+<div class="dashboard-shell">
+  <nav class="panel-nav" aria-label="Menú del panel">
+    <button class="active" onclick="goPanelSection('profileCard',this)">👤 Mi perfil</button>
+    <button onclick="goPanelSection('adCard',this)">📢 Mis anuncios</button>
+    <button onclick="goPanelSection('statsCard',this)">📊 Estadísticas</button>
+    <button onclick="goPanelSection('planCard',this)">💳 Mi plan</button>
+    <button onclick="goPanelSection('accountCard',this)">⚙️ Cuenta</button>
+    <button onclick="logout()">↪ Cerrar sesión</button>
+  </nav>
+  <div class="panel-content">
+  <main>
 
   <div id="loading" class="loading">
     Cargando tu panel...
@@ -315,7 +355,7 @@ textarea{
     </p>
 
     <!-- ESTADO -->
-    <div class="card">
+    <div id="adCard" class="card">
       <h2>Estado de tu anuncio</h2>
 
       <div class="status">
@@ -328,7 +368,7 @@ textarea{
     </div>
 
     <!-- ESTADÍSTICAS -->
-    <div class="card">
+    <div id="statsCard" class="card">
       <h2>Estadísticas</h2>
 
       <div class="stats">
@@ -361,7 +401,7 @@ textarea{
     </div>
 
     <!-- PLAN -->
-    <div class="card">
+    <div id="planCard" class="card">
       <h2>💳 Mi plan</h2>
 
       <div class="plan">
@@ -379,7 +419,7 @@ textarea{
     </div>
 
     <!-- PERFIL -->
-    <div class="card">
+    <div id="profileCard" class="card">
       <h2>👤 Mi perfil</h2>
 
       <div class="grid">
@@ -475,6 +515,12 @@ textarea{
       </div>
     </div>
 
+    <!-- CUENTA -->
+    <div id="accountCard" class="card">
+      <h2>⚙️ Cuenta</h2>
+      <p class="account-note">Desde aquí podrás gestionar los datos de acceso de tu cuenta. La edición de correo y contraseña se conectará con Supabase en el siguiente paso.</p>
+    </div>
+
     <!-- GUARDAR -->
     <div class="card">
 
@@ -496,7 +542,9 @@ textarea{
 
   </div>
 
-</main>
+  </main>
+  </div>
+</div>
 
 <script>
 const SUPABASE_URL =
@@ -788,6 +836,13 @@ categories:document.getElementById('categories').value
   }
 
 }
+function goPanelSection(id,button){
+  const el=document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.panel-nav button').forEach(function(b){ b.classList.remove('active'); });
+  if(button) button.classList.add('active');
+}
+
 function logout(){
 
   localStorage.removeItem('tarotanuncia_access_token');
