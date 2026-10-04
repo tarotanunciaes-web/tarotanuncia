@@ -720,9 +720,14 @@ function filterRows(rows){
  return rows.filter(a=>{const text=JSON.stringify(a).toLowerCase();return(!q||text.includes(q))&&(!city||text.includes(city))&&(!category||text.includes(category))});
 }
 function renderProfiles(rows){
+  
   alert('RENDERPROFILES: ' + rows.length);
+
+  
  const box=document.getElementById('profiles');if(!box)return;
+  alert('ANTES DE CARD');
  box.innerHTML=rows.length?rows.map(card).join(''):'<p style="grid-column:1/-1;text-align:center;color:#666">No hay perfiles que coincidan.</p>';
+  
 }
 async function loadProfiles(){
   const box=document.getElementById('profiles');
