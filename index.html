@@ -742,7 +742,7 @@ alert('ENTRA EN LOADPROFILES');
         }
       }
     );
-
+alert('DESPUES DEL FETCH');
     if(!response.ok){
       const errorText=await response.text();
       throw new Error(errorText || 'No se pudieron cargar los anuncios.');
