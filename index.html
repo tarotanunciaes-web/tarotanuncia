@@ -806,7 +806,7 @@ document.getElementById('profileContent').innerHTML = `
       <p><b>📍 Ubicación:</b> ${esc(a.city||'España')}</p>
       <p><b>🔮 Especialidades:</b> ${(a.tags||a.categories||['Tarot']).map(x=>esc(x)).join(' · ')}</p>
       <p><b>💻 Modalidad:</b> ${esc(a.modality||'Online')}</p>
-      <p><b>💶 Precio:</b> ${a.price||a.price_from ? `Desde ${esc(a.price||a.price_from)} € / 30 min` : 'Consultar'}</p>
+      <p><b>💶 Precio:</b> ${a.price||a.price_from ? `Desde ${esc(a.price||a.price_from)} €` : 'Consultar'}</p>
     </div>
 
     <div class="actions" style="margin-top:20px">
