@@ -4524,6 +4524,73 @@ const taOpenProfileDescriptionLegacy=async function(raw){
  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',setup):setup();
 })();
 </script>
+
+<style id="ta-final-search-cards-v17">
+/* Categorías visuales eliminadas de portada */
+#categorias,.premiumCats{display:none!important}
+/* Encabezados compactos y tarjetas equilibradas */
+.premiumSection .premiumHeading{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important}
+.premiumSection .premiumHeading h2{position:static!important;transform:none!important;width:auto!important;max-width:none!important;margin:0!important;white-space:nowrap!important}
+@media (min-width:651px){
+ .premiumSearch.taSearchV3{display:grid!important;grid-template-columns:minmax(260px,1fr) auto auto!important;gap:10px!important;align-items:center!important;padding:12px!important}
+ .premiumSearch.taSearchV3>.premiumQ{display:flex!important;grid-column:1!important;margin:0!important}
+ .premiumSearch.taSearchV3>.taGeoRow{display:none!important;grid-column:1/-1!important;grid-template-columns:repeat(3,1fr)!important;gap:10px!important;margin:0!important}
+ .premiumSearch.taSearchV3>.taMoreFilters{display:block!important;grid-column:2!important;width:auto!important;min-width:130px!important;height:46px!important;margin:0!important}
+ .premiumSearch.taSearchV3>.taFilterRow{display:none!important;grid-column:1/-1!important;grid-template-columns:1fr 1fr auto!important;gap:10px!important;margin:0!important}
+ .premiumSearch.taSearchV3.taDesktopOpen>.taGeoRow{display:grid!important}
+ .premiumSearch.taSearchV3.taDesktopOpen>.taFilterRow{display:grid!important}
+ .premiumSearch.taSearchV3>.taDesktopSearch{grid-column:3!important;height:46px!important;padding:0 28px!important}
+ #profiles,.compactList{grid-template-columns:repeat(3,minmax(240px,290px))!important;justify-content:center!important;gap:24px!important}
+ .taMarketCard{max-width:290px!important}
+ .premiumSection .premiumHeading h2{font-size:28px!important}
+}
+@media (max-width:650px){
+ .premiumSearch.taSearchV3{width:calc(100% - 40px)!important;margin:14px auto 0!important}
+ .premiumSearch.taSearchV3::before{min-height:54px!important;font-size:17px!important;padding:0 18px!important}
+ .premiumSearch.taSearchV3::after{top:15px!important}
+ .premiumSearch.taSearchV3.taMobileOpen{padding:66px 10px 12px!important}
+ .premiumSearch.taSearchV3.taMobileOpen>.premiumQ{display:flex!important}
+ .premiumSearch.taSearchV3.taMobileOpen>.taGeoRow{display:grid!important}
+ .premiumSearch.taSearchV3.taMobileOpen>.taMoreFilters{display:block!important}
+ .premiumSearch.taSearchV3.taMobileOpen>.taFilterRow{display:grid!important;grid-template-columns:1fr!important;gap:9px!important}
+ .premiumSearch.taSearchV3>.taDesktopSearch{display:none!important}
+ .premiumSection .premiumHeading{padding:0 4px 12px!important}
+ .premiumSection .premiumHeading h2{font-size:20px!important;line-height:1.1!important;white-space:nowrap!important}
+ .premiumSection .premiumHeading a{font-size:11px!important;padding:9px 11px!important}
+ #profiles,.compactList{grid-template-columns:minmax(0,270px)!important;justify-content:center!important;gap:16px!important}
+ .taMarketCard{max-width:270px!important;border-radius:15px!important}
+ .taMarketInfo{padding:11px 12px 12px!important}
+ .taMarketName{font-size:17px!important}.taMarketMeta{font-size:12px!important}.taMarketPrice{font-size:16px!important}.taMarketHint{font-size:13px!important}
+ .premiumSection{padding-top:24px!important;padding-bottom:25px!important}
+}
+@media(max-width:390px){.premiumSection .premiumHeading h2{font-size:18px!important}.premiumSection .premiumHeading a{font-size:10px!important;padding:8px 9px!important}#profiles,.compactList{grid-template-columns:minmax(0,255px)!important}.taMarketCard{max-width:255px!important}}
+</style>
+<script id="ta-final-search-cards-v17-js">
+(function(){
+ function setupV17(){
+  const search=document.querySelector('.premiumSearch.taSearchV3');
+  const more=document.getElementById('taMoreFilters');
+  const advanced=document.getElementById('taAdvancedFilters');
+  if(!search||!more)return;
+  // Botón Buscar visible siempre en escritorio.
+  if(!search.querySelector('.taDesktopSearch')){
+   const b=document.createElement('button'); b.type='button'; b.className='btn taDesktopSearch'; b.textContent='Buscar'; b.addEventListener('click',function(e){e.stopPropagation(); if(typeof loadProfiles==='function')loadProfiles();}); search.appendChild(b);
+  }
+  // Apertura fiable del menú móvil usando un botón real transparente sobre la cabecera visual.
+  if(!search.querySelector('.taMobileToggle')){
+   const t=document.createElement('button'); t.type='button'; t.className='taMobileToggle'; t.setAttribute('aria-label','Abrir buscador');
+   t.style.cssText='position:absolute;left:0;right:0;top:0;height:58px;z-index:5;background:transparent;border:0;cursor:pointer;';
+   t.addEventListener('click',function(e){if(window.innerWidth<=650){e.preventDefault();e.stopPropagation();search.classList.toggle('taMobileOpen');}}); search.appendChild(t);
+  }
+  // Sustituye el comportamiento antiguo de Más filtros por un desplegable completo en escritorio.
+  more.addEventListener('click',function(e){
+   if(window.innerWidth>650){e.preventDefault();e.stopImmediatePropagation();const open=search.classList.toggle('taDesktopOpen');this.setAttribute('aria-expanded',String(open));this.textContent=open?'Ocultar filtros ▴':'Filtros ▾';if(advanced)advanced.classList.toggle('taOpen',open);}
+  },true);
+  if(window.innerWidth>650){more.textContent='Filtros ▾';more.setAttribute('aria-expanded','false');search.classList.remove('taDesktopOpen');if(advanced)advanced.classList.remove('taOpen');}
+ }
+ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',setupV17):setupV17();
+})();
+</script>
 </body>
 </html>
 
