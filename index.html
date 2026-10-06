@@ -1859,7 +1859,7 @@ footer small,footer a{color:#6d626e!important}
 <nav class="menu taMainMenu"><a href="#inicio">Inicio</a><a href="#profesionales">Buscar</a><a href="#categorias">Categorías</a><a href="#ubicaciones">Ubicaciones</a><a href="#" onclick="openModal('register');return false">Publicar anuncio</a></nav>
 <button class="btn small" onclick="document.getElementById('modal').classList.add('open');document.getElementById('register').style.display='block';document.getElementById('login').style.display='none';document.getElementById('mtitle').textContent='Crear cuenta'">＋ Publicar anuncio</button>
 <button class="btn small" onclick="document.getElementById('modal').classList.add('open');document.getElementById('register').style.display='none';document.getElementById('login').style.display='block';document.getElementById('mtitle').textContent='Mi cuenta'">Iniciar sesión</button>
-</div></header>
+</div></header><div id="taMobileOverlay" class="taMobileOverlay" aria-hidden="true" onclick="taCloseMobileMenu()"></div><aside id="taMobileDrawer" class="taMobileDrawer" aria-hidden="true"><div class="taDrawerTop"><a class="taDrawerBrand" href="#inicio" onclick="taCloseMobileMenu()"><img src="logo-tarotanuncia-claro.png" alt="TarotAnuncia"><span>TarotAnuncia</span></a><button class="taDrawerClose" onclick="taCloseMobileMenu()">×</button></div><div id="taProfessionalBox" class="taProfessionalBox" hidden><div class="taProfessionalAvatar">♙</div><div><strong>Mi cuenta profesional</strong><small>Gestiona tu perfil y tus anuncios</small></div></div><nav class="taDrawerNav"><a href="#inicio" onclick="taCloseMobileMenu()"><span>⌂</span><b>Inicio</b></a><a href="#profesionales" onclick="taCloseMobileMenu()"><span>⌕</span><b>Buscar tarotistas</b></a><a href="#profesionales" onclick="taOpenSearchFromMenu(event)"><span>◇</span><b>Categorías</b></a><a href="#profesionales" onclick="taOpenSearchFromMenu(event)"><span>⌖</span><b>Ubicaciones</b></a><a href="#profesionales" onclick="taCloseMobileMenu()"><span>♡</span><b>Favoritos</b></a></nav><div class="taDrawerDivider"></div><button class="taDrawerPublish" onclick="taCloseMobileMenu();openModal('register')">＋ Soy profesional / Publicar anuncio</button><nav id="taProfessionalLinks" class="taDrawerNav taProfessionalLinks" hidden><a href="panel.html"><span>♙</span><b>Mi perfil</b></a><a href="panel.html"><span>▤</span><b>Mis anuncios</b></a><a href="panel.html"><span>▥</span><b>Estadísticas</b></a><a href="panel.html"><span>★</span><b>Mi plan</b></a><a href="panel.html"><span>♢</span><b>Notificaciones</b></a></nav><button id="taDrawerLogin" class="taDrawerLogin" onclick="taCloseMobileMenu();openModal('login')">Iniciar sesión</button></aside>
 
 <main id="inicio">
 <section class="premiumHero"><div class="premiumHeroBg"></div><div class="wrap premiumHeroInner">
@@ -4591,7 +4591,7 @@ const taOpenProfileDescriptionLegacy=async function(raw){
  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',setupV17):setupV17();
 })();
 </script>
-</body>
+<style id="ta-mobile-nav-final">.taMobileDrawer,.taMobileOverlay{display:none}@media(max-width:650px){body{padding-bottom:0!important}header{position:sticky!important;top:0!important;z-index:1200!important;background:#fffffff7!important;border-bottom:1px solid #eadff5!important;box-shadow:0 4px 18px #48246214!important}header .nav{min-height:66px!important;height:66px!important;padding:7px 14px!important;display:flex!important;align-items:center!important;justify-content:space-between!important}header .headerLogo{width:48px!important;height:48px!important;object-fit:contain!important}header .brandWords{display:block!important}header .brandWords strong{font-size:18px!important}header .brandWords small{font-size:7px!important}header .menu,header .btn.small,.bottomNav{display:none!important}header .nav:after{content:"☰  MENÚ";display:flex;align-items:center;justify-content:center;min-width:104px;height:46px;padding:0 15px;border:1.5px solid #8d62c7;border-radius:13px;background:#fff;color:#4e2a72;font:800 16px Arial;box-shadow:0 3px 10px #562d781a}.taMobileOverlay{display:block;position:fixed;inset:0;z-index:1998;background:#1f122b6b;opacity:0;visibility:hidden;transition:.22s}.taMobileOverlay.open{opacity:1;visibility:visible}.taMobileDrawer{display:flex;flex-direction:column;position:fixed;z-index:1999;left:0;top:0;bottom:0;width:min(86vw,355px);padding:14px 15px 22px;background:#fff;border-radius:0 22px 22px 0;box-shadow:14px 0 40px #1c0c2b38;transform:translateX(-105%);transition:transform .24s ease;overflow-y:auto}.taMobileDrawer.open{transform:translateX(0)}.taDrawerTop{display:flex;align-items:center;justify-content:space-between;padding:2px 2px 13px;border-bottom:1px solid #eee6f5}.taDrawerBrand{display:flex;align-items:center;gap:9px;color:#43235f;text-decoration:none;font:800 20px Georgia}.taDrawerBrand img{width:48px;height:48px;object-fit:contain}.taDrawerClose{width:46px;height:46px;border:0;border-radius:50%;background:#f4eef9;color:#4c2a68;font-size:31px}.taProfessionalBox{margin:14px 0 5px;padding:12px;border-radius:15px;background:#faf7fd;border:1px solid #eadff5;display:flex;align-items:center;gap:11px}.taProfessionalBox[hidden],.taProfessionalLinks[hidden]{display:none!important}.taProfessionalAvatar{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#7c50b0;color:#fff;font-size:23px}.taProfessionalBox strong,.taProfessionalBox small{display:block}.taProfessionalBox strong{font-size:16px}.taProfessionalBox small{font-size:12px;color:#746a7c;margin-top:3px}.taDrawerNav{display:grid;gap:4px;padding:12px 0 5px}.taDrawerNav a{min-height:55px;padding:0 12px;border-radius:13px;display:flex;align-items:center;gap:14px;color:#32263b;text-decoration:none;font:700 18px Arial}.taDrawerNav a:active{background:#f4eef9}.taDrawerNav a span{width:29px;text-align:center;color:#7650a0;font-size:25px}.taDrawerDivider{height:1px;background:#eee6f5;margin:6px 0 13px}.taDrawerPublish,.taDrawerLogin{width:100%;min-height:54px;border-radius:14px;padding:10px 14px;font:800 16px Arial}.taDrawerPublish{border:0;background:linear-gradient(135deg,#c99525,#e0b74f);color:#fff}.taDrawerLogin{margin-top:11px;border:1.5px solid #7650a0;background:#fff;color:#59357c}.taProfessionalLinks{margin-top:7px;border-top:1px solid #eee6f5}body.taMenuOpen{overflow:hidden!important}}</style><script id="ta-mobile-nav-final-js">(function(){function D(){return document.getElementById('taMobileDrawer')}function O(){return document.getElementById('taMobileOverlay')}window.taOpenMobileMenu=function(){if(innerWidth>650)return;var d=D(),o=O();if(!d||!o)return;d.classList.add('open');o.classList.add('open');document.body.classList.add('taMenuOpen')};window.taCloseMobileMenu=function(){var d=D(),o=O();if(d)d.classList.remove('open');if(o)o.classList.remove('open');document.body.classList.remove('taMenuOpen')};window.taOpenSearchFromMenu=function(e){if(e)e.preventDefault();taCloseMobileMenu();var s=document.querySelector('.premiumSearch.taSearchV3');if(s)s.classList.add('taMobileOpen');var t=document.querySelector('.premiumSearch')||document.getElementById('profesionales');if(t)setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'center'})},80)};async function sync(){var b=document.getElementById('taProfessionalBox'),l=document.getElementById('taProfessionalLinks'),x=document.getElementById('taDrawerLogin');if(!b||!l||!x)return;var on=false;try{on=typeof getCurrentUser==='function'?!!(await getCurrentUser()):!!localStorage.getItem('tarotanuncia_access_token')}catch(e){on=!!localStorage.getItem('tarotanuncia_access_token')}b.hidden=!on;l.hidden=!on;x.textContent=on?'Ir a mi panel':'Iniciar sesión';x.onclick=on?function(){location.href='panel.html'}:function(){taCloseMobileMenu();openModal('login')}}function init(){var n=document.querySelector('header .nav');if(n&&!n.dataset.taMenuBound){n.dataset.taMenuBound='1';n.addEventListener('click',function(e){if(innerWidth<=650){var r=n.getBoundingClientRect();if(e.clientX>=r.right-125){e.preventDefault();e.stopPropagation();taOpenMobileMenu()}}})}sync();document.addEventListener('keydown',function(e){if(e.key==='Escape')taCloseMobileMenu()});addEventListener('resize',function(){if(innerWidth>650)taCloseMobileMenu()})}document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init()})();</script></body>
 </html>
 
 <style id="desktop-featured-card-fix-v1">
@@ -5914,105 +5914,5 @@ try{if(Array.isArray(window.currentAds)&&window.currentAds.length)renderProfiles
   });
  }
  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
-})();
-</script>
-
-<!-- TAROTANUNCIA AJUSTE FINAL: buscador compacto + tarjetas equilibradas -->
-<style id="ta-ajuste-final-v18">
-#categorias,.premiumCats{display:none!important}
-/* Evitar el segundo botón Buscar que vive dentro de filtros avanzados */
-.premiumSearch.taSearchV3 .taAdvancedFilters .taSearchButton{display:none!important}
-
-@media (min-width:651px){
-  .premiumSearch.taSearchV3{
-    display:grid!important;grid-template-columns:minmax(300px,1fr) auto auto!important;
-    gap:10px!important;align-items:center!important;padding:12px!important;
-  }
-  .premiumSearch.taSearchV3>.premiumQ{display:flex!important;grid-column:1!important;margin:0!important}
-  .premiumSearch.taSearchV3>.taMoreFilters{
-    display:block!important;grid-column:2!important;min-width:120px!important;height:46px!important;margin:0!important;
-    border:1px solid #e4d7c5!important;border-radius:23px!important;background:#fff!important;color:#4d3158!important;font-weight:800!important;
-  }
-  .premiumSearch.taSearchV3>.taDesktopSearch{display:block!important;grid-column:3!important;height:46px!important;padding:0 27px!important;border-radius:23px!important}
-  .premiumSearch.taSearchV3>.taGeoRow{display:none!important;grid-column:1/-1!important;grid-template-columns:repeat(3,1fr)!important;gap:10px!important;margin-top:2px!important}
-  .premiumSearch.taSearchV3>.taFilterRow{display:none!important;grid-column:1/-1!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin:0!important}
-  .premiumSearch.taSearchV3.taDesktopOpen>.taGeoRow{display:grid!important}
-  .premiumSearch.taSearchV3.taDesktopOpen>.taFilterRow{display:grid!important}
-  .premiumSection .premiumHeading h2{font-size:27px!important;line-height:1.1!important}
-  #profiles,.recentSection .compactList,.nearbySection .compactList,.compactList{
-    grid-template-columns:repeat(auto-fit,minmax(250px,290px))!important;gap:22px!important;justify-content:center!important;
-  }
-  .taMarketCard{width:100%!important;max-width:290px!important}
-}
-
-@media (max-width:650px){
-  .premiumHero{padding-bottom:18px!important}
-  .premiumSearch.taSearchV3{width:calc(100% - 36px)!important;margin:12px auto 0!important}
-  .premiumSearch.taSearchV3::before{
-    min-height:52px!important;font-size:17px!important;padding:0 46px 0 18px!important;border-radius:18px!important;
-  }
-  .premiumSearch.taSearchV3::after{top:14px!important;right:18px!important;font-size:19px!important}
-  .premiumSearch.taSearchV3 .taMobileToggle{height:52px!important}
-  .premiumSearch.taSearchV3.taMobileOpen{
-    padding:62px 10px 11px!important;border-radius:20px!important;
-  }
-  .premiumSearch.taSearchV3.taMobileOpen>.premiumQ{display:flex!important;margin-bottom:7px!important}
-  .premiumSearch.taSearchV3.taMobileOpen>.taGeoRow{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
-  .premiumSearch.taSearchV3.taMobileOpen>.taMoreFilters{
-    display:block!important;width:100%!important;min-height:44px!important;height:44px!important;margin:7px 0!important;
-    border:1px solid #e4d7c5!important;border-radius:18px!important;background:#fff!important;color:#54266f!important;font-weight:800!important;
-  }
-  .premiumSearch.taSearchV3.taMobileOpen>.taFilterRow.taOpen{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
-  .premiumSearch.taSearchV3 input,.premiumSearch.taSearchV3 select{min-height:44px!important;height:44px!important;font-size:15px!important}
-  .premiumSearch.taSearchV3>.taDesktopSearch{display:none!important}
-  .premiumSearch.taSearchV3.taMobileOpen>.taDesktopSearch{
-    display:block!important;width:100%!important;min-height:46px!important;height:46px!important;margin-top:8px!important;border-radius:20px!important;font-size:16px!important;
-  }
-
-  #profesionales{padding-top:22px!important}
-  .premiumSection{padding-top:22px!important;padding-bottom:24px!important}
-  .premiumSection .wrap{padding-left:16px!important;padding-right:16px!important}
-  .premiumSection .premiumHeading{padding:0 2px 11px!important;gap:8px!important}
-  .premiumSection .premiumHeading h2{
-    font-size:20px!important;line-height:1.08!important;white-space:nowrap!important;overflow:visible!important;
-  }
-  .premiumSection .premiumHeading a{font-size:11px!important;padding:8px 10px!important;white-space:nowrap!important}
-  #profiles,.recentSection .compactList,.nearbySection .compactList,.compactList{
-    display:grid!important;grid-template-columns:minmax(0,280px)!important;gap:15px!important;
-    justify-content:center!important;justify-items:center!important;width:100%!important;margin:0 auto!important;padding:0!important;
-  }
-  .taMarketCard{width:100%!important;max-width:280px!important;margin:0 auto!important;border-radius:15px!important}
-  .taMarketPhoto{width:100%!important;aspect-ratio:4/3!important}
-  .taMarketInfo{padding:11px 12px 12px!important}
-  .taMarketName{font-size:17px!important;line-height:1.18!important}
-  .taMarketMeta{font-size:12px!important;line-height:1.3!important;margin-bottom:7px!important}
-  .taMarketPrice{font-size:16px!important}
-  .taMarketHint{font-size:13px!important;min-height:28px!important;padding:6px 0 2px!important}
-  .taMarketPlan{font-size:10px!important;padding:4px 7px!important}
-  .taMarketHeart{width:35px!important;height:35px!important;font-size:19px!important}
-}
-@media(max-width:390px){
-  .premiumSection .premiumHeading h2{font-size:18px!important}
-  .premiumSection .premiumHeading a{font-size:10px!important;padding:7px 9px!important}
-  #profiles,.recentSection .compactList,.nearbySection .compactList,.compactList{grid-template-columns:minmax(0,270px)!important}
-  .taMarketCard{max-width:270px!important}
-}
-</style>
-<script id="ta-ajuste-final-v18-js">
-(function(){
- function sync(){
-  const search=document.querySelector('.premiumSearch.taSearchV3');
-  const more=document.getElementById('taMoreFilters');
-  const advanced=document.getElementById('taAdvancedFilters');
-  if(!search||!more)return;
-  function updateMore(){
-   const open=advanced&&advanced.classList.contains('taOpen');
-   more.setAttribute('aria-expanded',String(!!open));
-   more.textContent=open?'Menos filtros ▴':'Más filtros ▾';
-  }
-  more.addEventListener('click',function(){setTimeout(updateMore,0);},false);
-  updateMore();
- }
- document.readyState==='loading'?document.addEventListener('DOMContentLoaded',sync):sync();
 })();
 </script>
