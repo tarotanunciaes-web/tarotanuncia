@@ -5916,3 +5916,103 @@ try{if(Array.isArray(window.currentAds)&&window.currentAds.length)renderProfiles
  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
 </script>
+
+<!-- TAROTANUNCIA AJUSTE FINAL: buscador compacto + tarjetas equilibradas -->
+<style id="ta-ajuste-final-v18">
+#categorias,.premiumCats{display:none!important}
+/* Evitar el segundo botón Buscar que vive dentro de filtros avanzados */
+.premiumSearch.taSearchV3 .taAdvancedFilters .taSearchButton{display:none!important}
+
+@media (min-width:651px){
+  .premiumSearch.taSearchV3{
+    display:grid!important;grid-template-columns:minmax(300px,1fr) auto auto!important;
+    gap:10px!important;align-items:center!important;padding:12px!important;
+  }
+  .premiumSearch.taSearchV3>.premiumQ{display:flex!important;grid-column:1!important;margin:0!important}
+  .premiumSearch.taSearchV3>.taMoreFilters{
+    display:block!important;grid-column:2!important;min-width:120px!important;height:46px!important;margin:0!important;
+    border:1px solid #e4d7c5!important;border-radius:23px!important;background:#fff!important;color:#4d3158!important;font-weight:800!important;
+  }
+  .premiumSearch.taSearchV3>.taDesktopSearch{display:block!important;grid-column:3!important;height:46px!important;padding:0 27px!important;border-radius:23px!important}
+  .premiumSearch.taSearchV3>.taGeoRow{display:none!important;grid-column:1/-1!important;grid-template-columns:repeat(3,1fr)!important;gap:10px!important;margin-top:2px!important}
+  .premiumSearch.taSearchV3>.taFilterRow{display:none!important;grid-column:1/-1!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin:0!important}
+  .premiumSearch.taSearchV3.taDesktopOpen>.taGeoRow{display:grid!important}
+  .premiumSearch.taSearchV3.taDesktopOpen>.taFilterRow{display:grid!important}
+  .premiumSection .premiumHeading h2{font-size:27px!important;line-height:1.1!important}
+  #profiles,.recentSection .compactList,.nearbySection .compactList,.compactList{
+    grid-template-columns:repeat(auto-fit,minmax(250px,290px))!important;gap:22px!important;justify-content:center!important;
+  }
+  .taMarketCard{width:100%!important;max-width:290px!important}
+}
+
+@media (max-width:650px){
+  .premiumHero{padding-bottom:18px!important}
+  .premiumSearch.taSearchV3{width:calc(100% - 36px)!important;margin:12px auto 0!important}
+  .premiumSearch.taSearchV3::before{
+    min-height:52px!important;font-size:17px!important;padding:0 46px 0 18px!important;border-radius:18px!important;
+  }
+  .premiumSearch.taSearchV3::after{top:14px!important;right:18px!important;font-size:19px!important}
+  .premiumSearch.taSearchV3 .taMobileToggle{height:52px!important}
+  .premiumSearch.taSearchV3.taMobileOpen{
+    padding:62px 10px 11px!important;border-radius:20px!important;
+  }
+  .premiumSearch.taSearchV3.taMobileOpen>.premiumQ{display:flex!important;margin-bottom:7px!important}
+  .premiumSearch.taSearchV3.taMobileOpen>.taGeoRow{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
+  .premiumSearch.taSearchV3.taMobileOpen>.taMoreFilters{
+    display:block!important;width:100%!important;min-height:44px!important;height:44px!important;margin:7px 0!important;
+    border:1px solid #e4d7c5!important;border-radius:18px!important;background:#fff!important;color:#54266f!important;font-weight:800!important;
+  }
+  .premiumSearch.taSearchV3.taMobileOpen>.taFilterRow.taOpen{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
+  .premiumSearch.taSearchV3 input,.premiumSearch.taSearchV3 select{min-height:44px!important;height:44px!important;font-size:15px!important}
+  .premiumSearch.taSearchV3>.taDesktopSearch{display:none!important}
+  .premiumSearch.taSearchV3.taMobileOpen>.taDesktopSearch{
+    display:block!important;width:100%!important;min-height:46px!important;height:46px!important;margin-top:8px!important;border-radius:20px!important;font-size:16px!important;
+  }
+
+  #profesionales{padding-top:22px!important}
+  .premiumSection{padding-top:22px!important;padding-bottom:24px!important}
+  .premiumSection .wrap{padding-left:16px!important;padding-right:16px!important}
+  .premiumSection .premiumHeading{padding:0 2px 11px!important;gap:8px!important}
+  .premiumSection .premiumHeading h2{
+    font-size:20px!important;line-height:1.08!important;white-space:nowrap!important;overflow:visible!important;
+  }
+  .premiumSection .premiumHeading a{font-size:11px!important;padding:8px 10px!important;white-space:nowrap!important}
+  #profiles,.recentSection .compactList,.nearbySection .compactList,.compactList{
+    display:grid!important;grid-template-columns:minmax(0,280px)!important;gap:15px!important;
+    justify-content:center!important;justify-items:center!important;width:100%!important;margin:0 auto!important;padding:0!important;
+  }
+  .taMarketCard{width:100%!important;max-width:280px!important;margin:0 auto!important;border-radius:15px!important}
+  .taMarketPhoto{width:100%!important;aspect-ratio:4/3!important}
+  .taMarketInfo{padding:11px 12px 12px!important}
+  .taMarketName{font-size:17px!important;line-height:1.18!important}
+  .taMarketMeta{font-size:12px!important;line-height:1.3!important;margin-bottom:7px!important}
+  .taMarketPrice{font-size:16px!important}
+  .taMarketHint{font-size:13px!important;min-height:28px!important;padding:6px 0 2px!important}
+  .taMarketPlan{font-size:10px!important;padding:4px 7px!important}
+  .taMarketHeart{width:35px!important;height:35px!important;font-size:19px!important}
+}
+@media(max-width:390px){
+  .premiumSection .premiumHeading h2{font-size:18px!important}
+  .premiumSection .premiumHeading a{font-size:10px!important;padding:7px 9px!important}
+  #profiles,.recentSection .compactList,.nearbySection .compactList,.compactList{grid-template-columns:minmax(0,270px)!important}
+  .taMarketCard{max-width:270px!important}
+}
+</style>
+<script id="ta-ajuste-final-v18-js">
+(function(){
+ function sync(){
+  const search=document.querySelector('.premiumSearch.taSearchV3');
+  const more=document.getElementById('taMoreFilters');
+  const advanced=document.getElementById('taAdvancedFilters');
+  if(!search||!more)return;
+  function updateMore(){
+   const open=advanced&&advanced.classList.contains('taOpen');
+   more.setAttribute('aria-expanded',String(!!open));
+   more.textContent=open?'Menos filtros ▴':'Más filtros ▾';
+  }
+  more.addEventListener('click',function(){setTimeout(updateMore,0);},false);
+  updateMore();
+ }
+ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',sync):sync();
+})();
+</script>
