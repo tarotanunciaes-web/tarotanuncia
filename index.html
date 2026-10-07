@@ -1657,11 +1657,43 @@ footer{
  #profiles.cardGrid,#recentProfiles.cardGrid,#nearbyProfiles.cardGrid{grid-template-columns:repeat(auto-fit,minmax(220px,250px))!important;justify-content:start!important;padding-left:0!important;padding-right:0!important}
 }
 </style>
+
+<style id="ta-home-clean-20261007">
+.taHomeLinks{padding:22px 0 8px}
+.taHomeLinksGrid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:14px}
+.taHomeLink{min-height:68px;border:1px solid #d8ad55;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;color:#9a6500;font-size:17px;box-shadow:0 5px 16px rgba(50,35,20,.05)}
+.taHomePrimary{background:linear-gradient(135deg,#6d2c68,#7f3b86);border-color:#6d2c68;color:#fff}
+.taHomeLink span{font-size:24px}
+.taOnlyModalities.open{grid-template-columns:1fr!important}
+@media(max-width:900px){
+  #buscar.desktopSearch{
+    display:grid!important;
+    position:relative!important;
+    width:calc(100% - 24px)!important;
+    margin:-18px auto 10px!important;
+    padding:9px!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:7px!important;
+    border-radius:14px!important;
+  }
+  #buscar .sField{height:43px!important;padding:0 9px!important}
+  #buscar .sField:first-child{grid-column:1/-1}
+  #buscar .sField:nth-child(4){grid-column:1/-1}
+  #buscar .searchBtn{grid-column:1/-1;height:43px!important}
+  .filterLine{display:flex!important;width:calc(100% - 24px)!important;margin:8px auto 0!important}
+  #filterPanel.filterPanel.open{display:grid!important;width:calc(100% - 24px)!important;margin:8px auto 10px!important}
+  .hero{height:285px!important;min-height:285px!important}
+  .taHomeLinks{padding:16px 0 5px}
+  .taHomeLinksGrid{width:calc(100% - 24px)!important;grid-template-columns:1fr!important;gap:9px}
+  .taHomeLink{min-height:54px;padding:0 16px;font-size:15px}
+}
+</style>
+
 </head><body>
 <header>
  <div class="wrap top">
   <a class="brand" href="#inicio"><img src="file_000000003c088210be49f3122608d83d.png" alt="TarotAnuncia"><div><div class="brandName">Tarot<span>Anuncia</span></div><div class="tagline">TAROTISTAS CERCA DE TI</div></div></a>
-  <nav class="desktopNav"><a href="#inicio">Inicio</a><a href="#buscar">Buscar</a><a href="#ubicaciones">Ubicaciones</a><a href="#como">Cómo funciona</a></nav>
+  <nav class="desktopNav"><a href="index.html">Inicio</a><a href="anuncios.html">Anuncios</a><a href="tarotistas.html">Tarotistas</a><a href="destacados.html">Destacados</a></nav>
   <button class="goldBtn" onclick="openModal('register')">＋ Publicar anuncio</button>
   <button class="loginBtn" onclick="openModal('login')">Iniciar sesión</button>
   <button class="mobileMenuBtn" aria-label="Abrir menú" onclick="toggleDrawer(true)">☰</button>
@@ -1676,10 +1708,10 @@ footer{
   <div><strong id="menuProfileName">Mi cuenta profesional</strong><small id="menuProfilePlan">Gestiona tu perfil y anuncios</small></div>
  </div>
  <nav class="drawerNav">
-  <a href="#inicio" onclick="toggleDrawer(false)">⌂ &nbsp; Inicio</a>
-  <a href="#buscar" onclick="toggleDrawer(false);openMobileSearch()">⌕ &nbsp; Buscar tarotistas</a>
-  <a href="#ubicaciones" onclick="toggleDrawer(false);openMobileSearch()">⌖ &nbsp; Ubicaciones</a>
-  <a href="#profesionales" onclick="toggleDrawer(false)">♡ &nbsp; Favoritos</a>
+  <a href="index.html" onclick="toggleDrawer(false)">⌂ &nbsp; Inicio</a>
+  <a href="anuncios.html" onclick="toggleDrawer(false)">⌕ &nbsp; Todos los anuncios</a>
+  <a href="tarotistas.html" onclick="toggleDrawer(false)">◇ &nbsp; Tarotistas</a>
+  <a href="destacados.html" onclick="toggleDrawer(false)">★ &nbsp; Destacados</a>
   <button class="drawerPublish goldBtn" onclick="toggleDrawer(false);openModal('register')">＋ Publicar anuncio</button>
   <a id="drawerProfile" href="panel.html" hidden>Mi perfil</a>
   <a id="drawerAds" href="panel.html" hidden>Mis anuncios</a>
@@ -1694,19 +1726,39 @@ footer{
  </div></div></section>
 
  <div id="buscar" class="desktopSearch">
-  <div class="sField"><span class="sIcon iSearch"></span><input id="q" placeholder="¿Qué buscas?"></div>
+  <div class="sField"><span class="sIcon iSearch"></span>
+    <select id="cat" aria-label="¿Qué buscas?">
+      <option value="">¿Qué buscas?</option>
+      <option value="Tarot">Tarot</option>
+      <option value="Videncia">Videncia</option>
+      <option value="Amor y pareja">Amor y pareja</option>
+      <option value="Astrología">Astrología</option>
+      <option value="Médium">Médium</option>
+      <option value="Espiritualidad">Espiritualidad</option>
+      <option value="Rituales">Rituales</option>
+      <option value="Numerología">Numerología</option>
+      <option value="Reiki/Energías">Reiki / Energías</option>
+      <option value="Otros servicios">Otros servicios</option>
+    </select>
+    <input id="q" type="hidden" value="">
+  </div>
   <div class="sField"><span class="sIcon iPin"></span><select id="communityFilter"><option value="">Toda España</option></select></div>
   <div class="sField"><span class="sIcon iMap"></span><select id="provinceFilter"><option value="">Provincia</option></select></div>
   <div class="sField"><span class="sIcon iPin"></span><select id="city"><option value="">Localidad o municipio</option></select></div>
-  <button class="searchBtn" onclick="loadProfiles()">Buscar</button>
+  <button class="searchBtn" type="button" onclick="goToAds()">Buscar</button>
  </div>
- <div class="filterLine"><button class="filterToggle" onclick="document.getElementById('filterPanel').classList.toggle('open')">Filtros: categorías y modalidad</button></div>
- <div id="filterPanel" class="filterPanel"><div><h4>Categorías · puedes escoger varias</h4><div id="searchCategories" class="multiPills"></div></div><div><h4>Modalidades · puedes escoger varias</h4><div id="searchModalities" class="multiPills"></div></div></div>
- <select id="cat" hidden><option value=""></option></select><select id="modFilter" hidden><option value=""></option></select>
-
- <section id="profesionales" class="section"><div class="wrap"><div class="sectionHead"><h2>Tarotistas destacados</h2><a class="seeAll" href="#buscar">Ver todos →</a></div><div id="profiles" class="cardGrid"></div></div></section>
- <section class="section"><div class="wrap"><div class="sectionHead"><h2>Últimos anuncios</h2><a class="seeAll" href="#buscar">Ver todos →</a></div><div id="recentProfiles" class="cardGrid recentGrid"></div></div></section>
- <section id="ubicaciones" class="section"><div class="wrap"><div class="sectionHead"><h2>Tarotistas cerca de ti</h2><a class="seeAll" href="#buscar">Ver todos →</a></div><div id="nearbyProfiles" class="cardGrid"></div></div></section>
+ <div class="filterLine"><button class="filterToggle" onclick="document.getElementById('filterPanel').classList.toggle('open')">Más filtros</button></div>
+ <div id="filterPanel" class="filterPanel taOnlyModalities"><div><h4>Modalidad</h4><div id="searchModalities" class="multiPills"></div></div></div>
+ <div id="searchCategories" hidden></div><select id="modFilter" hidden><option value=""></option></select>
+ <section class="taHomeLinks">
+  <div class="wrap taHomeLinksGrid">
+   <a class="taHomeLink taHomePrimary" href="anuncios.html"><strong>Ver todos los anuncios</strong><span>→</span></a>
+   <a class="taHomeLink" href="tarotistas.html"><strong>Ver tarotistas</strong><span>→</span></a>
+   <a class="taHomeLink" href="destacados.html"><strong>Destacados</strong><span>→</span></a>
+  </div>
+ </section>
+ <!-- Contenedores técnicos ocultos: conservan compatibilidad con el JS existente -->
+ <div id="profiles" hidden></div><div id="recentProfiles" hidden></div><div id="nearbyProfiles" hidden></div>
  <section id="como"><div class="wrap trustStrip">
       <div class="trustItem"><span class="trustIcon">✓</span><b>Perfiles revisados</b><small>Datos de contacto comprobados</small></div>
       <div class="trustItem"><span class="trustIcon">◇</span><b>Contacto directo</b><small>Habla directamente con el profesional</small></div>
@@ -3623,6 +3675,24 @@ document.addEventListener('DOMContentLoaded', async function(){
     if(e.target.closest && e.target.closest('.taViewProfile')) setTimeout(addReviews,80);
   });
 })();
+</script>
+
+
+<script id="ta-home-routing">
+function goToAds(){
+  const p = new URLSearchParams();
+  const cat = document.getElementById('cat')?.value || '';
+  const community = document.getElementById('communityFilter')?.value || '';
+  const province = document.getElementById('provinceFilter')?.value || '';
+  const city = document.getElementById('city')?.value || '';
+  const modality = document.getElementById('modFilter')?.value || '';
+  if(cat) p.set('categoria', cat);
+  if(community) p.set('comunidad', community);
+  if(province) p.set('provincia', province);
+  if(city) p.set('localidad', city);
+  if(modality) p.set('modalidad', modality);
+  location.href = 'anuncios.html' + (p.toString() ? '?' + p.toString() : '');
+}
 </script>
 
 </body></html>
