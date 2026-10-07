@@ -3321,6 +3321,29 @@ footer a:hover{text-decoration:underline!important}
   .featuredGrid .viewBtn, .featuredGrid .taFeaturedActions{margin-top:auto!important;}
 }
 </style>
+
+<style id="ta-desktop-featured-two-cards-final-20261007">
+/* SOLO ESCRITORIO: dos tarjetas destacadas más anchas, centradas y alineadas.
+   Móvil queda exactamente como estaba. */
+@media (min-width:901px){
+  #featuredGrid, .featuredGrid{
+    grid-template-columns:repeat(2,minmax(0,420px))!important;
+    justify-content:center!important;
+    align-items:stretch!important;
+    gap:28px!important;
+  }
+  #featuredGrid > .taFeaturedCard, #featuredGrid > .adCard,
+  .featuredGrid > .taFeaturedCard, .featuredGrid > .adCard{
+    width:100%!important;
+    max-width:420px!important;
+    justify-self:stretch!important;
+    height:100%!important;
+  }
+  #featuredGrid .taGalleryFrame, .featuredGrid .taGalleryFrame{
+    height:190px!important;
+  }
+}
+</style>
 </head><body>
 <header>
  <div class="wrap top">
