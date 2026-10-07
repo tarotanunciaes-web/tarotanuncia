@@ -5904,5 +5904,71 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 })();
 </script>
+<style id="tarotanuncia-tarjetas-movil-compactas">
+@media (max-width:700px){
 
+  /* Mantener 2 tarjetas por fila */
+  .cardGrid,
+  .recentGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+
+  /* Tarjeta más compacta */
+  .taFeaturedCard{
+    padding:5px!important;
+    border-radius:11px!important;
+  }
+
+  /* Foto más pequeña */
+  .taGalleryFrame{
+    height:92px!important;
+  }
+
+  /* Información */
+  .taFeaturedBody{
+    margin-top:4px!important;
+    padding:5px!important;
+  }
+
+  .taFeaturedName{
+    font-size:12px!important;
+  }
+
+  .taFeaturedMeta{
+    font-size:8px!important;
+    margin:3px 0!important;
+  }
+
+  .taFeaturedTags{
+    margin:3px 0!important;
+  }
+
+  .taFeaturedTags span{
+    font-size:8px!important;
+    padding:2px 5px!important;
+  }
+
+  .taFeaturedPrice{
+    font-size:12px!important;
+    margin:3px 0!important;
+  }
+
+  /* Corazón */
+  .taHeart{
+    width:24px!important;
+    height:24px!important;
+    font-size:14px!important;
+  }
+
+  /* Botones */
+  .taFeaturedActions .btn,
+  .taViewAd,
+  .taViewProfile{
+    min-height:26px!important;
+    font-size:8px!important;
+    padding:4px!important;
+  }
+}
+</style>
 </body></html>
