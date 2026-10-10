@@ -1,0 +1,100 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tienda esotérica | TarotAnuncia</title>
+<meta name="description" content="Descubre productos esotéricos anunciados por profesionales en TarotAnuncia.">
+<style>
+:root{--gold:#d89400;--gold2:#efb326;--ink:#171526;--cream:#fffaf1;--line:#eadfce;--green:#169b67}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:Arial,system-ui,sans-serif;background:#fffdf9}
+a{text-decoration:none;color:inherit}button,input,select{font:inherit}.wrap{width:min(1320px,calc(100% - 56px));margin:auto}
+header{height:78px;background:#fff;border-bottom:1px solid #eee4d6;position:sticky;top:0;z-index:50}
+.top{height:78px;display:flex;align-items:center;gap:28px}.brand{display:flex;align-items:center;gap:10px;margin-right:auto}.brand img{width:68px;height:68px;object-fit:contain}.brandName{font:700 34px Georgia,serif}.brandName span{color:#b97800}.tagline{font-size:11px;letter-spacing:2px}
+.desktopNav{display:flex;align-items:center;gap:30px;font-size:15px}.desktopNav a:first-child{color:#b97800;border-bottom:2px solid #d99b17;padding-bottom:9px}
+.goldBtn{border:0;border-radius:24px;padding:13px 22px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;font-weight:800;cursor:pointer}
+.loginBtn{border:1px solid #d7ad5d;background:#fff;border-radius:13px;padding:12px 16px;font-weight:700}.mobileMenuBtn{display:none}
+.hero{height:285px;background-image:linear-gradient(90deg,rgba(255,249,239,.98) 0%,rgba(255,249,239,.82) 37%,rgba(255,255,255,.05) 68%),url('hero-espiritual.jpg');background-size:cover;background-position:center}
+.heroInner{height:100%;display:flex;align-items:center}.heroText{max-width:560px}.hero h1{font:800 54px/.98 Georgia,serif;margin:0 0 12px;letter-spacing:-1px}.hero p{font-size:19px;line-height:1.35;margin:0}
+.desktopSearch{position:relative;margin:-31px auto 18px;background:#fff;border:1px solid var(--line);box-shadow:0 9px 24px #4c36151c;border-radius:17px;padding:10px;display:grid;grid-template-columns:1.35fr .8fr .9fr 1fr 150px;gap:8px;z-index:4}
+.sField{height:48px;border:1px solid #e8e0d5;border-radius:12px;background:#fff;display:flex;align-items:center;padding:0 13px;gap:9px}.sField input,.sField select{border:0;outline:0;width:100%;background:transparent}.sIcon{color:#c5870b;font-size:20px}
+.searchBtn{border:0;border-radius:12px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;font-weight:800;font-size:17px}
+.filterLine{width:min(1320px,calc(100% - 56px));margin:0 auto 12px;display:flex;gap:10px;align-items:center}.filterToggle{border:1px solid #dcb25d;background:#fff9eb;border-radius:999px;padding:9px 14px;font-weight:700;color:#6d4b0a}
+.filterPanel{display:none;width:min(1320px,calc(100% - 56px));margin:0 auto 20px;padding:14px;border:1px solid var(--line);border-radius:15px;background:#fff}.filterPanel.open{display:grid;grid-template-columns:1fr 1fr;gap:18px}.filterPanel h4{margin:0 0 9px}.multiPills{display:flex;flex-wrap:wrap;gap:8px}.pill{border:1px solid #decda9;background:#fff;border-radius:999px;padding:9px 12px;cursor:pointer}.pill.on{background:#fff0c8;border-color:#d3940a;color:#6d4700;font-weight:800}
+.section{padding:20px 0 8px}.sectionHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.sectionHead h2{font:800 30px Georgia,serif;margin:0}.seeAll{background:#fff0cd;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:700}
+.cardGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}.adCard{background:#fff;border:1px solid #eadfce;border-radius:13px;overflow:hidden;box-shadow:0 5px 16px #36250d12;position:relative;cursor:pointer}.adCard.premium{border:2px solid #6d2c68}.adCard.featured{border:1.5px solid #d99c13}.photo{height:165px;background:#faf6ef;position:relative;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover;display:block}.badge{position:absolute;top:8px;left:8px;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;color:#fff;background:#d99400}.premium .badge{background:#8b2d73}.heart{position:absolute;right:8px;top:8px;width:34px;height:34px;border-radius:50%;border:1px solid #e3d4b7;background:#fff;color:#c2870e;font-size:20px}.cardBody{padding:10px 13px 12px}.cardTitle{font:800 18px Georgia,serif;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:12px;color:#666;margin-bottom:6px}.online{color:var(--green)}.price{font-size:16px;font-weight:900;margin-bottom:9px}.viewBtn{display:block;width:100%;border:0;border-radius:9px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;text-align:center;padding:10px;font-weight:800}
+.recentGrid .photo{height:110px}.trustStrip{margin:24px auto 10px;padding:18px 26px;background:#fffaf1;border:1px solid #eee1c9;border-radius:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.trustItem{text-align:center}.trustItem b{display:block;font-family:Georgia,serif}.trustItem small{color:#777}
+footer{margin-top:34px;padding:30px 0;background:#241d24;color:#fff}
+.drawerOverlay,.drawer{display:none}.bottomNav{display:none!important}
+.modal{position:fixed;inset:0;background:#130b1d99;z-index:100;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.box{width:100%;max-width:540px;max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:25px;position:relative}.x{position:absolute;right:17px;top:10px;font-size:28px;cursor:pointer}.box input,.box textarea,.box select{width:100%;padding:12px;border:1px solid #ddd5e6;border-radius:11px;margin:5px 0 10px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fieldLabel{display:block;font-size:12px;font-weight:900;margin-top:3px}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.plan{border:1px solid #e3dceb;border-radius:14px;padding:12px;cursor:pointer}.plan.selected{border:2px solid var(--gold);background:#fff8e8}.notice{font-size:11px;color:#666;background:#faf7f1;padding:10px;border-radius:10px;margin-bottom:12px}.btn{border:0;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;font-weight:800;border-radius:20px;padding:11px 18px}.btn.ghost{background:#fff;color:#9b6a00;border:1px solid #dcb25d}
+@media(max-width:900px){
+ .wrap{width:calc(100% - 28px)}header{height:66px}.top{height:66px}.brand img{width:48px;height:48px}.brandName{font-size:23px}.tagline{font-size:8px;letter-spacing:1.2px}.desktopNav,.top>.goldBtn,.top>.loginBtn{display:none}.mobileMenuBtn{display:block;border:0;background:#fff;font-size:25px;padding:8px}
+ .hero{height:235px;background-image:linear-gradient(90deg,rgba(255,249,239,.96),rgba(255,249,239,.43)),url('hero-espiritual.jpg');background-position:center}.hero h1{font-size:34px;max-width:270px}.hero p{font-size:15px;max-width:285px}
+ .desktopSearch,.filterLine,.filterPanel{display:none!important}
+ .section{padding:18px 0 4px}.sectionHead h2{font-size:25px}.seeAll{padding:9px 12px;font-size:12px}
+ .cardGrid{grid-template-columns:1fr;gap:15px}.adCard{width:100%;max-width:330px;margin:auto}.photo{height:180px}.cardTitle{font-size:18px}.recentGrid{display:grid;grid-template-columns:1fr;gap:12px}.recentGrid .adCard{max-width:330px}.recentGrid .photo{height:145px}
+ .trustStrip{grid-template-columns:1fr;margin-top:20px}
+ .drawerOverlay{display:block;position:fixed;inset:0;background:#0006;z-index:79;opacity:0;pointer-events:none;transition:.2s}.drawerOverlay.open{opacity:1;pointer-events:auto}.drawer{display:block;position:fixed;left:0;top:0;bottom:0;width:min(82vw,310px);background:#fff;z-index:80;transform:translateX(-105%);transition:.22s;padding:14px;overflow:auto}.drawer.open{transform:none}.drawerTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:10px}.drawerTop img{width:46px;height:46px;object-fit:contain}.closeMenu{border:0;background:#fff;font-size:26px}.accountCard{display:flex;align-items:center;gap:10px;margin:12px 0;padding:10px;border:1px solid #eadfce;border-radius:13px;background:#fffaf1;cursor:pointer}.accountCard img{width:46px;height:46px;border-radius:50%;object-fit:cover}.accountCard strong,.accountCard small{display:block}.accountCard small{font-size:11px;color:#777;margin-top:3px}.drawerNav{display:grid;gap:3px}.drawerNav a,.drawerNav button{min-height:44px;border:0;background:#fff;text-align:left;padding:10px;border-radius:10px;font-weight:700}.drawerNav a:hover,.drawerNav button:hover{background:#fff7e7}.drawerPublish{margin:10px 0;width:100%;min-height:46px}.formGrid{grid-template-columns:1fr}.plans{grid-template-columns:1fr}
+}
+@media(max-width:370px){.brandName{font-size:20px}.tagline{display:none}.adCard{max-width:calc(100vw - 30px)}}
+ .shopGallery{display:flex;gap:5px;overflow-x:auto;margin:6px 0}.shopThumb{border:1px solid #d8c99d;background:white;border-radius:6px;padding:2px;flex:0 0 40px}.shopThumb img{width:36px;height:36px;object-fit:contain} </style>
+<style>
+body{background:#fbfaf6}.desktopNav a:first-child{color:inherit;border:0;padding:0}
+.desktopNav a:last-child{color:#a87608;border-bottom:2px solid #d99b17;padding-bottom:9px}
+.shopHero{min-height:265px;background:linear-gradient(90deg,rgba(255,250,241,.97),rgba(255,250,241,.73)),url('hero-espiritual.jpg') center/cover;display:flex;align-items:center}
+.shopHero h1{font:800 clamp(36px,5vw,56px)/1.08 Georgia,serif;margin:0 0 12px}
+.shopHero p{font-size:17px;line-height:1.5;max-width:610px;color:#655a61}
+.shopIntro{padding:24px 0 5px}.shopIntro p{color:#655a61}
+.shopFilters{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 24px}
+.shopFilters button{border:1px solid #e1d2b8;border-radius:999px;padding:9px 14px;background:white;color:#654b24;font-weight:700;cursor:pointer}
+.shopFilters button.active{background:#fff0c8;border-color:#d99b17;color:#805700}
+.shopGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:30px}
+.shopCard{background:white;border:1px solid #e7d9c4;border-radius:14px;padding:7px;box-shadow:0 5px 16px #32231412;min-width:0}
+.shopPhoto{height:165px;background:#fbf7f0;border:1px solid #e3d4bc;border-radius:10px;display:grid;place-items:center;overflow:hidden}
+.shopPhoto img{width:100%;height:100%;object-fit:contain}
+.shopBody{margin-top:6px;border:1px solid #eadfce;border-radius:10px;padding:11px}
+.shopBody h3{font:800 17px Georgia,serif;margin:0 0 8px;overflow-wrap:anywhere}
+.shopCategory{font-size:12px;color:#806980}.shopPrice{font-size:19px;font-weight:900;margin:9px 0;color:#29202b}
+.shopContact{display:block;background:linear-gradient(135deg,#efb326,#d89400);color:#fff;border-radius:9px;padding:10px;text-align:center;font-weight:800}
+.shopEmpty{padding:32px 20px;background:white;border:1px solid #eadfce;border-radius:16px;text-align:center;color:#655a61}
+.shopCta{display:inline-block;background:#fff0c8;color:#76520d;border-radius:12px;padding:12px 18px;font-weight:800;margin-top:12px}
+.shopFooter{background:#241d24;color:#fff;padding:25px 0;margin-top:30px}
+@media(max-width:900px){.desktopNav{display:flex!important;gap:12px;flex-wrap:wrap;font-size:12px}.top{height:auto;min-height:80px;flex-wrap:wrap;padding:10px 0}.brand{margin-right:0}.mobileMenuBtn{display:none!important}.shopGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shopPhoto{height:120px}.shopBody{padding:8px}.shopBody h3{font-size:14px}.shopHero{min-height:220px}.shopHero p{font-size:14px}.shopPrice{font-size:15px}.shopContact{font-size:12px;padding:9px 5px}}
+</style></head><body>
+<header><div class="wrap top">
+<a class="brand" href="index.html"><img src="file_000000003c088210be49f3122608d83d.png" alt="TarotAnuncia"><div><div class="brandName">Tarot<span>Anuncia</span></div><div class="tagline">TAROTISTAS CERCA DE TI</div></div></a>
+<nav class="desktopNav"><a href="index.html">Inicio</a><a href="anuncios.html">Anuncios</a><a href="tarotistas.html">Tarotistas</a><a href="tienda-esoterica.html" aria-current="page">Tienda esotérica</a></nav>
+</div></header>
+<section class="shopHero"><div class="wrap"><h1>Tienda esotérica</h1><p>Descubre velas, amuletos, minerales, inciensos y otros productos publicados por profesionales. Contacta directamente con el vendedor.</p></div></section>
+<main class="wrap">
+<section class="shopIntro"><div class="sectionHead"><h2>Productos esotéricos</h2></div><p>Explora los artículos disponibles. Solo se muestran productos aprobados.</p>
+<div id="shopFilters" class="shopFilters" aria-label="Filtrar productos">
+<button class="active" data-category="Todos">Todos</button><button data-category="Velas">Velas</button><button data-category="Amuletos">Amuletos</button><button data-category="Minerales">Minerales</button><button data-category="Inciensos">Inciensos</button><button data-category="Otros">Otros</button>
+</div></section>
+<div id="shopGrid" class="shopGrid" aria-live="polite"></div>
+<div id="shopEmpty" class="shopEmpty">Cargando productos...</div>
+</main><footer class="shopFooter"><div class="wrap">TarotAnuncia · Publicaciones de profesionales independientes · <a href="index.html">Volver al inicio</a></div></footer>
+<script>
+const SUPABASE_URL='https://ozbbgfxixbgffxnhqpzh.supabase.co',SUPABASE_KEY='sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd';
+let products=[],category='Todos';
+const grid=document.getElementById('shopGrid'),empty=document.getElementById('shopEmpty');
+function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
+function render(){
+ grid.replaceChildren();
+ const visible=products.filter(p=>category==='Todos'||(category==='Minerales'?/mineral/i.test(p.category||''):String(p.category||'').toLowerCase().includes(category.toLowerCase().slice(0,-1))));
+ empty.style.display=visible.length?'none':'block';
+ empty.textContent=products.length?'No hay productos en esta categoría.':'Todavía no hay productos publicados. Pronto aparecerán aquí.';
+ for(const p of visible){
+  const card=el('article','shopCard'),photo=el('div','shopPhoto'),body=el('div','shopBody');
+  const pics=(Array.isArray(p.image_urls)&&p.image_urls.length?p.image_urls:[p.image_url]).filter(x=>x&&/^https:\/\//i.test(x));if(pics.length){const img=el('img');img.src=pics[0];img.alt=p.title||'Producto';img.loading='lazy';photo.append(img);if(pics.length>1){const nav=el('div','shopGallery');pics.forEach((url,i)=>{const b=el('button','shopThumb');b.type='button';b.setAttribute('aria-label','Ver foto '+(i+1));const thumb=el('img');thumb.src=url;thumb.alt='';b.append(thumb);b.addEventListener('click',()=>{img.src=url});nav.append(b)});body.append(nav)}}
+  else photo.append(el('span','', 'Producto esotérico'));
+  body.append(el('div','shopCategory',p.category||'Producto'),el('h3','',p.title||'Producto'),el('div','shopPrice',new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(Number(p.price)||0)));
+  const wa=String(p.whatsapp||'').replace(/[^0-9]/g,'');
+  if(wa.length>=9){const a=el('a','shopContact','Contactar por WhatsApp');a.href='https://wa.me/'+(wa.length===9?'34'+wa:wa)+'?text='+encodeURIComponent('Hola, he visto tu producto "'+(p.title||'')+'" en TarotAnuncia.');a.target='_blank';a.rel='noopener noreferrer';body.append(a)}
+  card.append(photo,body);grid.append(card);
+ }
+}
+document.querySelectorAll('#shopFilters button').forEach(b=>b.addEventListener('click',()=>{category=b.dataset.category;document.querySelectorAll('#shopFilters button').forEach(x=>x.classList.toggle('active',x===b));render()}));
+(async()=>{try{
+ const response=await fetch(SUPABASE_URL+'/rest/v1/ta_shop_products?select=id,title,description,category,price,whatsapp,image_url,image_urls&status=eq.approved&order=created_at.desc',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
+ if(!response.ok)throw Error('HTTP '+response.status);
+ products=await response.json();render()
+}catch(e){empty.style.display='block';empty.textContent='No se pudieron cargar los productos. Inténtalo más tarde.';console.error(e)}})();
+</script></body></html>
