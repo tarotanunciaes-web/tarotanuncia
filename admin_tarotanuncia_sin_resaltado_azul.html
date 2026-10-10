@@ -1,0 +1,372 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TarotAnuncia · Panel administrador</title>
+<link rel="manifest" href="/admin-manifest.webmanifest">
+<meta name="theme-color" content="#fffaf0">
+<link rel="icon" href="/ta-icon-192.png" type="image/png">
+<style>
+:root{--gold:#b77a12;--gold2:#e7bd65;--ink:#17162d;--muted:#6f6a76;--cream:#fffaf0;--line:#eee5d6;--green:#119b68;--red:#c93652}*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--ink);background:#fffdf9}.app{min-height:100vh}.top{height:86px;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;border-bottom:1px solid var(--line);background:#fff}.brand{display:flex;align-items:center;gap:12px}.brand img{width:58px;height:58px;object-fit:contain}.brand strong{font:800 30px Georgia,serif;color:#6e4510}.brand strong span{color:#39206e}.brand small{display:block;letter-spacing:4px;color:#777;font-size:10px}.admin{font-weight:800}.layout{display:grid;grid-template-columns:245px 1fr}.side{min-height:calc(100vh - 86px);padding:22px 14px;border-right:1px solid var(--line);background:#fff}.nav button{width:100%;border:0;background:transparent;padding:14px 16px;border-radius:12px;text-align:left;font-size:15px;margin:3px 0;cursor:pointer;color:#29283a}.nav button.active{background:#fff4dd;color:#7b4b00;border-left:3px solid var(--gold)}.main{padding:26px;max-width:1450px;width:100%}.head{display:flex;align-items:center;justify-content:space-between;gap:15px}.head h1{margin:0;font-size:30px}.muted{color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}.stat,.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 7px 24px #5539000a}.stat{padding:20px}.stat b{font-size:29px;display:block;margin-top:8px}.stat.gold{background:#fffaf0}.stat.green{background:#f1fcf7}.stat.pink{background:#fff4f6}.grid{display:grid;grid-template-columns:1fr 1.15fr;gap:18px}.card{padding:18px}.card h2{font-size:18px;margin:0 0 14px}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid #f0ebe3;padding:14px 0}.row:first-of-type{border-top:0}.pill{display:inline-block;padding:5px 10px;border-radius:99px;background:#f2f0ed;font-size:12px;font-weight:800}.pill.featured{background:#fff0c8;color:#805200}.pill.premium{background:#f5df9e;color:#6b4300}.actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}button.action{padding:8px 11px;border:1px solid #decba7;border-radius:9px;background:#fffaf0;color:#704600;font-weight:800;cursor:pointer}button.danger{border-color:#f0c7cf;color:#a8233d;background:#fff5f7}.login{max-width:480px;margin:80px auto;padding:28px}.login input{width:100%;padding:13px;border:1px solid #ded5c7;border-radius:10px;margin:6px 0 12px}.primary{padding:12px 16px;border:0;border-radius:10px;background:linear-gradient(135deg,#c89428,#9d6308);color:white;font-weight:900;cursor:pointer}.bell{position:relative;border:0;background:#fff8e8;border-radius:12px;padding:10px 13px;font-size:20px;cursor:pointer}.badge{position:absolute;right:-5px;top:-6px;background:#d83248;color:white;border-radius:99px;font-size:10px;padding:3px 6px}.noticebox{position:fixed;right:24px;top:78px;width:330px;max-height:430px;overflow:auto;background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 15px 50px #0002;padding:14px;z-index:10;display:none}.noticebox.open{display:block}.notice{padding:11px;border-bottom:1px solid #eee8de;font-size:13px}.notice:last-child{border:0}.section{display:none}.section.active{display:block}.planselect{padding:7px;border:1px solid #dfd2bd;border-radius:8px;background:#fff}.empty{padding:25px;text-align:center;color:#777}@media(max-width:900px){.layout{grid-template-columns:1fr}.side{min-height:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px;overflow:auto}.nav{display:flex;min-width:max-content}.nav button{width:auto}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.main{padding:16px}.brand strong{font-size:22px}.brand small{display:none}.top{padding:10px 15px}}@media(max-width:520px){.stats{grid-template-columns:1fr 1fr;gap:10px}.stat{padding:14px}.stat b{font-size:24px}.brand img{width:42px;height:42px}.admin{display:none}.row{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}.head h1{font-size:25px}}
+
+/* Professional dashboard refinement */
+:root{--navy:#12132f;--softgold:#fff6df;--purple:#7c3aed;--mint:#effbf6;--rose:#fff1f4}
+body{background:#fffefa}.top{height:92px;box-shadow:0 1px 0 #efe8dc}.brand strong{font-size:32px}.side{padding:18px 12px}.nav button{font-weight:650;padding:15px 17px}.main{padding:24px 28px}.stats{gap:14px}.stat{min-height:116px;padding:22px;border-radius:14px}.stat:nth-child(2){background:#fbf6ff}.stat:nth-child(3){background:#effbf6}.stat:nth-child(4){background:#fff2f5}.stat b{font-size:34px}.grid{grid-template-columns:1fr 1.25fr}.card{border-radius:14px;box-shadow:0 8px 24px rgba(80,55,20,.055)}
+.admedia{width:62px;height:48px;border-radius:9px;object-fit:cover;background:#f6f0e6;border:1px solid #eee1cc;flex:0 0 auto}.adline{display:flex;gap:12px;align-items:center}.contactpill{font-size:12px;color:#6d6873}.topright{display:flex;align-items:center;gap:12px}.adminbox{display:flex;flex-direction:column;line-height:1.15}.adminbox small{font-weight:500;color:#777}.quickgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.quick{padding:18px;border-radius:12px;text-align:center;font-weight:800;border:1px solid #eee5d8;background:#fffaf0}.quick:nth-child(2){background:#fbf5ff}.quick:nth-child(3){background:#effbf6}.quick:nth-child(4){background:#fff2f5}
+@media(min-width:901px){.layout{grid-template-columns:250px 1fr}.main{max-width:none}.side:after{content:'☾  ✦\A\A   ❈';white-space:pre;display:block;margin-top:120px;text-align:center;font-size:52px;line-height:1.35;color:#e7bd65;opacity:.75}}
+@media(max-width:700px){.top{height:76px}.brand strong{font-size:23px}.brand img{width:44px;height:44px}.topright{gap:7px}.main{padding:18px}.stats{grid-template-columns:1fr 1fr}.stat{min-height:104px;padding:16px}.stat b{font-size:29px}.grid{grid-template-columns:1fr}.side{position:sticky;top:0;z-index:5;background:#fff}.nav button{font-size:14px}.adminbox{display:none}.admedia{width:54px;height:46px}}
+
+/* Mobile readability + full ad/profile viewer */
+.stat b{line-height:1.05;min-height:38px;display:flex;align-items:flex-end}
+.row.clickable{cursor:pointer}.row.clickable:hover{background:#fffaf2}
+.viewer{position:fixed;inset:0;background:rgba(20,16,25,.48);z-index:100;display:none;padding:18px;overflow:auto}.viewer.open{display:flex;align-items:flex-start;justify-content:center}.viewer-card{width:min(760px,100%);margin:auto;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 70px #0003;overflow:hidden}.viewer-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}.viewer-head h2{margin:0}.viewer-close{border:0;background:#fff4dd;border-radius:50%;width:38px;height:38px;font-size:22px}.viewer-body{padding:20px}.viewer-photo{width:100%;height:330px;object-fit:contain;background:#fffaf2;border-radius:16px}.viewer-thumbs{display:flex;gap:8px;overflow:auto;margin:10px 0 18px}.viewer-thumbs img{width:70px;height:58px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}.viewer-info{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}.viewer-info div{padding:11px;background:#fffaf3;border-radius:10px}.viewer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.openbtn{margin-top:8px;padding:7px 10px;border:1px solid #decba7;border-radius:8px;background:#fffaf0;color:#704600;font-weight:800;cursor:pointer}
+@media(max-width:700px){body{font-size:16px}.layout{display:block}.side{position:static!important;overflow-x:auto}.main{padding:18px 14px}.stats{gap:10px}.stat{min-height:118px;padding:16px}.stat b{font-size:32px!important;min-height:42px}.grid{grid-template-columns:1fr}.card{padding:16px}.adline{align-items:flex-start}.admedia{width:72px;height:62px}.row{font-size:15px}.viewer{padding:8px}.viewer-card{border-radius:18px}.viewer-body{padding:14px}.viewer-photo{height:280px}.viewer-info{grid-template-columns:1fr}.nav button{font-size:15px;padding:13px 15px}}
+</style>
+<style id="ta-admin-pro-v2">
+/* Panel administrador TarotAnuncia · mejora visual sin cambiar Supabase ni acciones */
+:root{--admin-purple:#5d275f;--admin-gold:#c99528;--admin-bg:#f8f6f1}
+body{background:var(--admin-bg)}
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);backdrop-filter:blur(10px)}
+.side{background:linear-gradient(180deg,#fff 0%,#fffaf0 100%)}
+.main{max-width:1600px!important}
+.head{padding:4px 0 2px}.head h1{font-family:Georgia,serif;font-size:32px}.head .muted{margin-top:5px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat{position:relative;overflow:hidden;border:1px solid #e8dfd1;box-shadow:0 8px 25px rgba(53,37,21,.055)}
+.stat:after{content:"";position:absolute;width:74px;height:74px;border-radius:50%;right:-22px;top:-25px;background:rgba(201,149,40,.10)}
+.stat b{color:#20172a}.stat.gold b{color:#8a5a06}.stat.green b{color:#087d55}.stat.pink b{color:#a52649}
+.card{border:1px solid #e8dfd1;box-shadow:0 10px 30px rgba(53,37,21,.055)}
+.card h2{font-family:Georgia,serif;font-size:20px}
+.nav button{transition:.16s ease}.nav button:hover{background:#fff7e7}.nav button.active{background:linear-gradient(90deg,#fff0cf,#fff9ec);box-shadow:inset 3px 0 #bd8115}
+.row{border-top-color:#eee7dc}.row.clickable{border-radius:10px;padding-left:8px;padding-right:8px}.row.clickable:hover{background:#fff8e9}
+.pill{border:1px solid #e4ddd3}.pill.premium{background:#f4e8f4;color:#6b2868;border-color:#dec6dd}.pill.featured{background:#fff2cf;color:#865b09;border-color:#ead09b}
+button.action,.openbtn,.planselect{min-height:36px}.primary{min-height:44px}
+.viewer-card{border:1px solid #ddcfb9}.viewer-head{background:#fffaf0}.viewer-head h2{font-family:Georgia,serif;color:#5d275f}
+/* Resumen rápido añadido por CSS/JS */
+.taAdminQuick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 18px}
+.taAdminQuick .q{background:#fff;border:1px solid #e8dfd1;border-radius:14px;padding:16px;box-shadow:0 7px 22px rgba(53,37,21,.045)}
+.taAdminQuick .q span{display:block;font-size:12px;color:#716a73;margin-bottom:7px}.taAdminQuick .q b{font-size:22px}.taAdminQuick .q.warn{background:#fff8e7}.taAdminQuick .q.purple{background:#fbf3fb}.taAdminQuick .q.green{background:#f0fbf6}
+@media(max-width:900px){.top{position:relative}.side{background:#fff}.nav{padding-bottom:3px}.nav button{white-space:nowrap}.main{padding:18px 14px!important}.head h1{font-size:27px}.taAdminQuick{grid-template-columns:1fr 1fr 1fr}.stats{grid-template-columns:1fr 1fr}.stat{min-height:108px!important}.card{border-radius:13px}.noticebox{right:10px;left:10px;width:auto;top:72px}}
+@media(max-width:520px){.top{height:70px!important;padding:8px 10px!important}.brand strong{font-size:20px!important}.brand img{width:40px!important;height:40px!important}.bell{padding:8px 10px}.main{padding:14px 10px!important}.head h1{font-size:25px}.taAdminQuick{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px!important;min-height:96px!important}.stat b{font-size:27px!important}.card{padding:13px}.row{padding:12px 4px}.actions{width:100%}.actions button{flex:1}.viewer-photo{height:220px!important}}
+
+/* Centrado de las tarjetas de resumen */
+.stat{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.stat b{width:100%;justify-content:center;text-align:center;align-items:center;margin-top:8px}
+.quick{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.quick b,.quick strong{display:block;width:100%;text-align:center}
+
+/* ===== Ajuste móvil + sección de ingresos ===== */
+.incomeGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}.incomeCard{background:#fff;border:1px solid #e8dfd1;border-radius:14px;padding:18px;text-align:center;box-shadow:0 7px 22px rgba(53,37,21,.045)}.incomeCard span{display:block;color:#716a73;font-size:13px;margin-bottom:8px}.incomeCard b{font-size:25px;color:#8a5a06}.incomeNote{padding:14px 16px;border:1px solid #eadfc9;background:#fffaf0;border-radius:12px;color:#6f6a76;font-size:13px}.statsExtra{margin-top:18px}
+@media(max-width:700px){.side{position:static!important;overflow:visible!important;padding:8px 10px!important}.nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;min-width:0!important;gap:6px!important}.nav button{width:100%!important;min-width:0!important;white-space:normal!important;text-align:center!important;padding:10px 5px!important;font-size:12px!important;line-height:1.15!important;margin:0!important}.nav button.active{border-left:0!important;border-bottom:3px solid var(--gold)!important}.incomeGrid{grid-template-columns:1fr 1fr;gap:9px}.incomeCard{padding:14px 8px}.incomeCard b{font-size:22px}.taAdminQuick{grid-template-columns:1fr!important}}
+@media(max-width:390px){.nav{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* ===== Administración agrupada por perfil ===== */
+.profileGroup{border:1px solid #e8dfd1;border-radius:14px;background:#fff;margin:10px 0;overflow:hidden;box-shadow:0 5px 18px rgba(53,37,21,.04)}
+.profileHead{width:100%;border:0;background:#fff;padding:14px;display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;color:var(--ink)}
+.profileHead:hover{background:#fffaf2}.profileAvatar{width:52px;height:52px;border-radius:12px;object-fit:cover;background:#f6f0e6;border:1px solid #eee1cc;flex:0 0 auto}.profileMeta{min-width:0;flex:1}.profileMeta b{display:block;font-size:16px}.profileMeta small{display:block;color:var(--muted);margin-top:3px}.profileArrow{font-size:20px;color:#9b6b15;transition:.18s}.profileGroup.open .profileArrow{transform:rotate(180deg)}.profileBody{display:none;padding:0 14px 14px}.profileGroup.open .profileBody{display:block}.profileBody .row{margin-top:4px}.profileSummary{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}
+@media(max-width:700px){.profileHead{padding:12px 10px}.profileAvatar{width:48px;height:48px}.profileMeta b{font-size:15px}.profileBody{padding:0 10px 12px}}
+</style>
+
+<style id="admin-premium-unified">
+:root{--ink:#301b32;--gold:#c69a32;--line:#e8ddc6;--cream:#fffaf1}
+body{background:#faf6ee;color:var(--ink)}
+.top{height:92px;background:#fffdfa;box-shadow:0 3px 16px #5743210b;padding:12px 25px}
+.brand img{width:64px;height:64px;object-fit:contain;border-radius:50%;border:1px solid #e4ce91;background:white}
+.brand strong{font:700 31px Georgia,serif!important;color:#35203d!important}
+.brand strong span{color:#c3922b!important}
+.brand small{font:400 13px system-ui!important;letter-spacing:.2px!important;color:#85798b}
+.adminbox b{color:#35203d}
+.side{background:#fffdfa;border-right:1px solid #e8ddc6;padding:24px 15px}
+.sideHeading{font-size:11px;letter-spacing:1.8px;color:#987329;font-weight:800;margin:8px 16px 17px}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav button{border:1px solid transparent;border-radius:14px;font-weight:700;color:#45334b;padding:15px 18px}
+.nav button.active{border:1px solid #e7d197!important;border-left:1px solid #e7d197!important;background:#fff3d4!important;color:#825b13;box-shadow:0 3px 10px #bb923219}
+.nav button:hover{background:#fff6e4}
+.main{padding:28px 32px!important}
+.head{margin:5px 0 19px}.head h1{font:700 35px Georgia,serif;color:#2c1931}
+.stat,.card,.incomeCard,.taAdminQuick .q,.profileGroup{background:#fffdfa!important;border:1px solid #e7dcc6!important;border-radius:23px!important;box-shadow:0 9px 26px #4e36100a!important}
+.stat{min-height:150px!important}
+.stat:nth-child(2),.stat:nth-child(3),.stat:nth-child(4){background:#fffdfa!important}
+.stat b,.stat.gold b,.stat.green b,.stat.pink b{color:#36213b!important;font:700 37px Georgia,serif!important}
+.stat:after{background:#f9eecf}
+.card{padding:24px}.card h2{font:700 24px Georgia,serif}
+.taAdminQuick .q{padding:20px}.taAdminQuick .q span{font-size:14px}.taAdminQuick .q b{font:700 28px Georgia,serif;color:#35203d}
+button.action,.openbtn,.primary,.planselect{border-radius:12px;transition:background .2s,transform .2s}
+button.action,.openbtn{background:#fff9e9;border:1px solid #dfc88f;color:#795717;padding:10px 13px}
+button.action:hover,.openbtn:hover{background:#fff0c9}
+button.danger{color:#a32d43;background:#fff7f7;border-color:#efc8d0}
+.primary{background:linear-gradient(115deg,#edbb49,#bc8520)}
+.bell{width:43px;height:43px;border:1px solid #e7d5a7;background:#fff7e6;border-radius:13px;display:flex;align-items:center;justify-content:center}
+.bell:before{content:"";width:19px;height:19px;display:block;background:currentColor;clip-path:polygon(45% 0,55% 0,55% 12%,75% 25%,80% 65%,90% 78%,10% 78%,20% 65%,25% 25%,45% 12%,40% 87%,60% 87%,60% 97%,40% 97%);color:#a7771c}
+.profileHead{border-radius:20px}.profileAvatar{border-radius:50%;border:2px solid #dfc277}
+.profileArrow{font-size:22px}
+.pill.premium{background:#f4e8f4}.pill.featured{background:#fff2cf}
+.adminMenuToggle{display:none;width:49px;height:49px;border:1px solid #dbc68d;background:#fff9e9;border-radius:15px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.adminMenuToggle span{display:block;width:22px;height:2px;background:#956c17;border-radius:3px}
+@media(min-width:901px){.side:after{display:none!important}.layout{grid-template-columns:250px minmax(0,1fr)}}
+@media(max-width:900px){
+.top{height:78px!important;position:sticky!important;top:0;z-index:30;padding:10px 17px!important}
+.brand img{width:51px!important;height:51px!important}.brand strong{font-size:26px!important}.brand small{display:block!important;font-size:12px!important}
+.adminMenuToggle{display:flex}.adminbox,#out{display:none}
+.layout{display:block}.side{display:none!important;position:fixed!important;top:78px;left:0;right:0;z-index:29;padding:15px 18px 22px!important;box-shadow:0 14px 25px #2a173025;border-bottom:1px solid #e7d9ba;max-height:70vh;overflow:auto!important}
+.side.menuOpen{display:block!important}
+.nav{display:grid!important;grid-template-columns:1fr 1fr!important;min-width:0!important;gap:9px!important}
+.nav button{font-size:14px!important;white-space:normal!important;padding:15px 9px!important;text-align:center!important}
+.main{padding:22px 16px!important}.stats{grid-template-columns:1fr 1fr}.taAdminQuick{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:520px){
+.brand img{width:47px!important;height:47px!important}.brand strong{font-size:23px!important}
+.brand small{font-size:11px!important}.topright{gap:8px}.bell{width:40px;height:42px}
+.main{padding:19px 13px!important}.head h1{font-size:30px}
+.stat{min-height:128px!important;padding:15px 9px!important}
+.stat b{font-size:32px!important}.taAdminQuick{grid-template-columns:1fr!important}
+.card{padding:18px}.card h2{font-size:22px}
+}
+</style>
+<style id="admin-memberships-clean">
+.adminSearchBar{display:flex;gap:10px;margin:0 0 16px;flex-wrap:wrap}
+.adminSearchBar input,.adminSearchBar select{min-width:180px;flex:1;padding:12px;border:1px solid #e4d6b8;border-radius:12px;background:#fffdfa;font:inherit;color:#301b32}
+#membershipQuick{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:700px){#membershipQuick{grid-template-columns:repeat(2,minmax(0,1fr))}.adminSearchBar input,.adminSearchBar select{min-width:100%}}
+</style>
+<style id="ta-compact-dashboard-2026">
+#home .compactMetrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
+#home .compactMetric{background:#fffdfa;border:1px solid #e7dcc6;border-radius:17px;padding:18px 12px;text-align:center;box-shadow:0 5px 15px #4e36100a;min-width:0}
+#home .compactMetric span{display:block;color:#776c77;font-size:14px;line-height:1.3}
+#home .compactMetric b{display:block;font:700 32px Georgia,serif;color:#36213b;margin-top:7px}
+#home .compactSubs{margin:0 0 14px;padding:18px}
+#home .compactSubs h2,#home .compactRecent h2{font:700 23px Georgia,serif;margin:0 0 14px}
+#home .compactSubsGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#home .compactSubsGrid>div{background:#fff8e9;border:1px solid #eddfbf;border-radius:12px;padding:12px 5px;text-align:center}
+#home .compactSubsGrid span{display:block;font-size:13px;color:#765b30}
+#home .compactSubsGrid b{display:block;font:700 25px Georgia,serif;margin-top:4px;color:#38223c}
+#home .compactRecent{padding:18px}
+#home .profileGroup{margin:8px 0;border-radius:15px!important}
+#home .profileHead{padding:11px!important}
+#home .profileAvatar{width:43px;height:43px}
+@media(max-width:700px){#home .compactMetrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}#home .compactMetric{padding:13px 8px}#home .compactMetric span{font-size:12px}#home .compactMetric b{font-size:28px}#home .compactSubs,#home .compactRecent{padding:13px!important}#home .compactSubs h2,#home .compactRecent h2{font-size:21px}#home .compactSubsGrid{gap:6px}#home .compactSubsGrid span{font-size:11px}#home .compactSubsGrid b{font-size:24px}#home .profileMeta small{font-size:11px}}
+.membershipEditor{background:#fff8e9;border:1px solid #e7d4a5;border-radius:13px;padding:14px;margin:10px 0 14px}.membershipEditor label{display:block;font-size:13px;font-weight:750;margin:9px 0 5px}.membershipEditor .membershipControls{display:flex;gap:9px;flex-wrap:wrap;align-items:end}.membershipEditor .membershipControls>div{flex:1;min-width:125px}.membershipEditor input,.membershipEditor select{width:100%;min-height:42px;padding:9px;border:1px solid #ddcda9;border-radius:10px;background:white;font:inherit}.membershipEditor .primary{margin-top:12px}.membershipEditor .hint{font-size:12px;color:#706373;margin:9px 0 0}.planselect:disabled{opacity:.7}</style><style>
+.reviewEntry{border-top:1px solid #eee3d1;padding:18px 0}.reviewEntry:first-child{border-top:0}.reviewTop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.reviewStars{color:#ad790b;letter-spacing:2px}.reviewComment{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}.reviewActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.reviewEntry small{color:#776c77}
+</style><style id="ta-admin-mobile-tap-fix">
+/* Evita el resaltado azul y la selección accidental al tocar controles en Android. */
+button, .actions, .viewer-actions, .profileHead, .nav, .openbtn, .planselect {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+button { -webkit-touch-callout: none; }
+button:focus-visible { outline: 3px solid #b77a12; outline-offset: 2px; }
+<style id="ta-admin-tarjetas-sin-azul">
+/* Android Chrome: quitar resaltado al tocar tarjetas y enlaces de acción. */
+.row.clickable, .row.clickable *, .profileHead, .profileHead *,
+.openbtn, .viewer-thumbs img, .viewer-close, .viewer-actions button {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.row.clickable, .profileHead, .openbtn, .viewer-thumbs img {
+  touch-action: manipulation;
+}
+/* Conservar foco visible para navegación con teclado. */
+.row.clickable:focus-visible, .profileHead:focus-visible,
+.openbtn:focus-visible { outline: 3px solid #b77a12; outline-offset: 2px; }
+</style></head><body><div id="login" class="card login"><div class="brand"><img src="file_000000003c088210be49f3122608d83d.png" onerror="this.style.display='none'"><div><strong>Tarot<span>Anuncia</span></strong><small>ADMINISTRACIÓN</small></div></div><h2>Acceso administrador</h2><p class="muted">Panel privado de TarotAnuncia.</p><input id="email" type="email" placeholder="Tu email"><input id="password" type="password" placeholder="Contraseña"><button class="primary" id="go">Entrar</button><p id="msg" class="muted"></p></div>
+<div id="panel" class="app" style="display:none"><header class="top"><div class="brand"><img src="file_000000003c088210be49f3122608d83d.png" onerror="this.style.display='none'"><div><strong>Tarot<span>Anuncia</span></strong><small>PANEL ADMINISTRADOR</small></div></div><div style="display:flex;align-items:center;gap:14px"><button class="bell" id="bell" aria-label="Notificaciones"><span class="badge" id="nbadge">0</span></button><span class="adminbox"><b>Administrador</b><small id="who">TarotAnuncia</small></span><button class="action" id="out">Cerrar sesión</button><button class="adminMenuToggle" id="adminMenuToggle" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button></div></header><div id="noticebox" class="noticebox"></div><div class="layout"><aside class="side" id="adminSidebar"><div class="sideHeading">ADMINISTRACIÓN</div><nav class="nav"><button class="active" data-sec="home">Panel principal</button><button data-sec="users">Usuarios</button><button data-sec="ads">Anuncios</button><button data-sec="plans">Planes</button><button data-sec="bizum">Bizum <span id="bizumNavCount"></span></button><button data-sec="reviews">Valoraciones <span id="reviewNavCount"></span></button><button data-sec="stats">Estadísticas</button><button data-sec="income">Ingresos</button></nav></aside><main class="main">
+<section id="home" class="section active"><div class="head"><div><h1>Panel principal</h1><div class="muted">Resumen general de TarotAnuncia</div></div></div>
+<div class="compactMetrics"><div class="compactMetric"><span>Usuarios</span><b id="sUsers">—</b></div><div class="compactMetric"><span>Anuncios</span><b id="sAds">—</b></div><div class="compactMetric"><span>Pendientes</span><b id="cReview">—</b></div><div class="compactMetric"><span>Planes de pago</span><b id="cPaid">—</b></div></div>
+<div class="card compactSubs"><h2>Suscripciones</h2><div class="compactSubsGrid"><div><span>Gratis</span><b id="cFree">—</b></div><div><span>Destacado</span><b id="cFeatured">—</b></div><div><span>Premium</span><b id="cPremium">—</b></div></div></div>
+<div class="card compactRecent"><h2>Perfiles recientes</h2><div id="recentAds">Cargando…</div></div></section>
+<section id="users" class="section"><div class="head"><h1>Usuarios</h1></div><div class="card" style="margin-top:20px"><div class="adminSearchBar"><input id="profileSearch" type="search" placeholder="Buscar perfil por nombre…" aria-label="Buscar perfil"><select id="profileFilter" aria-label="Filtrar por suscripción"><option value="all">Todos los planes</option><option value="free">Gratis</option><option value="featured">Destacado</option><option value="premium">Premium</option></select></div><div id="usersList">Cargando…</div></div></section>
+<section id="ads" class="section"><div class="head"><h1>Perfiles y anuncios</h1></div><div class="card" style="margin-top:20px"><div id="adsList">Cargando…</div></div></section>
+<section id="plans" class="section"><div class="head"><h1>Planes y suscripciones</h1></div><div class="card" style="margin-top:20px"><p class="muted">Selecciona un perfil para gestionar su suscripción (también pagos por Bizum) y los planes de sus anuncios.</p><div id="plansList">Cargando…</div></div></section>
+<section id="bizum" class="section"><div class="head"><h1>Solicitudes de Bizum</h1></div><div class="card" style="margin-top:20px"><p class="muted">Aprueba únicamente después de verificar el ingreso en tu banco. El plan se activa durante 30 días al aprobar.</p><button class="action" onclick="taLoadBizum()">Actualizar solicitudes</button><div id="bizumList" style="margin-top:12px">Cargando…</div></div></section><section id="reviews" class="section"><div class="head"><div><h1>Valoraciones</h1><div class="muted">Opiniones de visitantes pendientes de tu aprobación</div></div></div><div class="card" style="margin-top:20px"><div class="adminSearchBar"><select id="reviewFilter"><option value="pending">Pendientes</option><option value="approved">Aprobadas</option><option value="rejected">Rechazadas</option><option value="all">Todas</option></select><button class="action" id="reviewReload">Actualizar</button></div><div id="reviewList">Cargando…</div></div></section>
+<section id="stats" class="section"><div class="head"><h1>Estadísticas</h1></div><div class="stats"><div class="stat gold">Usuarios<b id="xUsers">—</b></div><div class="stat">Anuncios<b id="xAds">—</b></div><div class="stat green">Visitas<b id="xViews">—</b></div><div class="stat pink">Contactos<b id="xPending">—</b></div></div><div class="card statsExtra"><h2>Resumen de planes</h2><div id="statsPlans" class="empty">Cargando…</div></div></section><section id="income" class="section"><div class="head"><div><h1>Ingresos</h1><div class="muted">Registros de cobros de TarotAnuncia</div></div><button class="action" onclick="taLoadIncome()">Actualizar</button></div><div class="incomeGrid"><div class="incomeCard"><span>Total registrado</span><b id="incomeTotal">—</b></div><div class="incomeCard"><span>Este mes</span><b id="incomeMonth">—</b></div><div class="incomeCard"><span>PayPal pagado</span><b id="incomePaypal">—</b></div><div class="incomeCard"><span>Bizum aprobado</span><b id="incomeBizum">—</b></div></div><div class="card"><h2>Historial de pagos</h2><p class="incomeNote">Se muestran pagos PayPal con estado pagado y Bizum aprobado manualmente. Las aprobaciones de prueba también figuran aquí: estos datos no verifican por sí solos un ingreso en el banco.</p><div id="incomeList" style="margin-top:16px">Cargando…</div></div></section>
+</main></div></div><div id="viewer" class="viewer" onclick="if(event.target===this)closeViewer()"><div class="viewer-card"><div class="viewer-head"><h2 id="viewerTitle">Anuncio</h2><button class="viewer-close" onclick="closeViewer()">×</button></div><div id="viewerBody" class="viewer-body"></div></div></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>const db=supabase.createClient('https://ozbbgfxixbgffxnhqpzh.supabase.co','sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd');const $=id=>document.getElementById(id);let ADS=[];let MEMBERSHIPS=new Map();let notices=[];function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}async function isAdmin(){const{data:{user}}=await db.auth.getUser();if(!user)return null;const{data}=await db.from('tarotanuncia_admins').select('user_id').eq('user_id',user.id).maybeSingle();return data?user:null}function planName(p){return ({free:'Gratis',featured:'Destacado',premium:'Premium',professional:'Profesional'})[p]||p||'Gratis'}function planClass(p){return p==='premium'||p==='professional'?'premium':p==='featured'?'featured':''}function addNotice(t){notices.unshift({t,at:new Date().toLocaleString('es-ES')});notices=notices.slice(0,30);localStorage.setItem('ta_admin_notices',JSON.stringify(notices));renderNotices()}function renderNotices(){try{if(!notices.length)notices=JSON.parse(localStorage.getItem('ta_admin_notices')||'[]')}catch(e){} $('nbadge').textContent=notices.length;$('noticebox').innerHTML=notices.length?notices.map(n=>`<div class="notice"><b>${esc(n.t)}</b><br><span class="muted">${esc(n.at)}</span></div>`).join(''):'<div class="empty">Sin notificaciones</div>'}function detectChanges(data){let old={};try{old=JSON.parse(localStorage.getItem('ta_admin_snapshot')||'{}')}catch(e){};data.forEach(a=>{if(!old[a.id])addNotice('Nuevo anuncio: '+(a.display_name||a.title||'Sin título'));else if((old[a.id].plan||'free')!==(a.plan||'free'))addNotice((a.display_name||'Usuario')+' cambió de '+planName(old[a.id].plan)+' a '+planName(a.plan))});let snap={};data.forEach(a=>snap[a.id]={plan:a.plan||'free'});localStorage.setItem('ta_admin_snapshot',JSON.stringify(snap))}function adRow(a,controls=true){const photos=[a.profile_photo_url,...(Array.isArray(a.photo_urls)?a.photo_urls:[])].filter(Boolean);const photo=photos[0]?`<img class="admedia" src="${esc(photos[0])}" alt="">`:`<div class="admedia"></div>`;return `<div class="row clickable" onclick="openAd('${a.id}')"><div class="adline">${photo}<div><b>${esc(a.title||a.display_name||'Anuncio')}</b><br><span class="muted">${esc(a.display_name||'Usuario')} · ${esc(a.city||'España')}</span><br><span class="pill ${planClass(a.plan)}">${esc(planName(a.plan))}</span> <span class="pill">${esc(a.status||'')}</span> <span class="contactpill">Visitas: ${Number(a.views||0).toLocaleString('es-ES')} · Contactos: ${Number(a.contacts_count||0).toLocaleString('es-ES')}</span><br><button class="openbtn" onclick="event.stopPropagation();openAd('${a.id}')">Ver anuncio completo</button> <button class="openbtn" onclick="event.stopPropagation();openProfile('${a.id}')">Ver perfil</button></div></div>${controls?`<div class="actions" onclick="event.stopPropagation()">${a.status!=='approved'?`<button class="action" onclick="setStatus('${a.id}','approved')">Aprobar</button>`:''}<button class="action" onclick="setStatus('${a.id}','paused')">Pausar</button><button class="action danger" onclick="setStatus('${a.id}','rejected')">Rechazar</button></div>`:''}</div>`}
+function getAd(id){return ADS.find(a=>String(a.id)===String(id))}
+function closeViewer(){$('viewer').classList.remove('open')}
+function photoBlock(a){const photos=[a.profile_photo_url,...(Array.isArray(a.photo_urls)?a.photo_urls:[])].filter(Boolean);if(!photos.length)return '';return `<img id="viewerMainPhoto" class="viewer-photo" src="${esc(photos[0])}" alt=""><div class="viewer-thumbs">${photos.map(x=>`<img src="${esc(x)}" onclick="$('viewerMainPhoto').src=this.src" alt="">`).join('')}</div>`}
+function openAd(id){const a=getAd(id);if(!a)return;$('viewerTitle').textContent=a.title||a.display_name||'Anuncio';$('viewerBody').innerHTML=`${photoBlock(a)}<h2>${esc(a.title||a.display_name||'Anuncio')}</h2><p>${esc(a.description||a.bio||'Sin descripción')}</p><div class="viewer-info"><div><b>Profesional</b><br>${esc(a.display_name||'—')}</div><div><b>Ubicación</b><br>${esc(a.city||'España')} · ${esc(a.modality||'Online')}</div><div><b>Plan</b><br><span class="pill ${planClass(a.plan)}">${esc(planName(a.plan))}</span></div><div><b>Estado</b><br>${esc(a.status||'—')}</div><div><b>Visualizaciones</b><br>${Number(a.views||0).toLocaleString('es-ES')}</div><div><b>Contactos</b><br>${Number(a.contacts_count||0).toLocaleString('es-ES')}</div><div><b>Precio</b><br>${a.price_from?`Desde ${esc(a.price_from)} €`:'A consultar'}</div><div><b>Categorías</b><br>${esc(Array.isArray(a.categories)?a.categories.join(', '):(a.category||'—'))}</div></div><div class="viewer-actions">${a.status!=='approved'?`<button class="action" onclick="setStatus('${a.id}','approved');closeViewer()">Aprobar</button>`:''}<button class="action" onclick="setStatus('${a.id}','paused');closeViewer()">Pausar</button><button class="action danger" onclick="setStatus('${a.id}','rejected');closeViewer()">Rechazar</button><button class="action" onclick="openProfile('${a.id}')">Ver perfil</button></div>`;$('viewer').classList.add('open')}
+function openProfile(id){const a=getAd(id);if(!a)return;$('viewerTitle').textContent='Perfil de '+(a.display_name||'Usuario');$('viewerBody').innerHTML=`${a.profile_photo_url?`<img class="viewer-photo" style="height:230px" src="${esc(a.profile_photo_url)}" alt="">`:''}<div style="text-align:center"><h2>${esc(a.display_name||'Profesional')}</h2><p class="muted">${esc(a.city||'España')} · ${esc(a.modality||'Online')}</p><span class="pill ${planClass(subscriptionFor(a.owner_id))}">${esc(planName(subscriptionFor(a.owner_id)))}</span></div><p style="margin-top:20px">${esc(a.bio||a.description||'Sin descripción de perfil')}</p><div class="viewer-info"><div><b>Teléfono</b><br>${esc(a.phone||a.whatsapp||'No indicado')}</div><div><b>Precio</b><br>${a.price_from?`Desde ${esc(a.price_from)} €`:'A consultar'}</div><div><b>Categorías</b><br>${esc(Array.isArray(a.categories)?a.categories.join(', '):(a.category||'—'))}</div><div><b>Suscripción</b><br>${esc(planName(subscriptionFor(a.owner_id)))}</div></div><button class="action" onclick="openAd('${a.id}')">Ver anuncio completo</button>`;$('viewer').classList.add('open')}
+function subscriptionFor(ownerId){
+ const row=MEMBERSHIPS.get(String(ownerId||''));
+ if(!row)return 'free';
+ if(row.expires_at && new Date(row.expires_at).getTime()<=Date.now())return 'free';
+ return row.plan==='premium'?'premium':row.plan==='featured'||row.plan==='destacado'?'featured':'free';
+}
+function profileKey(a){return a.owner_id||('name:'+String(a.display_name||'Sin perfil').toLowerCase())}
+function groupProfiles(){const g={};ADS.forEach(a=>{const k=profileKey(a);if(!g[k])g[k]={key:k,name:a.display_name||'Profesional',city:a.city||'España',photo:a.profile_photo_url||'',ownerId:a.owner_id||null,ads:[]};g[k].ads.push(a);if(!g[k].photo&&a.profile_photo_url)g[k].photo=a.profile_photo_url});return Object.values(g)}
+function profileGroupHtml(g,mode){const views=g.ads.reduce((s,a)=>s+Number(a.views||0),0),contacts=g.ads.reduce((s,a)=>s+Number(a.contacts_count||0),0);const subscription=subscriptionFor(g.ownerId);const photo=g.photo?`<img class="profileAvatar" src="${esc(g.photo)}" alt="">`:`<div class="profileAvatar"></div>`;let body='';if(mode==='plans'){
+ const member=MEMBERSHIPS.get(String(g.ownerId||''));
+ const dateValue=member?.expires_at&&new Date(member.expires_at).getTime()>Date.now()?new Date(new Date(member.expires_at).getTime()-new Date(member.expires_at).getTimezoneOffset()*60000).toISOString().slice(0,16):'';
+ const maxRank={free:0,featured:1,premium:2}[subscription];
+ body=`<div class="membershipEditor"><b>Suscripción del perfil</b><div class="membershipControls"><div><label>Plan del perfil</label><select id="memberPlan_${esc(g.ownerId||'none')}" onchange="membershipDateToggle('${esc(g.ownerId||'none')}')"><option value="free" ${subscription==='free'?'selected':''}>Gratis</option><option value="featured" ${subscription==='featured'?'selected':''}>Destacado</option><option value="premium" ${subscription==='premium'?'selected':''}>Premium</option></select></div><div id="memberDateWrap_${esc(g.ownerId||'none')}"><label>Válido hasta</label><input type="datetime-local" id="memberDate_${esc(g.ownerId||'none')}" value="${esc(dateValue)}"></div></div><p class="hint">Para Bizum: confirma primero el cobro y después guarda el plan y su vencimiento. El plan Gratis no necesita fecha.</p><button class="primary" onclick="saveProfileMembership('${esc(g.ownerId||'')}')" ${g.ownerId?'':'disabled'}>Guardar plan del perfil</button></div>`+g.ads.map(a=>`<div class="row"><div><b>${esc(a.title||'Anuncio')}</b><br><span class="muted">Plan actual: ${esc(planName(a.plan))}</span></div><select class="planselect" onchange="setPlan('${a.id}',this.value)"><option value="free" ${a.plan==='free'||!a.plan?'selected':''}>Gratis</option><option value="featured" ${a.plan==='featured'?'selected':''} ${maxRank<1?'disabled':''}>Destacado</option><option value="premium" ${a.plan==='premium'?'selected':''} ${maxRank<2?'disabled':''}>Premium</option></select></div>`).join('');}else if(mode==='users'){body=`<div class="row"><div><b>Perfil</b><br><span class="muted">${esc(g.city)}</span></div><div class="actions"><button class="openbtn" onclick="openProfile('${g.ads[0].id}')">Ver perfil</button></div></div>`+g.ads.map(a=>adRow(a,false)).join('')}else{body=g.ads.map(a=>adRow(a,mode==='ads')).join('')}
+return `<div class="profileGroup"><button class="profileHead" onclick="toggleProfile(this)">${photo}<span class="profileMeta"><b>${esc(g.name)}</b><small>${g.ads.length} anuncio${g.ads.length===1?'':'s'} · Visitas: ${views.toLocaleString('es-ES')} · Contactos: ${contacts.toLocaleString('es-ES')}</small><span class="profileSummary"><span class="pill ${planClass(subscription)}">${esc(planName(subscription))}</span></span></span><span class="profileArrow">⌄</span></button><div class="profileBody">${body}</div></div>`}
+function toggleProfile(btn){const box=btn.closest('.profileGroup');document.querySelectorAll('.profileGroup.open').forEach(x=>{if(x!==box)x.classList.remove('open')});box.classList.toggle('open');if(box.classList.contains('open')){const sel=box.querySelector('.membershipEditor select');if(sel)membershipDateToggle(sel.id.replace('memberPlan_',''))}}
+async function load(){const{data,error}=await db.from('tarotist_ads').select('*').order('created_at',{ascending:false});if(error){$('adsList').textContent=error.message;return}ADS=data||[];
+ const membershipResult=await db.from('tarotanuncia_memberships').select('owner_id,plan,expires_at');
+ if(membershipResult.error){$('adsList').textContent='No se pudieron leer las suscripciones: '+membershipResult.error.message;return}
+ MEMBERSHIPS=new Map((membershipResult.data||[]).map(m=>[String(m.owner_id),m]));
+ detectChanges(ADS);const groups=groupProfiles(),users=groups.map(g=>g.key);const views=ADS.reduce((s,a)=>s+Number(a.views||0),0), pending=ADS.reduce((s,a)=>s+Number(a.contacts_count||0),0);const pendingReview=ADS.filter(a=>!['approved','paused','rejected'].includes(String(a.status||'').toLowerCase())).length;const paid=groups.filter(g=>['premium','featured'].includes(subscriptionFor(g.ownerId))).length;const active=ADS.filter(a=>String(a.status||'').toLowerCase()==='approved').length;$('cReview').textContent=pendingReview;$('cPaid').textContent=paid;['sUsers','xUsers'].forEach(i=>$(i).textContent=users.length);['sAds','xAds'].forEach(i=>$(i).textContent=ADS.length);$('xViews').textContent=views.toLocaleString('es-ES');$('xPending').textContent=pending;$('recentAds').innerHTML=groups.map(g=>profileGroupHtml(g,'recent')).join('')||'<div class="empty">No hay perfiles</div>';$('adsList').innerHTML=groups.map(g=>profileGroupHtml(g,'ads')).join('')||'<div class="empty">No hay perfiles</div>';renderUserGroups(groups);$('plansList').innerHTML=groups.map(g=>profileGroupHtml(g,'plans')).join('')||'<div class="empty">No hay perfiles</div>';let counts={free:0,featured:0,premium:0};groups.forEach(g=>{const p=subscriptionFor(g.ownerId);counts[p]++});$('cFree').textContent=counts.free;$('cFeatured').textContent=counts.featured;$('cPremium').textContent=counts.premium;if($('statsPlans'))$('statsPlans').innerHTML=Object.entries(counts).map(([p,n])=>`<div class="row"><span class="pill ${planClass(p)}">${planName(p)}</span><b>${n}</b></div>`).join('')}
+function renderUserGroups(groups){
+ const search=($('profileSearch')?.value||'').trim().toLocaleLowerCase('es');
+ const filter=$('profileFilter')?.value||'all';
+ const matching=groups.filter(g=>(!search||g.name.toLocaleLowerCase('es').includes(search))&&(filter==='all'||subscriptionFor(g.ownerId)===filter));
+ $('usersList').innerHTML=matching.map(g=>profileGroupHtml(g,'users')).join('')||'<div class="empty">No hay perfiles con estos filtros</div>';
+}
+$('profileSearch').addEventListener('input',()=>renderUserGroups(groupProfiles()));
+$('profileFilter').addEventListener('change',()=>renderUserGroups(groupProfiles()));
+async function setStatus(id,status){
+ const labels={approved:'aprobado',paused:'pausado',rejected:'rechazado'};
+ if(!labels[status])return;
+ const {data:sessionData,error:sessionError}=await db.auth.getSession();
+ if(sessionError||!sessionData?.session?.access_token){alert('Tu sesión ha caducado. Vuelve a iniciar sesión.');return;}
+ try{
+  const {data,error}=await db.functions.invoke('tarotanuncia-estado-anuncio',{
+   body:{id,status},
+   headers:{Authorization:'Bearer '+sessionData.session.access_token}
+  });
+  if(error){
+   let detail=error.message||'No se pudo conectar con Supabase';
+   try{if(error.context?.json){const body=await error.context.json();detail=body.error||detail;}}catch(_){}
+   alert('No se pudo cambiar el anuncio: '+detail);return;
+  }
+  if(!data?.success){alert('No se pudo cambiar el anuncio: '+(data?.error||'Respuesta inesperada'));return;}
+  addNotice('Anuncio '+labels[status]);
+  await load();
+  if(status==='approved'){
+   if(data.email_sent)alert('Anuncio aprobado. Correo enviado al profesional.');
+   else if(!data.unchanged)alert('Anuncio aprobado, pero el correo no se ha enviado. '+(data.email_warning||'Revisa los registros de la función en Supabase.'));
+  }
+ }catch(e){alert('Error al actualizar el anuncio: '+(e?.message||String(e)));}
+}async function setPlan(id,plan){const a=getAd(id);if(!a)return;const rank={free:0,featured:1,premium:2};if(rank[plan]>rank[subscriptionFor(a.owner_id)]){alert('El plan del anuncio no puede superar el del perfil.');load();return}const{error}=await db.rpc('ta_admin_set_ad_plan',{p_ad:id,p_plan:plan});if(error){alert(error.message);load()}else{addNotice('Anuncio cambiado a '+planName(plan));await load()}}
+function membershipDateToggle(owner){const sel=$('memberPlan_'+owner),wrap=$('memberDateWrap_'+owner);if(sel&&wrap)wrap.style.display=sel.value==='free'?'none':''}
+async function saveProfileMembership(owner){if(!owner){alert('Este perfil no tiene usuario asociado.');return}const sel=$('memberPlan_'+owner),inp=$('memberDate_'+owner);if(!sel||!inp)return;const plan=sel.value;let expires=null;if(plan!=='free'){if(!inp.value){alert('Indica la fecha de vencimiento.');return}expires=new Date(inp.value).toISOString();if(new Date(expires)<=new Date()){alert('La fecha de vencimiento debe ser futura.');return}}if(!confirm('¿Confirmas que has comprobado el pago y quieres cambiar el perfil a '+planName(plan)+'?'))return;const{error}=await db.rpc('ta_admin_set_profile_membership',{p_owner:owner,p_plan:plan,p_expires:expires});if(error){alert('No se pudo guardar: '+error.message);return}addNotice('Suscripción del perfil actualizada a '+planName(plan));await load();alert('Plan del perfil guardado correctamente.')} 
+async function show(){const u=await isAdmin();if(!u){$('login').style.display='block';$('panel').style.display='none';return}$('login').style.display='none';$('panel').style.display='block';$('who').textContent=u.email;renderNotices();load()}$('go').onclick=async()=>{const email=$('email').value.trim(),password=$('password').value;$('msg').textContent='Conectando…';const r=await db.auth.signInWithPassword({email,password});$('msg').textContent=r.error?r.error.message:'Acceso correcto';setTimeout(show,300)};$('out').onclick=async()=>{await db.auth.signOut();show()};$('bell').onclick=()=>$('noticebox').classList.toggle('open');document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.getElementById('adminSidebar').classList.remove('menuOpen');document.getElementById('adminMenuToggle').setAttribute('aria-expanded','false');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));$(b.dataset.sec).classList.add('active')});$('adminMenuToggle').onclick=()=>{const opened=$('adminSidebar').classList.toggle('menuOpen');$('adminMenuToggle').setAttribute('aria-expanded',String(opened))};db.auth.onAuthStateChange(()=>show());try{db.channel('ta-admin-live').on('postgres_changes',{event:'INSERT',schema:'public',table:'tarotist_ads'},p=>{addNotice('Nuevo anuncio: '+(p.new.display_name||p.new.title||'Sin título'));load()}).on('postgres_changes',{event:'UPDATE',schema:'public',table:'tarotist_ads'},p=>{if(p.old&&p.new&&p.old.plan!==p.new.plan)addNotice((p.new.display_name||'Usuario')+' cambió de '+planName(p.old.plan)+' a '+planName(p.new.plan));load()}).subscribe()}catch(e){}show();
+let TA_REVIEWS=[];
+function taReviewProfile(owner){
+ const ad=ADS.find(a=>String(a.owner_id)===String(owner));
+ return ad?.display_name||'Profesional';
+}
+function taReviewCard(r){
+ const pending=r.status==='pending';
+ return `<article class="reviewEntry"><div class="reviewTop"><div><b>${esc(r.visitor_name)}</b> <span class="reviewStars">${'★'.repeat(Math.max(0,Math.min(5,Number(r.rating)||0)))}${'☆'.repeat(5-Math.max(0,Math.min(5,Number(r.rating)||0)))}</span><br><small>Para: ${esc(taReviewProfile(r.owner_id))} · ${esc(new Date(r.created_at).toLocaleString('es-ES'))}</small></div><span class="pill">${esc(({pending:'Pendiente',approved:'Aprobada',rejected:'Rechazada'})[r.status]||r.status)}</span></div><p class="reviewComment">${esc(r.comment)}</p><div class="reviewActions">${r.status!=='approved'?`<button class="action" onclick="taModerateReview('${r.id}','approved')">Aprobar</button>`:''}${r.status!=='rejected'?`<button class="action danger" onclick="taModerateReview('${r.id}','rejected')">Rechazar</button>`:''}</div></article>`;
+}
+function taRenderReviews(){
+ const filter=$('reviewFilter').value;
+ const rows=TA_REVIEWS.filter(r=>filter==='all'||r.status===filter);
+ $('reviewList').innerHTML=rows.length?rows.map(taReviewCard).join(''):'<div class="empty">No hay valoraciones en esta categoría.</div>';
+ const pending=TA_REVIEWS.filter(r=>r.status==='pending').length;
+ $('reviewNavCount').textContent=pending?'('+pending+')':'';
+}
+async function taLoadReviews(){
+ $('reviewList').textContent='Cargando valoraciones…';
+ const {data,error}=await db.from('tarotanuncia_reviews').select('id,owner_id,visitor_name,rating,comment,status,created_at').order('created_at',{ascending:false});
+ if(error){$('reviewList').textContent='Error al consultar las valoraciones: '+error.message;return;}
+ TA_REVIEWS=data||[];taRenderReviews();
+}
+async function taModerateReview(id,status){
+ if(!confirm((status==='approved'?'¿Aprobar':'¿Rechazar')+' esta valoración?'))return;
+ const {error}=await db.rpc('ta_moderate_visitor_review',{p_id:id,p_status:status});
+ if(error){alert('No se pudo guardar: '+error.message);return;}
+ await taLoadReviews();addNotice('Valoración '+(status==='approved'?'aprobada':'rechazada'));
+}
+$('reviewFilter').addEventListener('change',taRenderReviews);
+$('reviewReload').addEventListener('click',taLoadReviews);
+const taOriginalLoad=load;
+load=async function(){await taOriginalLoad();await taLoadReviews();};
+</script><script>
+/* Admin PWA: solo registra el service worker; no activa push sin suscripción real. */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js', {scope:'/'}).catch(err => console.warn('Service worker:', err));
+  });
+}
+</script><script id="ta-admin-bizum-v1">
+async function taLoadBizum(){
+ const list=document.getElementById('bizumList');if(!list)return;
+ const {data,error}=await db.from('ta_bizum_requests').select('id,owner_id,plan,amount_eur,status,created_at,reviewed_at').order('created_at',{ascending:false}).limit(100);
+ if(error){list.textContent='No se pueden cargar las solicitudes: '+error.message;return;}
+ const pending=(data||[]).filter(x=>x.status==='pending').length;
+ document.getElementById('bizumNavCount').textContent=pending?'('+pending+')':'';
+ list.replaceChildren();if(!data?.length){list.textContent='No hay solicitudes de Bizum.';return;}
+ for(const x of data){const row=document.createElement('div');row.className='row';const info=document.createElement('div');
+ const title=document.createElement('b');title.textContent=(x.plan==='featured'?'Destacado':'Premium')+' · '+Number(x.amount_eur).toFixed(2).replace('.',',')+' €';
+ const details=document.createElement('div');details.className='muted';details.style.fontSize='12px';details.textContent='Referencia '+x.id+' · Usuario '+x.owner_id+' · '+new Date(x.created_at).toLocaleString('es-ES')+' · '+x.status;
+ info.append(title,details);row.append(info);
+ if(x.status==='pending'){const buttons=document.createElement('div');buttons.className='actions';for(const action of ['approved','rejected']){const b=document.createElement('button');b.className='action'+(action==='rejected'?' danger':'');b.textContent=action==='approved'?'Aprobar cobro':'Rechazar';b.onclick=()=>taReviewBizum(x.id,action);buttons.append(b)}row.append(buttons)}list.append(row)}
+}
+async function taReviewBizum(id,status){if(!confirm(status==='approved'?'¿Has comprobado en tu banco que has recibido este Bizum?':'¿Rechazar esta solicitud?'))return;
+ const {error}=await db.rpc('ta_admin_review_bizum',{p_request:id,p_status:status});
+ if(error){alert('Error: '+error.message);return;}addNotice('Bizum '+(status==='approved'?'aprobado':'rechazado')+': '+id);await taLoadBizum();await load();}
+const taOldShow=show;show=async function(){await taOldShow();if(document.getElementById('panel').style.display!=='none')await taLoadBizum();};
+setInterval(()=>{if(document.getElementById('panel').style.display!=='none')taLoadBizum()},60000);
+</script>
+<script id="ta-admin-income-live-v1">
+function taEuro(n){return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(n||0)}
+async function taLoadIncome(){
+ const target=document.getElementById('incomeList');if(!target)return;
+ target.textContent='Consultando pagos…';
+ const [paypal,bizum]=await Promise.all([
+  db.from('tarotanuncia_payments').select('id,owner_id,plan,amount_eur,status,paid_at,created_at,paypal_capture_id').eq('status','paid').order('created_at',{ascending:false}).limit(1000),
+  db.from('ta_bizum_requests').select('id,owner_id,plan,amount_eur,status,created_at,reviewed_at').eq('status','approved').order('created_at',{ascending:false}).limit(1000)
+ ]);
+ const problems=[];
+ if(paypal.error)problems.push('PayPal: '+paypal.error.message);
+ if(bizum.error)problems.push('Bizum: '+bizum.error.message);
+ if(problems.length){target.textContent='No se pudieron consultar todos los cobros. '+problems.join(' | ');['incomeTotal','incomeMonth','incomePaypal','incomeBizum'].forEach(id=>document.getElementById(id).textContent='—');return;}
+ const rows=[...(paypal.data||[]).map(x=>({...x,method:'PayPal',date:x.paid_at||x.created_at})),...(bizum.data||[]).map(x=>({...x,method:'Bizum',date:x.reviewed_at||x.created_at}))].sort((a,b)=>new Date(b.date)-new Date(a.date));
+ const sum=arr=>arr.reduce((n,x)=>n+Number(x.amount_eur||0),0);
+ const now=new Date();const sameMonth=x=>{const d=new Date(x.date);return d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth()};
+ document.getElementById('incomeTotal').textContent=taEuro(sum(rows));
+ document.getElementById('incomeMonth').textContent=taEuro(sum(rows.filter(sameMonth)));
+ document.getElementById('incomePaypal').textContent=taEuro(sum(rows.filter(x=>x.method==='PayPal')));
+ document.getElementById('incomeBizum').textContent=taEuro(sum(rows.filter(x=>x.method==='Bizum')));
+ target.replaceChildren();
+ if(!rows.length){target.textContent='No hay pagos pagados o Bizum aprobados.';return;}
+ const count=document.createElement('p');count.className='muted';count.textContent=rows.length+' registro(s) · se muestran los últimos 1000 de cada método';target.append(count);
+ for(const x of rows){const row=document.createElement('div');row.className='row';const info=document.createElement('div');info.style.minWidth='0';
+ const title=document.createElement('b');title.textContent=x.method+' · '+(x.plan==='featured'?'Destacado':x.plan==='premium'?'Premium':(x.plan||'Plan'));
+ const detail=document.createElement('div');detail.className='muted';detail.style.overflowWrap='anywhere';detail.style.fontSize='12px';detail.textContent=(x.date?new Date(x.date).toLocaleString('es-ES'):'Sin fecha')+' · Referencia: '+x.id+' · Usuario: '+x.owner_id;
+ const amount=document.createElement('b');amount.textContent=taEuro(Number(x.amount_eur||0));amount.style.whiteSpace='nowrap';info.append(title,detail);row.append(info,amount);target.append(row)}
+}
+const taIncomeNav=document.querySelector('.nav button[data-sec="income"]');
+if(taIncomeNav)taIncomeNav.addEventListener('click',taLoadIncome);
+</script>
+
+<style id="ta-push-controls-style">
+#taPushCard{margin:14px 0;padding:16px;border:1px solid #e7dcc6;border-radius:16px;background:#fffdfa}
+#taPushCard .taPushLine{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between}
+#taPushCard p{margin:6px 0;color:#6f6a76;font-size:13px}
+#taPushCard button{padding:11px 15px;border:0;border-radius:11px;background:#b88624;color:white;font-weight:750;cursor:pointer}
+#taPushCard button:disabled{opacity:.6;cursor:wait}
+</style>
+<script id="ta-admin-enable-push-v1">
+(()=>{
+ const VAPID='BOCa4utC6uM3IzVWU-Em110qZaxrrvpLeZ5Od7pSAvDlybZtxtL8CH-Vpr4ifRSf9nU7zcQuxANzGVDdCtuuBV8';
+ const card=document.createElement('div');card.id='taPushCard';card.innerHTML='<div class="taPushLine"><div><b>Notificaciones en el móvil</b><p id="taPushStatus">Activa los avisos para recibirlos con TA Admin cerrado.</p></div><button id="taPushEnable" type="button">Activar notificaciones</button></div>';
+ const home=document.querySelector('#home .compactMetrics');if(home)home.before(card);
+ const btn=document.getElementById('taPushEnable'), status=document.getElementById('taPushStatus');
+ function say(t){status.textContent=t}
+ function keyBytes(s){const p='='.repeat((4-s.length%4)%4);const binary=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(binary,c=>c.charCodeAt(0))}
+ async function setup(){
+  btn.disabled=true;say('Comprobando el dispositivo…');
+  try{
+   const admin=await isAdmin();if(!admin)throw Error('Inicia sesión como administrador primero.');
+   if(!window.isSecureContext||!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))throw Error('Este navegador no admite notificaciones push.');
+   const permission=await Notification.requestPermission();if(permission!=='granted')throw Error('Notificaciones bloqueadas. Permítelas en los ajustes de Android.');
+   const reg=await navigator.serviceWorker.register('/sw.js',{scope:'/'});
+   await navigator.serviceWorker.ready;
+   let sub=await reg.pushManager.getSubscription();
+   if(sub){const current=Array.from(new Uint8Array(sub.options?.applicationServerKey||[]));const expected=Array.from(keyBytes(VAPID));if(current.length&&current.some((v,i)=>v!==expected[i])){await sub.unsubscribe();sub=null}}
+   if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:keyBytes(VAPID)});
+   const payload=sub.toJSON();
+   const {data:existing,error:lookupError}=await db.from('tarotanuncia_admin_push_subscriptions').select('id').eq('endpoint',sub.endpoint).maybeSingle();
+   if(lookupError)throw lookupError;
+   const row={admin_user_id:admin.id,endpoint:sub.endpoint,subscription:payload};
+   const result=existing?await db.from('tarotanuncia_admin_push_subscriptions').update(row).eq('id',existing.id):await db.from('tarotanuncia_admin_push_subscriptions').insert(row);
+   if(result.error)throw result.error;
+   say('Notificaciones activadas en este dispositivo.');btn.textContent='Volver a registrar';
+  }catch(e){say('No se pudo activar: '+(e?.message||String(e)))}finally{btn.disabled=false}
+ }
+ btn.addEventListener('click',setup);
+ if('Notification' in window&&Notification.permission==='granted')say('Permiso concedido. Pulsa el botón para registrar este móvil en Supabase.');
+})();
+</script>
+</body></html>
