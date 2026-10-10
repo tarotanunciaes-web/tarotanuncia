@@ -683,7 +683,7 @@ try{
  }
 }catch(e){console.warn('No se pudo consultar el plan público',e)}
 try{const owners=[...new Set(profiles.map(p=>p.owner_id).filter(Boolean))];if(owners.length){const r=await fetch(URL+'/rest/v1/tarotanuncia_reviews?select=owner_id,visitor_name,rating,comment,created_at&status=eq.approved&owner_id=in.('+owners.map(encodeURIComponent).join(',')+')&order=created_at.desc&limit=1000',{headers:{apikey:KEY,Authorization:'Bearer '+KEY}});if(r.ok){const data=await r.json();reviewsByOwner=new Map();for(const item of data){if(!reviewsByOwner.has(item.owner_id))reviewsByOwner.set(item.owner_id,[]);reviewsByOwner.get(item.owner_id).push(item)}}else console.warn('Reseñas no disponibles',r.status)}}catch(e){console.warn('No se pudieron cargar reseñas',e)}
-populateGeo();render()}catch(e){console.error(e);document.getElementById('grid').innerHTML='<div class="empty">No se pudieron cargar los profesionales en este momento.</div>';document.getElementById('count').textContent=''} }
+populateGeo();render();const targetOwner=new URLSearchParams(window.location.search).get("perfil");if(targetOwner){const target=profiles.find(p=>String(p.owner_id||"")===targetOwner);if(target)openProfile(profileKey(target));}}catch(e){console.error(e);document.getElementById('grid').innerHTML='<div class="empty">No se pudieron cargar los profesionales en este momento.</div>';document.getElementById('count').textContent=''} }
 load();
 </script>
 </body></html>
