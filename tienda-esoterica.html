@@ -56,12 +56,40 @@ body{background:#fbfaf6}.desktopNav a:first-child{color:inherit;border:0;padding
 .shopEmpty{padding:32px 20px;background:white;border:1px solid #eadfce;border-radius:16px;text-align:center;color:#655a61}
 .shopCta{display:inline-block;background:#fff0c8;color:#76520d;border-radius:12px;padding:12px 18px;font-weight:800;margin-top:12px}
 .shopFooter{background:#241d24;color:#fff;padding:25px 0;margin-top:30px}
-@media(max-width:900px){.desktopNav{display:flex!important;gap:12px;flex-wrap:wrap;font-size:12px}.top{height:auto;min-height:80px;flex-wrap:wrap;padding:10px 0}.brand{margin-right:0}.mobileMenuBtn{display:none!important}.shopGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shopPhoto{height:120px}.shopBody{padding:8px}.shopBody h3{font-size:14px}.shopHero{min-height:220px}.shopHero p{font-size:14px}.shopPrice{font-size:15px}.shopContact{font-size:12px;padding:9px 5px}}
+@media(max-width:900px){.desktopNav{display:none!important}.top{height:68px;min-height:68px;flex-wrap:nowrap;padding:0}.brand{margin-right:auto}.mobileMenuBtn{display:inline-flex!important}.shopGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shopPhoto{height:120px}.shopBody{padding:8px}.shopBody h3{font-size:14px}.shopHero{min-height:220px}.shopHero p{font-size:14px}.shopPrice{font-size:15px}.shopContact{font-size:12px;padding:9px 5px}}
+</style>
+<style id="ta-shop-menu-footer-fix">
+html,body{min-height:100%}body{min-height:100dvh;display:flex;flex-direction:column}main{flex:1 0 auto;width:100%}
+.shopFooter{margin-top:auto;background:#fffaf1;color:#514234;border-top:1px solid #e9dfcf;padding:22px 0;font-size:13px}
+.shopFooter a{color:#94640b;font-weight:700}
+.drawerTitle{display:flex;align-items:center;gap:10px}.drawerTitle strong{font:700 20px Georgia,serif}
+.drawerLegal{display:grid;gap:3px;border-top:1px solid #eee4d6;margin-top:12px;padding-top:12px}
+.drawerLegal a{font-size:12px;color:#766c66;font-weight:500}
+@media(max-width:900px){
+ header{height:68px!important}.top{height:68px!important;min-height:68px!important;flex-wrap:nowrap!important;padding:0!important}
+ .desktopNav{display:none!important}.mobileMenuBtn{display:inline-flex!important;align-items:center;justify-content:center;gap:5px;white-space:nowrap;font-size:0!important;cursor:pointer;min-width:82px;padding:8px!important;color:#231a22}
+ .mobileMenuBtn::before{content:"☰";font-size:19px;line-height:1}.mobileMenuBtn::after{content:"MENÚ";font-size:13px;font-weight:800;line-height:1}
+ .drawerOverlay{display:block}.drawer{display:block;left:0;right:auto;width:min(82vw,310px);border-radius:0;z-index:80}
+ .drawerNav a,.drawerNav button{display:block;width:100%;font-size:14px}
+ .brand{min-width:0}.brandName{font-size:23px}.brand img{width:48px;height:48px}
+ .shopFooter{padding:20px 0}
+}
 </style></head><body>
 <header><div class="wrap top">
 <a class="brand" href="index.html"><img src="file_000000003c088210be49f3122608d83d.png" alt="TarotAnuncia"><div><div class="brandName">Tarot<span>Anuncia</span></div><div class="tagline">TAROTISTAS CERCA DE TI</div></div></a>
 <nav class="desktopNav"><a href="index.html">Inicio</a><a href="anuncios.html">Anuncios</a><a href="tarotistas.html">Tarotistas</a><a href="tienda-esoterica.html" aria-current="page">Tienda esotérica</a></nav>
+<button class="mobileMenuBtn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="drawer" onclick="toggleDrawer(true)">☰</button>
 </div></header>
+<div id="drawerOverlay" class="drawerOverlay" onclick="toggleDrawer(false)"></div>
+<aside id="drawer" class="drawer" aria-label="Menú móvil">
+ <div class="drawerTop"><div class="drawerTitle"><img src="file_000000003c088210be49f3122608d83d.png" alt="TarotAnuncia"><strong>Menú</strong></div><button class="closeMenu" type="button" aria-label="Cerrar menú" onclick="toggleDrawer(false)">×</button></div>
+ <nav class="drawerNav">
+ <a href="index.html">Inicio</a><a href="anuncios.html">Anuncios</a><a href="tarotistas.html">Tarotistas</a><a href="tienda-esoterica.html" aria-current="page">Tienda esotérica</a>
+ <a class="drawerPublish goldBtn" href="index.html#registro" style="text-align:center;color:#fff;background:linear-gradient(135deg,#efb326,#d89400)">Crear cuenta</a>
+ <a href="index.html" >Iniciar sesión</a>
+ <div class="drawerLegal"><a href="aviso-legal.html">Aviso legal</a><a href="politica-privacidad.html">Política de privacidad</a><a href="terminos-condiciones.html">Términos y condiciones</a><a href="contacto.html">Contacto</a><a href="politica-cookies.html">Política de cookies</a></div>
+ </nav>
+</aside>
 <section class="shopHero"><div class="wrap"><h1>Tienda esotérica</h1><p>Descubre velas, amuletos, minerales, inciensos y otros productos publicados por profesionales. Contacta directamente con el vendedor.</p></div></section>
 <main class="wrap">
 <section class="shopIntro"><div class="sectionHead"><h2>Productos esotéricos</h2></div><p>Explora los artículos disponibles. Solo se muestran productos aprobados.</p>
@@ -72,6 +100,8 @@ body{background:#fbfaf6}.desktopNav a:first-child{color:inherit;border:0;padding
 <div id="shopEmpty" class="shopEmpty">Cargando productos...</div>
 </main><footer class="shopFooter"><div class="wrap">TarotAnuncia · Publicaciones de profesionales independientes · <a href="index.html">Volver al inicio</a></div></footer>
 <script>
+function toggleDrawer(open){document.getElementById('drawer').classList.toggle('open',open);document.getElementById('drawerOverlay').classList.toggle('open',open);document.querySelector('.mobileMenuBtn').setAttribute('aria-expanded',String(open));document.body.style.overflow=open?'hidden':''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleDrawer(false)});
 const SUPABASE_URL='https://ozbbgfxixbgffxnhqpzh.supabase.co',SUPABASE_KEY='sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd';
 let products=[],category='Todos';
 const grid=document.getElementById('shopGrid'),empty=document.getElementById('shopEmpty');
