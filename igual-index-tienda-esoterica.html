@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Tienda esotérica | TarotAnuncia</title>
+<meta content="Descubre productos esotéricos anunciados por profesionales en TarotAnuncia." name="description"/>
+<style>
+:root{--gold:#d89400;--gold2:#efb326;--ink:#171526;--cream:#fffaf1;--line:#eadfce;--green:#169b67}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:Arial,system-ui,sans-serif;background:#fffdf9}
+a{text-decoration:none;color:inherit}button,input,select{font:inherit}.wrap{width:min(1320px,calc(100% - 56px));margin:auto}
+header{height:78px;background:#fff;border-bottom:1px solid #eee4d6;position:sticky;top:0;z-index:50}
+.top{height:78px;display:flex;align-items:center;gap:28px}.brand{display:flex;align-items:center;gap:10px;margin-right:auto}.brand img{width:68px;height:68px;object-fit:contain}.brandName{font:700 34px Georgia,serif}.brandName span{color:#b97800}.tagline{font-size:11px;letter-spacing:2px}
+.desktopNav{display:flex;align-items:center;gap:30px;font-size:15px}.desktopNav a:first-child{color:#b97800;border-bottom:2px solid #d99b17;padding-bottom:9px}
+.goldBtn{border:0;border-radius:24px;padding:13px 22px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;font-weight:800;cursor:pointer}
+.loginBtn{border:1px solid #d7ad5d;background:#fff;border-radius:13px;padding:12px 16px;font-weight:700}.mobileMenuBtn{display:none}
+.hero{height:285px;background-image:linear-gradient(90deg,rgba(255,249,239,.98) 0%,rgba(255,249,239,.82) 37%,rgba(255,255,255,.05) 68%),url('hero-espiritual.jpg');background-size:cover;background-position:center}
+.heroInner{height:100%;display:flex;align-items:center}.heroText{max-width:560px}.hero h1{font:800 54px/.98 Georgia,serif;margin:0 0 12px;letter-spacing:-1px}.hero p{font-size:19px;line-height:1.35;margin:0}
+.desktopSearch{position:relative;margin:-31px auto 18px;background:#fff;border:1px solid var(--line);box-shadow:0 9px 24px #4c36151c;border-radius:17px;padding:10px;display:grid;grid-template-columns:1.35fr .8fr .9fr 1fr 150px;gap:8px;z-index:4}
+.sField{height:48px;border:1px solid #e8e0d5;border-radius:12px;background:#fff;display:flex;align-items:center;padding:0 13px;gap:9px}.sField input,.sField select{border:0;outline:0;width:100%;background:transparent}.sIcon{color:#c5870b;font-size:20px}
+.searchBtn{border:0;border-radius:12px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;font-weight:800;font-size:17px}
+.filterLine{width:min(1320px,calc(100% - 56px));margin:0 auto 12px;display:flex;gap:10px;align-items:center}.filterToggle{border:1px solid #dcb25d;background:#fff9eb;border-radius:999px;padding:9px 14px;font-weight:700;color:#6d4b0a}
+.filterPanel{display:none;width:min(1320px,calc(100% - 56px));margin:0 auto 20px;padding:14px;border:1px solid var(--line);border-radius:15px;background:#fff}.filterPanel.open{display:grid;grid-template-columns:1fr 1fr;gap:18px}.filterPanel h4{margin:0 0 9px}.multiPills{display:flex;flex-wrap:wrap;gap:8px}.pill{border:1px solid #decda9;background:#fff;border-radius:999px;padding:9px 12px;cursor:pointer}.pill.on{background:#fff0c8;border-color:#d3940a;color:#6d4700;font-weight:800}
+.section{padding:20px 0 8px}.sectionHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.sectionHead h2{font:800 30px Georgia,serif;margin:0}.seeAll{background:#fff0cd;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:700}
+.cardGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}.adCard{background:#fff;border:1px solid #eadfce;border-radius:13px;overflow:hidden;box-shadow:0 5px 16px #36250d12;position:relative;cursor:pointer}.adCard.premium{border:2px solid #6d2c68}.adCard.featured{border:1.5px solid #d99c13}.photo{height:165px;background:#faf6ef;position:relative;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover;display:block}.badge{position:absolute;top:8px;left:8px;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;color:#fff;background:#d99400}.premium .badge{background:#8b2d73}.heart{position:absolute;right:8px;top:8px;width:34px;height:34px;border-radius:50%;border:1px solid #e3d4b7;background:#fff;color:#c2870e;font-size:20px}.cardBody{padding:10px 13px 12px}.cardTitle{font:800 18px Georgia,serif;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:12px;color:#666;margin-bottom:6px}.online{color:var(--green)}.price{font-size:16px;font-weight:900;margin-bottom:9px}.viewBtn{display:block;width:100%;border:0;border-radius:9px;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;text-align:center;padding:10px;font-weight:800}
+.recentGrid .photo{height:110px}.trustStrip{margin:24px auto 10px;padding:18px 26px;background:#fffaf1;border:1px solid #eee1c9;border-radius:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.trustItem{text-align:center}.trustItem b{display:block;font-family:Georgia,serif}.trustItem small{color:#777}
+footer{margin-top:34px;padding:30px 0;background:#241d24;color:#fff}
+.drawerOverlay,.drawer{display:none}.bottomNav{display:none!important}
+.modal{position:fixed;inset:0;background:#130b1d99;z-index:100;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.box{width:100%;max-width:540px;max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:25px;position:relative}.x{position:absolute;right:17px;top:10px;font-size:28px;cursor:pointer}.box input,.box textarea,.box select{width:100%;padding:12px;border:1px solid #ddd5e6;border-radius:11px;margin:5px 0 10px}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fieldLabel{display:block;font-size:12px;font-weight:900;margin-top:3px}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.plan{border:1px solid #e3dceb;border-radius:14px;padding:12px;cursor:pointer}.plan.selected{border:2px solid var(--gold);background:#fff8e8}.notice{font-size:11px;color:#666;background:#faf7f1;padding:10px;border-radius:10px;margin-bottom:12px}.btn{border:0;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#fff;font-weight:800;border-radius:20px;padding:11px 18px}.btn.ghost{background:#fff;color:#9b6a00;border:1px solid #dcb25d}
+@media(max-width:900px){
+ .wrap{width:calc(100% - 28px)}header{height:66px}.top{height:66px}.brand img{width:48px;height:48px}.brandName{font-size:23px}.tagline{font-size:8px;letter-spacing:1.2px}.desktopNav,.top>.goldBtn,.top>.loginBtn{display:none}.mobileMenuBtn{display:block;border:0;background:#fff;font-size:25px;padding:8px}
+ .hero{height:235px;background-image:linear-gradient(90deg,rgba(255,249,239,.96),rgba(255,249,239,.43)),url('hero-espiritual.jpg');background-position:center}.hero h1{font-size:34px;max-width:270px}.hero p{font-size:15px;max-width:285px}
+ .desktopSearch,.filterLine,.filterPanel{display:none!important}
+ .section{padding:18px 0 4px}.sectionHead h2{font-size:25px}.seeAll{padding:9px 12px;font-size:12px}
+ .cardGrid{grid-template-columns:1fr;gap:15px}.adCard{width:100%;max-width:330px;margin:auto}.photo{height:180px}.cardTitle{font-size:18px}.recentGrid{display:grid;grid-template-columns:1fr;gap:12px}.recentGrid .adCard{max-width:330px}.recentGrid .photo{height:145px}
+ .trustStrip{grid-template-columns:1fr;margin-top:20px}
+ .drawerOverlay{display:block;position:fixed;inset:0;background:#0006;z-index:79;opacity:0;pointer-events:none;transition:.2s}.drawerOverlay.open{opacity:1;pointer-events:auto}.drawer{display:block;position:fixed;left:0;top:0;bottom:0;width:min(82vw,310px);background:#fff;z-index:80;transform:translateX(-105%);transition:.22s;padding:14px;overflow:auto}.drawer.open{transform:none}.drawerTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:10px}.drawerTop img{width:46px;height:46px;object-fit:contain}.closeMenu{border:0;background:#fff;font-size:26px}.accountCard{display:flex;align-items:center;gap:10px;margin:12px 0;padding:10px;border:1px solid #eadfce;border-radius:13px;background:#fffaf1;cursor:pointer}.accountCard img{width:46px;height:46px;border-radius:50%;object-fit:cover}.accountCard strong,.accountCard small{display:block}.accountCard small{font-size:11px;color:#777;margin-top:3px}.drawerNav{display:grid;gap:3px}.drawerNav a,.drawerNav button{min-height:44px;border:0;background:#fff;text-align:left;padding:10px;border-radius:10px;font-weight:700}.drawerNav a:hover,.drawerNav button:hover{background:#fff7e7}.drawerPublish{margin:10px 0;width:100%;min-height:46px}.formGrid{grid-template-columns:1fr}.plans{grid-template-columns:1fr}
+}
+@media(max-width:370px){.brandName{font-size:20px}.tagline{display:none}.adCard{max-width:calc(100vw - 30px)}}
+ .shopGallery{display:flex;gap:5px;overflow-x:auto;margin:6px 0}.shopThumb{border:1px solid #d8c99d;background:white;border-radius:6px;padding:2px;flex:0 0 40px}.shopThumb img{width:36px;height:36px;object-fit:contain} </style>
+<style>
+body{background:#fbfaf6}.desktopNav a:first-child{color:inherit;border:0;padding:0}
+.desktopNav a:last-child{color:#a87608;border-bottom:2px solid #d99b17;padding-bottom:9px}
+.shopHero{min-height:265px;background:linear-gradient(90deg,rgba(255,250,241,.97),rgba(255,250,241,.73)),url('hero-espiritual.jpg') center/cover;display:flex;align-items:center}
+.shopHero h1{font:800 clamp(36px,5vw,56px)/1.08 Georgia,serif;margin:0 0 12px}
+.shopHero p{font-size:17px;line-height:1.5;max-width:610px;color:#655a61}
+.shopIntro{padding:24px 0 5px}.shopIntro p{color:#655a61}
+.shopFilters{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 24px}
+.shopFilters button{border:1px solid #e1d2b8;border-radius:999px;padding:9px 14px;background:white;color:#654b24;font-weight:700;cursor:pointer}
+.shopFilters button.active{background:#fff0c8;border-color:#d99b17;color:#805700}
+.shopGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:30px}
+.shopCard{background:white;border:1px solid #e7d9c4;border-radius:14px;padding:7px;box-shadow:0 5px 16px #32231412;min-width:0}
+.shopPhoto{height:165px;background:#fbf7f0;border:1px solid #e3d4bc;border-radius:10px;display:grid;place-items:center;overflow:hidden}
+.shopPhoto img{width:100%;height:100%;object-fit:contain}
+.shopBody{margin-top:6px;border:1px solid #eadfce;border-radius:10px;padding:11px}
+.shopBody h3{font:800 17px Georgia,serif;margin:0 0 8px;overflow-wrap:anywhere}
+.shopCategory{font-size:12px;color:#806980}.shopPrice{font-size:19px;font-weight:900;margin:9px 0;color:#29202b}
+.shopContact{display:block;background:linear-gradient(135deg,#efb326,#d89400);color:#fff;border-radius:9px;padding:10px;text-align:center;font-weight:800}
+.shopEmpty{padding:32px 20px;background:white;border:1px solid #eadfce;border-radius:16px;text-align:center;color:#655a61}
+.shopCta{display:inline-block;background:#fff0c8;color:#76520d;border-radius:12px;padding:12px 18px;font-weight:800;margin-top:12px}
+.shopFooter{background:#241d24;color:#fff;padding:25px 0;margin-top:30px}
+@media(max-width:900px){.desktopNav{display:none!important}.top{height:68px;min-height:68px;flex-wrap:nowrap;padding:0}.brand{margin-right:auto}.mobileMenuBtn{display:inline-flex!important}.shopGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shopPhoto{height:120px}.shopBody{padding:8px}.shopBody h3{font-size:14px}.shopHero{min-height:220px}.shopHero p{font-size:14px}.shopPrice{font-size:15px}.shopContact{font-size:12px;padding:9px 5px}}
+</style>
+<style id="ta-shop-menu-footer-fix">
+html,body{min-height:100%}body{min-height:100dvh;display:flex;flex-direction:column}main{flex:1 0 auto;width:100%}
+.shopFooter{margin-top:auto;background:#fffaf1;color:#514234;border-top:1px solid #e9dfcf;padding:22px 0;font-size:13px}
+.shopFooter a{color:#94640b;font-weight:700}
+.drawerTitle{display:flex;align-items:center;gap:10px}.drawerTitle strong{font:700 20px Georgia,serif}
+.drawerLegal{display:grid;gap:3px;border-top:1px solid #eee4d6;margin-top:12px;padding-top:12px}
+.drawerLegal a{font-size:12px;color:#766c66;font-weight:500}
+@media(max-width:900px){
+ header{height:68px!important}.top{height:68px!important;min-height:68px!important;flex-wrap:nowrap!important;padding:0!important}
+ .desktopNav{display:none!important}.mobileMenuBtn{display:inline-flex!important;align-items:center;justify-content:center;gap:5px;white-space:nowrap;font-size:0!important;cursor:pointer;min-width:82px;padding:8px!important;color:#231a22}
+ .mobileMenuBtn::before{content:"☰";font-size:19px;line-height:1}.mobileMenuBtn::after{content:"MENÚ";font-size:13px;font-weight:800;line-height:1}
+ .drawerOverlay{display:block}.drawer{display:block;left:0;right:auto;width:min(82vw,310px);border-radius:0;z-index:80}
+ .drawerNav a,.drawerNav button{display:block;width:100%;font-size:14px}
+ .brand{min-width:0}.brandName{font-size:23px}.brand img{width:48px;height:48px}
+ .shopFooter{padding:20px 0}
+}
+</style><style id="ta-shop-index-menu-match-v2">
+/* Misma escala compacta del menú móvil de Index; sin alterar la tienda */
+@media(max-width:900px){
+ .drawerOverlay{z-index:998!important;background:rgba(20,15,20,.38)!important}
+ .drawer{position:fixed!important;top:0!important;left:0!important;right:auto!important;bottom:0!important;width:min(70vw,245px)!important;max-width:245px!important;height:100dvh!important;max-height:none!important;padding:13px 11px!important;border-radius:0 16px 16px 0!important;background:linear-gradient(180deg,#fffdf9,#fbf5eb)!important;border-right:1px solid #e0cda9!important;box-shadow:14px 0 40px rgba(42,23,38,.20)!important;z-index:999!important;transform:translateX(-105%)!important;overflow-y:auto!important}
+ .drawer.open{transform:translateX(0)!important}
+ .drawerTop{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:2px 2px 10px!important;margin-bottom:7px!important;border-bottom:1px solid #eadfcf!important}
+ .drawerTitle{display:flex!important;align-items:center!important;gap:8px!important}
+ .drawerTitle img{width:34px!important;height:34px!important;object-fit:contain!important}
+ .drawerTitle strong{font:800 17px Georgia,serif!important;color:#2d2529!important}
+ .closeMenu{width:34px!important;height:34px!important;font-size:23px!important;background:transparent!important;color:#231a22!important}
+ .drawerNav{display:flex!important;flex-direction:column!important;gap:3px!important}
+ .drawerNav a,.drawerNav button{display:block!important;width:100%!important;min-height:40px!important;padding:8px 9px!important;font-size:13px!important;font-weight:700!important;border-radius:10px!important;background:#fff!important;text-align:left!important;color:#231a22!important}
+ .drawerNav a[aria-current="page"]{background:#fff8e9!important;color:#9b6800!important}
+ .drawerNav .drawerPublish{display:block!important;min-height:42px!important;margin:8px 0 4px!important;background:linear-gradient(135deg,#efb326,#d89400)!important;color:#fff!important;text-align:center!important;border-radius:10px!important}
+ .drawerLegal{border-top:1px solid #eee2d2!important;margin-top:8px!important;padding-top:8px!important;display:grid!important;gap:1px!important}
+ .drawerLegal a{font-size:12px!important;font-weight:600!important;color:#65584f!important;min-height:34px!important;padding:8px 9px!important;background:transparent!important}
+}
+</style><style id="ta-shop-menu-aligned-v3">
+@media(max-width:900px){
+ .drawer{width:min(86vw,340px)!important;max-width:340px!important;padding:18px 16px 24px!important;border-radius:0 20px 20px 0!important;overscroll-behavior:contain!important}
+ .drawerTop{min-height:57px!important;padding:0 4px 15px!important;margin:0 0 13px!important;gap:10px!important}
+ .drawerTitle{gap:12px!important;min-width:0!important}
+ .drawerTitle img{width:40px!important;height:40px!important;flex:none!important}
+ .drawerTitle strong{font:700 23px Georgia,serif!important}
+ .closeMenu{width:38px!important;height:38px!important;flex:none!important;display:grid!important;place-items:center!important;padding:0!important}
+ .drawerNav{display:flex!important;flex-direction:column!important;gap:7px!important}
+ .drawerNav>a:not(.drawerPublish){display:flex!important;align-items:center!important;min-height:48px!important;padding:12px 14px!important;border-radius:12px!important;background:#fff!important;font-size:15px!important;font-weight:750!important;color:#302a2b!important;line-height:1.3!important}
+ .drawerNav>a[aria-current="page"]{background:#fff7e5!important;color:#94660c!important}
+ .drawerNav>a.drawerPublish{display:flex!important;align-items:center!important;justify-content:center!important;min-height:52px!important;margin:12px 0 6px!important;padding:12px 14px!important;border-radius:13px!important;background:linear-gradient(135deg,#efb326,#d89400)!important;color:#fff!important;font-size:16px!important;font-weight:800!important}
+ .drawerNav .drawerLegal{width:100%!important;display:flex!important;flex-direction:column!important;gap:2px!important;border-top:1px solid #e9ddc8!important;margin-top:10px!important;padding:12px 0 0!important}
+ .drawerNav .drawerLegal a{display:flex!important;align-items:center!important;min-height:40px!important;padding:9px 12px!important;background:transparent!important;color:#685c54!important;font-size:13px!important;font-weight:600!important;border-radius:9px!important;line-height:1.3!important}
+ .drawerNav .drawerLegal a:hover{background:#fff3db!important}
+}
+</style><style id="ta-shared-menu-clean">
+/* Menú compartido TarotAnuncia, aislado del contenido de cada sección */
+header:has(.taSharedTop){height:62px!important;min-height:62px!important;background:#fff!important;border-bottom:1px solid #eee4d6!important;position:sticky!important;top:0!important;z-index:90!important}
+.taSharedTop{height:62px!important;min-height:62px!important;display:flex!important;align-items:center!important;gap:16px!important;width:min(1240px,calc(100% - 48px))!important;margin:auto!important}
+.taSharedTop .brand{display:flex!important;align-items:center!important;gap:9px!important;margin-right:auto!important;text-decoration:none!important}
+.taSharedTop .brand img{width:44px!important;height:44px!important;max-height:44px!important;object-fit:contain!important}
+.taSharedTop .brandName{font:700 25px Georgia,serif!important;color:#171526!important}.taSharedTop .brandName span{color:#b97800!important}
+.taSharedTop .tagline{font-size:8px!important;letter-spacing:1.4px!important}
+.taSharedTop .desktopNav{display:flex!important;align-items:center!important;gap:17px!important}
+.taSharedTop .desktopNav a{font:500 12px Arial,sans-serif!important;color:#171526!important;padding:0 0 7px!important;border:0!important;white-space:nowrap!important}
+.taSharedTop .desktopNav a[aria-current="page"]{color:#b97800!important;border-bottom:2px solid #d99b17!important}
+.taSharedTop .goldBtn,.taSharedDrawer .drawerPublish{border:0!important;border-radius:24px!important;padding:9px 15px!important;background:linear-gradient(135deg,#efb326,#d89400)!important;color:white!important;font-size:12px!important;font-weight:800!important;cursor:pointer!important}
+.taSharedTop .loginBtn{border:1px solid #d7ad5d!important;background:#fff!important;border-radius:13px!important;padding:9px 13px!important;font-size:12px!important;font-weight:700!important;cursor:pointer!important}
+.taSharedTop .mobileMenuBtn{display:none!important;border:0!important;background:#fff!important;font-size:27px!important;cursor:pointer!important}
+.taSharedOverlay{display:none!important}
+.taSharedDrawer{display:none!important}
+.taSharedDrawer [hidden],.taSharedTop [hidden]{display:none!important}
+@media(max-width:900px){
+ header:has(.taSharedTop){height:68px!important;min-height:68px!important}
+ .taSharedTop{height:68px!important;min-height:68px!important;width:calc(100% - 28px)!important}
+ .taSharedTop .brand img{width:43px!important;height:43px!important}
+ .taSharedTop .brandName{font-size:23px!important}
+ .taSharedTop .desktopNav,.taSharedTop>.goldBtn,.taSharedTop>.loginBtn{display:none!important}
+ .taSharedTop .mobileMenuBtn{display:block!important;margin-left:auto!important}
+ .taSharedOverlay{display:block!important;position:fixed!important;inset:0!important;z-index:998!important;background:rgba(20,15,20,.34)!important;opacity:0!important;pointer-events:none!important;transition:opacity .2s!important}
+ .taSharedOverlay.open{opacity:1!important;pointer-events:auto!important}
+ .taSharedDrawer{display:block!important;position:fixed!important;top:76px!important;right:10px!important;left:auto!important;bottom:auto!important;width:min(270px,78vw)!important;max-width:270px!important;max-height:calc(100dvh - 90px)!important;padding:9px!important;border-radius:14px!important;background:#fff!important;z-index:999!important;overflow:auto!important;transform:translateX(calc(100% + 24px))!important;transition:transform .22s!important;box-shadow:0 14px 35px rgba(0,0,0,.18)!important}
+ .taSharedDrawer.open{transform:translateX(0)!important}
+ .taSharedDrawer .drawerTop{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:3px 3px 8px!important;border-bottom:1px solid #eee!important}
+ .taSharedDrawer .drawerTitle{display:flex!important;align-items:center!important;gap:8px!important}
+ .taSharedDrawer .drawerTop img{width:35px!important;height:35px!important;object-fit:contain!important}
+ .taSharedDrawer .closeMenu{border:0!important;background:#fff!important;font-size:22px!important}
+ .taSharedDrawer .drawerNav{display:grid!important;gap:2px!important;margin:0!important}
+ .taSharedDrawer .drawerNav a,.taSharedDrawer .drawerNav button{display:block!important;min-height:38px!important;padding:8px 10px!important;border:0!important;border-radius:10px!important;background:#fff!important;text-align:left!important;font-size:13px!important;font-weight:700!important;color:#171526!important;text-decoration:none!important;cursor:pointer!important}
+ .taSharedDrawer .drawerNav a[aria-current="page"]{background:#fff5dd!important;color:#9a6900!important}
+ .taSharedDrawer .drawerNav .drawerPublish{width:100%!important;min-height:40px!important;margin:6px 0!important;text-align:center!important;color:#fff!important;background:linear-gradient(135deg,#efb326,#d89400)!important}
+ .taSharedDrawer .accountCard{display:flex!important;align-items:center!important;gap:10px!important;margin:12px 0!important;padding:10px!important;border:1px solid #eadfce!important;border-radius:13px!important;background:#fffaf1!important;cursor:pointer!important}
+ .taSharedDrawer .accountCard[hidden]{display:none!important}
+ .taSharedDrawer .accountCard img{width:46px!important;height:46px!important;border-radius:50%!important;object-fit:cover!important}
+ .taSharedDrawer .accountCard strong,.taSharedDrawer .accountCard small{display:block!important}
+ .taSharedDrawer .accountCard small{font-size:11px!important;color:#777!important;margin-top:3px!important}
+ .taSharedDrawer .drawerLegal{border-top:1px solid #eee!important;margin-top:8px!important;padding-top:8px!important;display:grid!important;gap:0!important}
+ .taSharedDrawer .drawerLegal a{font-size:11px!important;font-weight:400!important;min-height:28px!important;padding:6px 10px!important}
+ .ta-menu-plan{display:inline-block!important;padding:4px 9px!important;border-radius:99px!important;font-weight:800!important;font-size:10px!important}
+ .ta-menu-plan-premium{background:#6d2c68!important;color:#fff!important}.ta-menu-plan-featured{background:#efb326!important;color:#fff!important}.ta-menu-plan-free{background:#eee!important;color:#555!important}
+}
+</style><style id="ta-menu-stable-fix">
+/* Ajuste aislado: menú fijo a la izquierda como Index; no altera el contenido */
+html{overflow-x:clip}
+.taSharedTop .mobileMenuBtn{font-size:0!important;line-height:1!important;width:44px!important;height:44px!important;min-width:44px!important;display:none!important;align-items:center!important;justify-content:center!important;padding:0!important;position:relative!important;flex:0 0 44px!important;white-space:nowrap!important;letter-spacing:0!important;text-indent:0!important;overflow:hidden!important}
+.taSharedTop .mobileMenuBtn::before{content:"☰"!important;display:block!important;font:normal 29px/1 Arial,sans-serif!important;color:#171526!important;position:static!important;transform:none!important;border:0!important;background:none!important;width:auto!important;height:auto!important}
+.taSharedTop .mobileMenuBtn::after{content:none!important;display:none!important}
+@media(min-width:901px){
+ .taSharedTop .mobileMenuBtn,.taSharedDrawer,.taSharedOverlay{display:none!important}
+ .taSharedTop .desktopNav{display:flex!important}
+}
+@media(max-width:900px){
+ .taSharedTop .mobileMenuBtn{display:flex!important}
+ .taSharedTop .desktopNav,.taSharedTop>.goldBtn,.taSharedTop>.loginBtn{display:none!important}
+ .taSharedOverlay{position:fixed!important;inset:0!important;display:block!important;z-index:998!important;opacity:0!important;pointer-events:none!important;transition:opacity .18s ease!important}
+ .taSharedOverlay.open{opacity:1!important;pointer-events:auto!important}
+ .taSharedDrawer{display:block!important;position:fixed!important;top:0!important;left:0!important;right:auto!important;bottom:0!important;width:min(82vw,310px)!important;max-width:310px!important;height:100dvh!important;max-height:100dvh!important;margin:0!important;border-radius:0 16px 16px 0!important;padding:14px!important;z-index:999!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;transform:translate3d(-105%,0,0)!important;transition:transform .22s ease!important;box-shadow:0 14px 35px rgba(0,0,0,.18)!important}
+ .taSharedDrawer.open{transform:translate3d(0,0,0)!important}
+ .taSharedDrawer .drawerNav{display:grid!important;gap:3px!important}
+ .taSharedDrawer .drawerNav a,.taSharedDrawer .drawerNav button{min-height:40px!important}
+ .taSharedDrawer .drawerNav .drawerPublish{display:block!important;text-align:center!important}
+}
+</style><style id="ta-match-index-menu-20261010">
+/* Ajuste visual aislado para igualar el menú de Index (36). */
+@media(max-width:900px){
+ header .taSharedTop .mobileMenuBtn{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:auto!important;min-width:96px!important;max-width:none!important;height:44px!important;
+  flex:0 0 auto!important;padding:0 5px!important;font-size:0!important;
+  overflow:visible!important;white-space:nowrap!important;background:transparent!important;
+  border:0!important;gap:5px!important;
+ }
+ header .taSharedTop .mobileMenuBtn::before{
+  content:"☰"!important;display:inline-block!important;font:normal 23px/1 Arial,sans-serif!important;
+  margin:0 5px 0 0!important;color:#211b22!important;position:static!important;
+ }
+ header .taSharedTop .mobileMenuBtn::after{
+  content:"MENÚ"!important;display:inline-block!important;font:800 14px/1 Arial,sans-serif!important;
+  color:#211b22!important;position:static!important;width:auto!important;height:auto!important;
+ }
+ #drawer.taSharedDrawer{
+  top:0!important;left:0!important;right:auto!important;bottom:0!important;
+  width:min(82vw,310px)!important;max-width:310px!important;height:100dvh!important;
+  max-height:none!important;padding:14px 11px!important;border-radius:0 17px 17px 0!important;
+  background:linear-gradient(180deg,#fffdf9,#fbf5eb)!important;
+  overflow-y:auto!important;overflow-x:hidden!important;position:fixed!important;
+  transform:translate3d(-105%,0,0)!important;
+ }
+ #drawer.taSharedDrawer.open{transform:translate3d(0,0,0)!important}
+ #drawer .drawerTop{padding:2px 2px 12px!important;margin-bottom:10px!important;border-bottom:1px solid #e9dfcf!important}
+ #drawer .drawerTitle{display:flex!important;align-items:center!important;gap:10px!important}
+ #drawer .drawerTitle img{width:42px!important;height:42px!important;object-fit:contain!important}
+ #drawer .drawerTitle strong{font:800 22px Georgia,serif!important;color:#30272d!important}
+ #drawer .closeMenu{font-size:27px!important;min-width:36px!important;height:40px!important}
+ #drawer .drawerNav{display:flex!important;flex-direction:column!important;gap:5px!important}
+ #drawer .drawerNav>a,#drawer .drawerNav>button{
+  box-sizing:border-box!important;display:flex!important;align-items:center!important;
+  min-height:43px!important;width:100%!important;padding:10px 12px!important;
+  font:700 15px/1.25 Arial,sans-serif!important;border-radius:12px!important;
+  text-align:left!important;white-space:normal!important;
+ }
+ #drawer .drawerNav>a[href="index.html"],
+ #drawer .drawerNav>a[aria-current="page"]{background:#fff5df!important;color:#94650c!important}
+ #drawer .drawerNav .drawerPublish{
+  display:flex!important;justify-content:center!important;text-align:center!important;
+  margin:10px 0 7px!important;min-height:48px!important;
+  background:linear-gradient(135deg,#f3b821,#e6a100)!important;color:#fff!important;
+  border-radius:12px!important;font-size:15px!important;
+ }
+ #drawer .drawerLegal{margin-top:10px!important;padding-top:12px!important;border-top:1px solid #e8decd!important}
+ #drawer .drawerLegal a{display:flex!important;align-items:center!important;min-height:42px!important;
+  padding:10px 12px!important;margin:2px 0!important;border-radius:11px!important;
+  background:#fff!important;color:#605b59!important;font:500 14px/1.3 Arial,sans-serif!important}
+ #drawer .drawerNav #drawerLogin{background:#fff!important;border-radius:11px!important}
+ #drawer .accountCard[hidden],#drawer #drawerProfile[hidden]{display:none!important}
+}
+</style><style id="ta-desktop-auth-flicker-fix">
+@media(min-width:901px){
+ .taSharedTop > .loginBtn[hidden]{display:none!important}
+ .taSharedTop > .loginBtn{visibility:hidden!important}
+ .taSharedTop.ta-auth-ready > .loginBtn:not([hidden]){visibility:visible!important}
+ .taSharedTop > #taDesktopAccountAction{visibility:hidden!important}
+ .taSharedTop.ta-auth-ready > #taDesktopAccountAction{visibility:visible!important}
+}
+</style><style id="ta-index-size-only-20261010">
+/* Tamaños de cabecera y menú equiparados a Index (36). Solo navegación. */
+@media(min-width:901px){
+ header:has(.taSharedTop){height:68px!important;min-height:68px!important}
+ header .taSharedTop{height:68px!important;min-height:68px!important;width:min(1240px,calc(100% - 44px))!important;gap:15px!important}
+ header .taSharedTop .brand{min-width:205px!important}
+ header .taSharedTop .brand img{width:43px!important;height:43px!important}
+ header .taSharedTop .brandName{font-size:25px!important}
+ header .taSharedTop .tagline{font-size:8px!important}
+ header .taSharedTop .desktopNav{gap:18px!important}
+ header .taSharedTop .desktopNav a{font-size:12px!important;font-weight:600!important}
+ header .taSharedTop>.goldBtn,header .taSharedTop>.loginBtn{font-size:11.5px!important;padding:9px 13px!important}
+}
+@media(max-width:900px){
+ header:has(.taSharedTop){height:68px!important;min-height:68px!important}
+ header .taSharedTop{height:68px!important;min-height:68px!important;width:calc(100% - 28px)!important}
+ header .taSharedTop .brand img{width:43px!important;height:43px!important}
+ header .taSharedTop .brandName{font-size:23px!important}
+ header .taSharedTop .mobileMenuBtn{min-width:82px!important;width:82px!important;height:42px!important;padding:0 6px!important;gap:0!important}
+ header .taSharedTop .mobileMenuBtn::before{font-size:18px!important;margin-right:5px!important}
+ header .taSharedTop .mobileMenuBtn::after{font-size:13px!important;font-weight:800!important}
+ #drawer.taSharedDrawer{width:min(82vw,310px)!important;max-width:310px!important;padding:16px 14px!important}
+ #drawer .drawerTitle img{width:44px!important;height:44px!important}
+ #drawer .drawerTitle strong{font-size:20px!important}
+ #drawer .drawerNav>a,#drawer .drawerNav>button{min-height:46px!important;padding:11px 12px!important;font-size:15px!important;border-radius:10px!important}
+ #drawer .drawerLegal a{font-size:13px!important;padding:9px 11px!important;min-height:40px!important}
+}
+</style><style id="ta-index-cream-gold-match">
+/* Igualar el tono crema/dorado claro de la cabecera de Index (36). */
+header:has(.taSharedTop){background:rgba(255,252,246,.96)!important;box-shadow:0 1px 0 rgba(123,84,24,.10)!important;backdrop-filter:blur(12px)!important}
+header .taSharedTop{background:transparent!important}
+@media(max-width:900px){
+ #drawer.taSharedDrawer{background:linear-gradient(180deg,#fffdf9,#fbf5eb)!important}
+ #drawer.taSharedDrawer .drawerHeader{background:transparent!important}
+}
+</style><style id="ta-mobile-login-visibility-fix">/* Ocultar siempre los controles marcados como hidden, aunque otras reglas usen display!important */
+#drawer #drawerLogin[hidden], #drawer .drawerNav #drawerLogin[hidden],
+.taSharedTop > .loginBtn[hidden], #drawer #menuAccount[hidden] {display:none!important;visibility:hidden!important}
+/* Evitar mostrar el acceso mientras se comprueba la sesión */
+#drawer #drawerLogin {visibility:hidden!important}
+#drawer.ta-login-ready #drawerLogin:not([hidden]) {visibility:visible!important}
+</style><style id="ta-mobile-compact-index-final">
+/* Menú móvil compacto igual al tamaño visual de Inicio. No altera escritorio. */
+@media(max-width:900px){
+ #drawer.taSharedDrawer{width:min(82vw,260px)!important;max-width:260px!important;padding:12px 11px!important;border-radius:0 16px 16px 0!important;background:linear-gradient(180deg,#fffdf9 0%,#fcf6e9 100%)!important;box-sizing:border-box!important}
+ #drawer .drawerTop{padding:2px 2px 10px!important;margin-bottom:8px!important}
+ #drawer .drawerTitle{gap:8px!important}
+ #drawer .drawerTitle img{width:34px!important;height:34px!important}
+ #drawer .drawerTitle strong{font-size:19px!important;line-height:1.15!important}
+ #drawer .closeMenu{font-size:24px!important;width:34px!important;min-width:34px!important;height:34px!important}
+ #drawer .accountCard{padding:11px!important;gap:10px!important;margin:10px 0!important;border-radius:13px!important}
+ #drawer .accountCard img{width:47px!important;height:47px!important}
+ #drawer .accountCard strong{font-size:17px!important;line-height:1.2!important}
+ #drawer .accountCard small{font-size:11px!important}
+ #drawer .drawerNav{gap:4px!important}
+ #drawer .drawerNav>a,#drawer .drawerNav>button{min-height:42px!important;padding:9px 10px!important;font-size:14px!important;line-height:1.3!important;border-radius:11px!important}
+ #drawer .drawerNav .drawerPublish{min-height:44px!important;margin:8px 0 6px!important;font-size:14px!important}
+ #drawer .drawerLegal{margin-top:9px!important;padding-top:10px!important}
+ #drawer .drawerLegal a{min-height:37px!important;padding:8px 10px!important;font-size:12px!important;border-radius:10px!important}
+ #drawer #drawerLogin[hidden],#drawer .accountCard[hidden]{display:none!important}
+}
+</style></head><body>
+<header>
+<div class="wrap top taSharedTop">
+<a class="brand" href="index.html"><img alt="TarotAnuncia" src="file_000000003c088210be49f3122608d83d.png"/><div><div class="brandName">Tarot<span>Anuncia</span></div><div class="tagline">TAROTISTAS CERCA DE TI</div></div></a>
+<nav class="desktopNav"><a href="index.html">Inicio</a><a href="anuncios.html">Anuncios</a><a href="tarotistas.html">Tarotistas</a><a aria-current="page" href="tienda-esoterica.html">Tienda esotérica</a></nav>
+<button class="goldBtn" id="taDesktopAccountAction" onclick="taGoAccountAction()">Crear cuenta</button>
+<button class="loginBtn" onclick="taMenuLogin()">Iniciar sesión</button>
+<button aria-label="Abrir menú" class="mobileMenuBtn" onclick="taSharedToggle(true)" type="button"></button>
+</div>
+</header>
+<div class="drawerOverlay taSharedOverlay" id="drawerOverlay" onclick="taSharedToggle(false)"></div>
+<aside aria-label="Menú móvil" class="drawer taSharedDrawer" id="drawer">
+<div class="drawerTop"><div class="drawerTitle"><img alt="TarotAnuncia" src="file_000000003c088210be49f3122608d83d.png"/><strong>Menú</strong></div><button class="closeMenu" onclick="taSharedToggle(false)">×</button></div>
+<div class="accountCard" hidden="" id="menuAccount" onclick="location.href='panel.html'">
+<img alt="Foto de perfil" id="menuProfilePhoto" src="file_000000003c088210be49f3122608d83d.png"/>
+<div><strong id="menuProfileName">Mi cuenta profesional</strong><small id="menuProfilePlan">Gestiona tu perfil y anuncios</small></div>
+</div>
+<nav class="drawerNav">
+<a href="index.html" onclick="taSharedToggle(false)">Inicio</a>
+<a href="anuncios.html" onclick="taSharedToggle(false)">Anuncios</a>
+<a href="tarotistas.html" onclick="taSharedToggle(false)">Tarotistas</a>
+<a aria-current="page" href="tienda-esoterica.html" onclick="taSharedToggle(false)">Tienda esotérica</a>
+<button class="drawerPublish goldBtn" id="taMobileAccountAction" onclick="taGoAccountAction()">Crear cuenta</button>
+<a hidden="" href="panel.html" id="drawerProfile" style="display:none!important">Mi panel</a>
+<button id="drawerLogin" onclick="taSharedToggle(false);taMenuLogin()">Iniciar sesión</button>
+<div class="drawerLegal">
+<a href="aviso-legal.html">Aviso legal</a>
+<a href="politica-privacidad.html">Política de privacidad</a>
+<a href="terminos-condiciones.html">Términos y condiciones</a>
+<a href="contacto.html">Contacto</a>
+<a href="politica-cookies.html">Política de cookies</a>
+</div>
+</nav>
+</aside>
+<section class="shopHero"><div class="wrap"><h1>Tienda esotérica</h1><p>Descubre velas, amuletos, minerales, inciensos y otros productos publicados por profesionales. Contacta directamente con el vendedor.</p></div></section>
+<main class="wrap">
+<section class="shopIntro"><div class="sectionHead"><h2>Productos esotéricos</h2></div><p>Explora los artículos disponibles. Solo se muestran productos aprobados.</p>
+<div aria-label="Filtrar productos" class="shopFilters" id="shopFilters">
+<button class="active" data-category="Todos">Todos</button><button data-category="Velas">Velas</button><button data-category="Amuletos">Amuletos</button><button data-category="Minerales">Minerales</button><button data-category="Inciensos">Inciensos</button><button data-category="Otros">Otros</button>
+</div></section>
+<div aria-live="polite" class="shopGrid" id="shopGrid"></div>
+<div class="shopEmpty" id="shopEmpty">Cargando productos...</div>
+</main><footer class="shopFooter"><div class="wrap">TarotAnuncia · Publicaciones de profesionales independientes · <a href="index.html">Volver al inicio</a></div></footer>
+<script>
+function toggleDrawer(open){document.getElementById('drawer').classList.toggle('open',open);document.getElementById('drawerOverlay').classList.toggle('open',open);document.querySelector('.mobileMenuBtn').setAttribute('aria-expanded',String(open));document.body.style.overflow=open?'hidden':''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleDrawer(false)});
+const SUPABASE_URL='https://ozbbgfxixbgffxnhqpzh.supabase.co',SUPABASE_KEY='sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd';
+let products=[],category='Todos';
+const grid=document.getElementById('shopGrid'),empty=document.getElementById('shopEmpty');
+function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
+function render(){
+ grid.replaceChildren();
+ const visible=products.filter(p=>category==='Todos'||(category==='Minerales'?/mineral/i.test(p.category||''):String(p.category||'').toLowerCase().includes(category.toLowerCase().slice(0,-1))));
+ empty.style.display=visible.length?'none':'block';
+ empty.textContent=products.length?'No hay productos en esta categoría.':'Todavía no hay productos publicados. Pronto aparecerán aquí.';
+ for(const p of visible){
+  const card=el('article','shopCard'),photo=el('div','shopPhoto'),body=el('div','shopBody');
+  const pics=(Array.isArray(p.image_urls)&&p.image_urls.length?p.image_urls:[p.image_url]).filter(x=>x&&/^https:\/\//i.test(x));if(pics.length){const img=el('img');img.src=pics[0];img.alt=p.title||'Producto';img.loading='lazy';photo.append(img);if(pics.length>1){const nav=el('div','shopGallery');pics.forEach((url,i)=>{const b=el('button','shopThumb');b.type='button';b.setAttribute('aria-label','Ver foto '+(i+1));const thumb=el('img');thumb.src=url;thumb.alt='';b.append(thumb);b.addEventListener('click',()=>{img.src=url});nav.append(b)});body.append(nav)}}
+  else photo.append(el('span','', 'Producto esotérico'));
+  body.append(el('div','shopCategory',p.category||'Producto'),el('h3','',p.title||'Producto'),el('div','shopPrice',new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(Number(p.price)||0)));
+  const wa=String(p.whatsapp||'').replace(/[^0-9]/g,'');
+  if(wa.length>=9){const a=el('a','shopContact','Contactar por WhatsApp');a.href='https://wa.me/'+(wa.length===9?'34'+wa:wa)+'?text='+encodeURIComponent('Hola, he visto tu producto "'+(p.title||'')+'" en TarotAnuncia.');a.target='_blank';a.rel='noopener noreferrer';body.append(a)}
+  card.append(photo,body);grid.append(card);
+ }
+}
+document.querySelectorAll('#shopFilters button').forEach(b=>b.addEventListener('click',()=>{category=b.dataset.category;document.querySelectorAll('#shopFilters button').forEach(x=>x.classList.toggle('active',x===b));render()}));
+(async()=>{try{
+ const response=await fetch(SUPABASE_URL+'/rest/v1/ta_shop_products?select=id,title,description,category,price,whatsapp,image_url,image_urls&status=eq.approved&order=created_at.desc',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}});
+ if(!response.ok)throw Error('HTTP '+response.status);
+ products=await response.json();render()
+}catch(e){empty.style.display='block';empty.textContent='No se pudieron cargar los productos. Inténtalo más tarde.';console.error(e)}})();
+</script>
+<script id="ta-shop-auth-menu">
+(function(){
+ const base='https://ozbbgfxixbgffxnhqpzh.supabase.co';
+ const key='sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd';
+ const account=document.getElementById('taMobileAccountAction');
+ const login=document.getElementById('drawerLogin');
+ async function refresh(){
+   const token=localStorage.getItem('tarotanuncia_access_token');
+   let signed=!!localStorage.getItem('tarotanuncia_access_token');
+   if(token){
+     try{
+       const r=await fetch(base+'/auth/v1/user',{headers:{apikey:key,Authorization:'Bearer '+token}});
+       signed=r.ok;
+     }catch(e){}
+   }
+   if(account){
+     account.textContent=signed?'Mi panel':'Crear cuenta';
+     account.href=signed?'panel.html':'index.html#crear-cuenta';
+   }
+   if(login)login.hidden=signed;
+ }
+ refresh();
+ window.addEventListener('pageshow',refresh);
+ window.addEventListener('storage',refresh);
+ const menu=document.getElementById('drawer');
+ if(menu){new MutationObserver(()=>{if(menu.classList.contains('open'))refresh()}).observe(menu,{attributes:true,attributeFilter:['class']});}
+})();
+</script>
+<style id="ta-shop-auth-menu-css">#drawerLogin[hidden]{display:none!important}</style>
+<script id="ta-shared-menu-behavior">
+(function(){
+ const API='https://ozbbgfxixbgffxnhqpzh.supabase.co';
+ const ANON='sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd';
+ let signed=false;
+ window.taGoAccountAction=function(){window.location.href=signed?'panel.html':'index.html';};
+ window.taMenuLogin=function(){window.location.href='index.html';};
+ window.taSharedToggle=function(open){
+  const d=document.getElementById('drawer'),o=document.getElementById('drawerOverlay');
+  if(d)d.classList.toggle('open',!!open);if(o)o.classList.toggle('open',!!open);
+  const b=document.querySelector('.taSharedTop .mobileMenuBtn');if(b)b.setAttribute('aria-expanded',String(!!open));
+ };
+ window.toggleDrawer=window.taSharedToggle;
+ async function refresh(){
+  const token=localStorage.getItem('tarotanuncia_access_token');
+  signed=!!token;
+  const desktopAction=document.getElementById('taDesktopAccountAction');
+  const desktopLogin=document.querySelector('.taSharedTop>.loginBtn');
+  if(desktopAction)desktopAction.textContent=token?'Mi panel':'Crear cuenta';
+  if(desktopLogin)desktopLogin.hidden=!!token;
+  const top=document.querySelector('.taSharedTop');
+  if(top)top.classList.add('ta-auth-ready');
+  let user=null;
+  if(token){try{const r=await fetch(API+'/auth/v1/user',{headers:{apikey:ANON,Authorization:'Bearer '+token}});if(r.ok)user=await r.json();}catch(e){}}
+  signed=!!(user&&user.id);
+  ['taDesktopAccountAction','taMobileAccountAction'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=signed?'Mi panel':'Crear cuenta';});
+  const login=document.querySelector('.taSharedTop>.loginBtn'),mobileLogin=document.getElementById('drawerLogin'),card=document.getElementById('menuAccount');
+  if(login)login.hidden=signed;if(mobileLogin)mobileLogin.hidden=signed;if(card)card.hidden=!signed;
+  if(!signed)return;
+  const name=document.getElementById('menuProfileName'),photo=document.getElementById('menuProfilePhoto'),plan=document.getElementById('menuProfilePlan');
+  if(name)name.textContent='Mi cuenta profesional';
+  if(plan)plan.textContent='Mi panel profesional';
+  try{
+   const h={apikey:ANON,Authorization:'Bearer '+token};
+   const r=await fetch(API+'/rest/v1/tarotist_ads?owner_id=eq.'+encodeURIComponent(user.id)+'&select=display_name,profile_photo_url,plan&limit=1',{headers:h});
+   if(r.ok){const a=(await r.json())[0];if(a){if(name)name.textContent=a.display_name||'Mi cuenta profesional';if(photo&&a.profile_photo_url)photo.src=a.profile_photo_url;}}
+   const m=await fetch(API+'/rest/v1/tarotanuncia_memberships?owner_id=eq.'+encodeURIComponent(user.id)+'&select=plan,expires_at&limit=1',{headers:h});
+   if(m.ok){const x=(await m.json())[0],active=x&&x.expires_at&&new Date(x.expires_at)>new Date(),p=active?String(x.plan||'free').toLowerCase():'free';if(plan)plan.innerHTML='<span class="ta-menu-plan ta-menu-plan-'+(['premium','featured'].includes(p)?p:'free')+'">'+(p==='premium'?'✦ PREMIUM':p==='featured'?'★ DESTACADO':'GRATIS')+'</span>';}
+  }catch(e){}
+ }
+ document.addEventListener('DOMContentLoaded',refresh);window.addEventListener('pageshow',refresh);
+ window.addEventListener('storage',refresh);
+})();
+</script><script id="ta-menu-stable-behavior">(function(){function setMenu(open){const d=document.getElementById('drawer'),o=document.getElementById('drawerOverlay'),b=document.querySelector('.taSharedTop .mobileMenuBtn');if(d)d.classList.toggle('open',!!open);if(o)o.classList.toggle('open',!!open);if(b)b.setAttribute('aria-expanded',String(!!open));}window.taSharedToggle=setMenu;window.toggleDrawer=setMenu;document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});window.addEventListener('resize',()=>{if(innerWidth>900)setMenu(false)});})();</script><script id="ta-mobile-login-sync">(function(){
+ function syncDrawerLogin(){
+  var drawer=document.getElementById('drawer'), login=document.getElementById('drawerLogin');
+  if(!drawer||!login)return;
+  var token=!!localStorage.getItem('tarotanuncia_access_token');
+  var account=document.getElementById('taMobileAccountAction');
+  // Mientras hay un token, no mostrar el botón duplicado; el verificador de sesión ya existente decide después.
+  if(token){login.hidden=true; if(account)account.textContent='Mi panel';}
+  drawer.classList.add('ta-login-ready');
+ }
+ document.addEventListener('DOMContentLoaded',syncDrawerLogin);
+ window.addEventListener('pageshow',syncDrawerLogin);
+ window.addEventListener('storage',syncDrawerLogin);
+})();</script></body></html>
