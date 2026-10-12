@@ -1,3 +1,4 @@
+
 import os
 import json
 import re
@@ -12,6 +13,7 @@ API = os.environ['SUPABASE_URL'].rstrip('/')
 KEY = os.environ['SUPABASE_ANON_KEY']
 DEST = Path('profesionales')
 DEST.mkdir(exist_ok=True)
+
 
 def fetch(table, params):
     result = []
@@ -35,11 +37,14 @@ def fetch(table, params):
             return result
     raise RuntimeError('Demasiados resultados')
 
+
 def clean(s):
     return html.escape(str(s or ''), quote=True)
 
+
 def val(d, k):
     return str(d.get(k) or '').strip()
+
 
 def cats(d):
     x = d.get('categories') or []
@@ -47,15 +52,19 @@ def cats(d):
         return [str(z) for z in x]
     return [z.strip() for z in str(x).split(',') if z.strip()]
 
+
 def phone(s):
     return re.sub(r'[^+0-9]', '', s)
+
 
 def picture(s):
     u = urllib.parse.urlparse(s)
     return s if u.scheme == 'https' and u.netloc else ''
 
+
 def uid(s):
     return bool(re.fullmatch(r'[0-9a-fA-F-]{36}', s))
+
 
 published = fetch(
     'ta_professional_profiles',
@@ -128,7 +137,14 @@ for owner, data in sorted(people.items()):
         f'{location or "España"} | TarotAnuncia'
     )
 
-    meta = ' '.join(description.split())[:155]
+    # Descripción única con localidad real
+    summary = ' '.join(description.split())
+    prefix = (
+        f'{name} | Tarot en {location}. '
+        if location else
+        f'{name} | TarotAnuncia. '
+    )
+    meta = (prefix + summary)[:155]
 
     ad_html = ''.join(
         f'<article class="ad">'
@@ -162,18 +178,28 @@ for owner, data in sorted(people.items()):
         '<div class="avatar placeholder">✦</div>'
     )
 
-    structured = json.dumps({
+    schema_data = {
         '@context': 'https://schema.org',
         '@type': 'ProfilePage',
         'url': url,
         'name': name,
-        'description': description[:400],
+        'description': meta,
         'mainEntity': {
             '@type': 'Person',
             'name': name,
             'description': description[:400]
         }
-    }, ensure_ascii=False).replace('<', '\\u003c')
+    }
+
+    if location:
+        schema_data['contentLocation'] = {
+            '@type': 'Place',
+            'name': location
+        }
+
+    structured = json.dumps(
+        schema_data, ensure_ascii=False
+    ).replace('<', '\\u003c')
 
     page = f'''<!doctype html>
 <html lang="es">
@@ -232,6 +258,7 @@ a{{color:#785010}}
     (DEST / (owner + '.html')).write_text(
         page, encoding='utf-8'
     )
+
     links.append(url)
 
 # Eliminar páginas antiguas que ya no son públicas
@@ -269,4 +296,4 @@ ET.ElementTree(root).write(
 print(
     f'Generadas {len(links)} páginas de profesionales. '
     f'Sitemap: {4+len(links)} URLs.'
-    )
+)
