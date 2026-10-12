@@ -1,116 +1,181 @@
-import os, json, re, html, urllib.parse, urllib.request
+import os
+import json
+import re
+import html
+import urllib.parse
+import urllib.request
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-BASE='https://tarotanuncia.es/'
-API=os.environ['SUPABASE_URL'].rstrip('/')
-KEY=os.environ['SUPABASE_ANON_KEY']
-DEST=Path('profesionales')
+BASE = 'https://tarotanuncia.es/'
+API = os.environ['SUPABASE_URL'].rstrip('/')
+KEY = os.environ['SUPABASE_ANON_KEY']
+DEST = Path('profesionales')
 DEST.mkdir(exist_ok=True)
 
 def fetch(table, params):
-    result=[]
+    result = []
     for start in range(0, 100000, 1000):
-        query=urllib.parse.urlencode(params)
-        req=urllib.request.Request(f'{API}/rest/v1/{table}?{query}', headers={'apikey':KEY,'Authorization':'Bearer '+KEY,'Range-Unit':'items','Range':f'{start}-{start+999}'})
+        query = urllib.parse.urlencode(params)
+        req = urllib.request.Request(
+            f'{API}/rest/v1/{table}?{query}',
+            headers={
+                'apikey': KEY,
+                'Authorization': 'Bearer ' + KEY,
+                'Range-Unit': 'items',
+                'Range': f'{start}-{start+999}'
+            }
+        )
         with urllib.request.urlopen(req, timeout=45) as response:
-            batch=json.load(response)
-        if not isinstance(batch,list):
+            batch = json.load(response)
+        if not isinstance(batch, list):
             raise RuntimeError(f'Respuesta inválida de {table}')
         result.extend(batch)
-        if len(batch)<1000:
+        if len(batch) < 1000:
             return result
-    raise RuntimeError('Demasiados resultados: revisar paginación')
+    raise RuntimeError('Demasiados resultados')
 
 def clean(s):
-    return html.escape(str(s or ''),quote=True)
+    return html.escape(str(s or ''), quote=True)
 
-def val(d,k):
+def val(d, k):
     return str(d.get(k) or '').strip()
 
 def cats(d):
-    x=d.get('categories') or []
-    return [str(z) for z in x] if isinstance(x,list) else [z.strip() for z in str(x).split(',') if z.strip()]
+    x = d.get('categories') or []
+    if isinstance(x, list):
+        return [str(z) for z in x]
+    return [z.strip() for z in str(x).split(',') if z.strip()]
 
 def phone(s):
-    return re.sub(r'[^+0-9]','',s)
+    return re.sub(r'[^+0-9]', '', s)
 
 def picture(s):
-    u=urllib.parse.urlparse(s)
-    return s if u.scheme=='https' and u.netloc else ''
+    u = urllib.parse.urlparse(s)
+    return s if u.scheme == 'https' and u.netloc else ''
 
 def uid(s):
-    return bool(re.fullmatch(r'[0-9a-fA-F-]{36}',s))
+    return bool(re.fullmatch(r'[0-9a-fA-F-]{36}', s))
 
-published=fetch('ta_professional_profiles',{'select':'*','is_public':'eq.true'})
-ads=fetch('tarotist_ads',{'select':'*','status':'eq.approved'})
+published = fetch(
+    'ta_professional_profiles',
+    {'select': '*', 'is_public': 'eq.true'}
+)
 
-people={}
+ads = fetch(
+    'tarotist_ads',
+    {'select': '*', 'status': 'eq.approved'}
+)
+
+people = {}
 
 for a in ads:
-    owner=val(a,'owner_id')
+    owner = val(a, 'owner_id')
     if uid(owner):
-        people.setdefault(owner,{'profile':None,'ads':[]})['ads'].append(a)
+        people.setdefault(
+            owner, {'profile': None, 'ads': []}
+        )['ads'].append(a)
 
 for p in published:
-    owner=val(p,'owner_id')
+    owner = val(p, 'owner_id')
     if uid(owner):
-        people.setdefault(owner,{'profile':None,'ads':[]})['profile']=p
+        people.setdefault(
+            owner, {'profile': None, 'ads': []}
+        )['profile'] = p
 
-links=[]
+links = []
 
 for owner, data in sorted(people.items()):
-    p=data['profile'] or (data['ads'][0] if data['ads'] else {})
-    name=val(p,'display_name') or 'Profesional del tarot'
-    description=val(p,'description') or next(
-        (val(a,'description') for a in data['ads'] if val(a,'description')),
+    p = data['profile'] or (
+        data['ads'][0] if data['ads'] else {}
+    )
+
+    name = val(p, 'display_name') or 'Profesional del tarot'
+
+    description = val(p, 'description') or next(
+        (
+            val(a, 'description')
+            for a in data['ads']
+            if val(a, 'description')
+        ),
         'Consulta el perfil de este profesional en TarotAnuncia.'
     )
-    city=val(p,'city')
-    province=val(p,'province')
-    location=', '.join(x for x in (city,province) if x)
-    specialties=cats(p)
-    photo=picture(val(p,'profile_photo_url'))
-    number=phone(val(p,'phone'))
-    whatsapp=phone(val(p,'whatsapp'))
-    url=BASE+'profesionales/'+owner+'.html'
-    title=f'{name} | Tarotista en {location or "España"} | TarotAnuncia'
-    meta=' '.join(description.split())[:155]
 
-    ad_html=''.join(
-        f'<article class="ad"><h3>{clean(val(a,"title") or "Consulta de tarot")}</h3><p>{clean(val(a,"description")[:600])}</p></article>'
+    city = val(p, 'city')
+    province = val(p, 'province')
+    location = ', '.join(
+        x for x in (city, province) if x
+    )
+
+    specialties = cats(p)
+
+    # Recuperar la fotografía del perfil o de sus anuncios
+    photo = picture(val(p, 'profile_photo_url')) or next(
+        (
+            u for a in data['ads']
+            if (u := picture(val(a, 'profile_photo_url')))
+        ),
+        ''
+    )
+
+    number = phone(val(p, 'phone'))
+    whatsapp = phone(val(p, 'whatsapp'))
+
+    url = BASE + 'profesionales/' + owner + '.html'
+
+    title = (
+        f'{name} | Tarotista en '
+        f'{location or "España"} | TarotAnuncia'
+    )
+
+    meta = ' '.join(description.split())[:155]
+
+    ad_html = ''.join(
+        f'<article class="ad">'
+        f'<h3>{clean(val(a, "title") or "Consulta de tarot")}</h3>'
+        f'<p>{clean(val(a, "description")[:600])}</p>'
+        f'</article>'
         for a in data['ads']
     )
 
-    tags=''.join(
+    tags = ''.join(
         f'<span class="tag">{clean(c)}</span>'
         for c in specialties[:8]
     )
 
-    buttons=''.join([
-        f'<a class="button" href="tel:{clean(number)}">Llamar</a>' if number else '',
-        f'<a class="button" href="https://wa.me/{clean(whatsapp.lstrip("+"))}" rel="noopener noreferrer">WhatsApp</a>' if whatsapp else ''
+    buttons = ''.join([
+        (
+            f'<a class="button" href="tel:{clean(number)}">'
+            f'Llamar</a>'
+        ) if number else '',
+        (
+            f'<a class="button" '
+            f'href="https://wa.me/{clean(whatsapp.lstrip("+"))}" '
+            f'rel="noopener noreferrer">WhatsApp</a>'
+        ) if whatsapp else ''
     ])
 
-    photo_html=(
-        f'<img class="avatar" src="{clean(photo)}" alt="Foto de {clean(name)}">'
-        if photo else '<div class="avatar placeholder">✦</div>'
+    photo_html = (
+        f'<img class="avatar" src="{clean(photo)}" '
+        f'alt="Foto de {clean(name)}">'
+        if photo else
+        '<div class="avatar placeholder">✦</div>'
     )
 
-    structured=json.dumps({
-        '@context':'https://schema.org',
-        '@type':'ProfilePage',
-        'url':url,
-        'name':name,
-        'description':description[:400],
-        'mainEntity':{
-            '@type':'Person',
-            'name':name,
-            'description':description[:400]
+    structured = json.dumps({
+        '@context': 'https://schema.org',
+        '@type': 'ProfilePage',
+        'url': url,
+        'name': name,
+        'description': description[:400],
+        'mainEntity': {
+            '@type': 'Person',
+            'name': name,
+            'description': description[:400]
         }
-    },ensure_ascii=False).replace('<','\\u003c')
+    }, ensure_ascii=False).replace('<', '\\u003c')
 
-    page=f'''<!doctype html>
+    page = f'''<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -128,7 +193,7 @@ header a{{font:bold 25px Georgia,serif;color:#7e5109;text-decoration:none}}
 main{{max-width:760px;margin:30px auto;padding:0 16px}}
 .panel{{background:white;border:1px solid #e4d3b8;border-top:4px solid #d5ae55;border-radius:20px;padding:28px;box-shadow:0 8px 24px #3a271a14}}
 .intro{{text-align:center}}
-.avatar{{width:125px;height:125px;object-fit:contain;border-radius:50%;border:3px solid #ead5a3;margin:auto}}
+.avatar{{width:125px;height:125px;object-fit:contain;padding:12px;background:#fffaf1;border-radius:50%;border:3px solid #ead5a3;margin:auto}}
 .placeholder{{display:grid;place-items:center;font-size:50px;color:#b78b39}}
 h1{{font:800 32px Georgia,serif;margin:14px 0}}
 h2{{font:800 23px Georgia,serif;margin-top:26px}}
@@ -164,33 +229,44 @@ a{{color:#785010}}
 </body>
 </html>'''
 
-    (DEST/(owner+'.html')).write_text(page,encoding='utf-8')
+    (DEST / (owner + '.html')).write_text(
+        page, encoding='utf-8'
+    )
     links.append(url)
 
-valid={u.rsplit('/',1)[-1] for u in links}
+# Eliminar páginas antiguas que ya no son públicas
+valid = {u.rsplit('/', 1)[-1] for u in links}
 
 for file in DEST.glob('*.html'):
-    if file.name not in valid and re.fullmatch(r'[0-9a-fA-F-]{36}\.html',file.name):
+    if (
+        file.name not in valid
+        and re.fullmatch(r'[0-9a-fA-F-]{36}\.html', file.name)
+    ):
         file.unlink()
 
-ns='http://www.sitemaps.org/schemas/sitemap/0.9'
-ET.register_namespace('',ns)
-root=ET.Element('{'+ns+'}urlset')
+# Actualizar sitemap
+ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
+ET.register_namespace('', ns)
+root = ET.Element('{' + ns + '}urlset')
 
 for url in [
     BASE,
-    BASE+'anuncios.html',
-    BASE+'tarotistas.html',
-    BASE+'tienda-esoterica.html'
-]+links:
-    e=ET.SubElement(root,'{'+ns+'}url')
-    ET.SubElement(e,'{'+ns+'}loc').text=url
+    BASE + 'anuncios.html',
+    BASE + 'tarotistas.html',
+    BASE + 'tienda-esoterica.html'
+] + links:
+    e = ET.SubElement(root, '{' + ns + '}url')
+    ET.SubElement(e, '{' + ns + '}loc').text = url
 
-ET.indent(root,space='  ')
+ET.indent(root, space='  ')
+
 ET.ElementTree(root).write(
     'sitemap.xml',
     encoding='utf-8',
     xml_declaration=True
 )
 
-print(f'Generadas {len(links)} páginas de profesionales. Sitemap: {4+len(links)} URLs.')
+print(
+    f'Generadas {len(links)} páginas de profesionales. '
+    f'Sitemap: {4+len(links)} URLs.'
+    )
