@@ -147,7 +147,7 @@ for owner, data in sorted(people.items()):
 
     ad_html = ''.join(
         f'<article class="ad">'
-        f'<h3>{clean(val(a, "title") or "Consulta de tarot")}</h3>'
+        f'<h3><a href="/anuncios/{clean(val(a, "id"))}.html">{clean(val(a, "title") or "Consulta de tarot")}</a></h3>'
         f'<p>{clean(val(a, "description")[:600])}</p>'
         f'</article>'
         for a in data['ads']
@@ -248,6 +248,7 @@ a{{color:#785010}}
 <div class="intro">{buttons}</div>
 {'<h2>Sus anuncios</h2>'+ad_html if ad_html else ''}
 <p><a href="/tarotistas.html?perfil={clean(owner)}">Ver ficha completa y valoraciones en TarotAnuncia →</a></p>
+<p><a href="/tarotistas.html">Descubrir más profesionales</a> · <a href="/anuncios.html">Ver todos los anuncios</a></p>
 </article>
 </main>
 <footer>TarotAnuncia · Directorio de profesionales del tarot</footer>
@@ -349,6 +350,7 @@ a{{color:#785010}}
 <p>{clean(description_ad)}</p>
 {profile_html}
 <p><a class="button" href="{clean(original_ad)}">Ver anuncio completo y contactar</a></p>
+<p><a href="/anuncios.html">Ver más anuncios de tarot</a> · <a href="/tarotistas.html">Explorar profesionales</a></p>
 </article></main>
 </body>
 </html>"""
@@ -392,5 +394,6 @@ ET.ElementTree(root).write(
 
 print(
     f'Generadas {len(links)} páginas de profesionales. '
-    f'Generados {len(ad_links)} anuncios aprobados. Sitemap: {4+len(links)+len(ad_links)} URLs.'
+    f'Generados {len(ad_links)} anuncios aprobados. '
+    f'Sitemap: {4+len(links)+len(ad_links)} URLs.'
 )
