@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 BASE = 'https://tarotanuncia.es/'
 API = os.environ['SUPABASE_URL'].rstrip('/')
 KEY = os.environ['SUPABASE_ANON_KEY']
+
 DEST = Path('profesionales')
 DEST.mkdir(exist_ok=True)
 
@@ -118,7 +119,6 @@ for owner, data in sorted(people.items()):
 
     specialties = cats(p)
 
-    # Recuperar la fotografía del perfil o de sus anuncios
     photo = picture(val(p, 'profile_photo_url')) or next(
         (
             u for a in data['ads']
@@ -137,7 +137,6 @@ for owner, data in sorted(people.items()):
         f'{location or "España"} | TarotAnuncia'
     )
 
-    # Descripción única con localidad real
     summary = ' '.join(description.split())
     prefix = (
         f'{name} | Tarot en {location}. '
@@ -271,6 +270,104 @@ for file in DEST.glob('*.html'):
     ):
         file.unlink()
 
+# Crear páginas individuales, legibles por Google, de anuncios aprobados.
+AD_DEST = Path('anuncios')
+AD_DEST.mkdir(exist_ok=True)
+ad_links = []
+
+for a in ads:
+    ad_id = val(a, 'id')
+    if not uid(ad_id):
+        continue
+
+    title_ad = val(a, 'title') or 'Consulta de tarot'
+    name_ad = val(a, 'display_name') or 'Profesional del tarot'
+    description_ad = val(a, 'description') or 'Descubre este anuncio en TarotAnuncia.'
+    city_ad = val(a, 'city')
+    url_ad = BASE + 'anuncios/' + ad_id + '.html'
+    original_ad = BASE + 'anuncios.html?anuncio=' + urllib.parse.quote(ad_id)
+    summary_ad = ' '.join(description_ad.split())[:155]
+    photo_ad = picture(val(a, 'profile_photo_url'))
+
+    if not photo_ad:
+        photos_ad = a.get('photo_urls') or []
+        if isinstance(photos_ad, list):
+            photo_ad = next(
+                (u for x in photos_ad if (u := picture(str(x)))),
+                ''
+            )
+
+    image_html = (
+        f'<img class="photo" src="{clean(photo_ad)}" alt="{clean(title_ad)}">'
+        if photo_ad else ''
+    )
+
+    owner_ad = val(a, 'owner_id')
+    profile_html = (
+        f'<p><a href="/profesionales/{clean(owner_ad)}.html">Ver perfil profesional</a></p>'
+        if uid(owner_ad) and owner_ad in people else ''
+    )
+
+    schema_ad = json.dumps({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        'url': url_ad,
+        'name': title_ad,
+        'description': summary_ad,
+    }, ensure_ascii=False).replace('<', '\\u003c')
+
+    page_ad = f"""<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{clean(title_ad)} | TarotAnuncia</title>
+<meta name="description" content="{clean(summary_ad)}">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="{clean(url_ad)}">
+<script type="application/ld+json">{schema_ad}</script>
+<style>
+*{{box-sizing:border-box}}
+body{{margin:0;background:#fbfaf6;color:#241a28;font-family:Arial,sans-serif}}
+header{{background:#fffaf1;border-bottom:1px solid #ead9bd;padding:18px}}
+header a{{font:bold 25px Georgia,serif;color:#7e5109;text-decoration:none}}
+main{{max-width:760px;margin:30px auto;padding:0 16px}}
+article{{background:#fff;border:1px solid #e4d3b8;border-top:4px solid #d5ae55;border-radius:20px;padding:28px}}
+h1{{font:800 30px Georgia,serif}}
+p{{line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}}
+.photo{{width:100%;max-height:360px;object-fit:contain;background:#fffaf1;border-radius:12px}}
+.button{{display:inline-block;background:#bd8520;color:#fff;text-decoration:none;border-radius:11px;padding:13px 20px;font-weight:bold}}
+a{{color:#785010}}
+</style>
+</head>
+<body>
+<header><a href="/">✦ TarotAnuncia</a></header>
+<main><article>
+{image_html}
+<h1>{clean(title_ad)}</h1>
+<p><strong>{clean(name_ad)}</strong>{' · ' + clean(city_ad) if city_ad else ''}</p>
+<p>{clean(description_ad)}</p>
+{profile_html}
+<p><a class="button" href="{clean(original_ad)}">Ver anuncio completo y contactar</a></p>
+</article></main>
+</body>
+</html>"""
+
+    (AD_DEST / (ad_id + '.html')).write_text(
+        page_ad, encoding='utf-8'
+    )
+    ad_links.append(url_ad)
+
+# Eliminar páginas individuales de anuncios pausados, rechazados o borrados.
+valid_ads = {u.rsplit('/', 1)[-1] for u in ad_links}
+
+for file in AD_DEST.glob('*.html'):
+    if (
+        file.name not in valid_ads
+        and re.fullmatch(r'[0-9a-fA-F-]{36}\.html', file.name)
+    ):
+        file.unlink()
+
 # Actualizar sitemap
 ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
 ET.register_namespace('', ns)
@@ -281,7 +378,7 @@ for url in [
     BASE + 'anuncios.html',
     BASE + 'tarotistas.html',
     BASE + 'tienda-esoterica.html'
-] + links:
+] + links + ad_links:
     e = ET.SubElement(root, '{' + ns + '}url')
     ET.SubElement(e, '{' + ns + '}loc').text = url
 
@@ -295,5 +392,5 @@ ET.ElementTree(root).write(
 
 print(
     f'Generadas {len(links)} páginas de profesionales. '
-    f'Sitemap: {4+len(links)} URLs.'
+    f'Generados {len(ad_links)} anuncios aprobados. Sitemap: {4+len(links)+len(ad_links)} URLs.'
 )
