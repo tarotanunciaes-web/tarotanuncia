@@ -1,3 +1,4 @@
+
 name: Actualizar sitemap de TarotAnuncia
 
 on:
@@ -20,7 +21,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Generar perfiles y sitemap
+      - name: Generar perfiles, anuncios y sitemap
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
@@ -30,9 +31,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sitemap.xml profesionales/
+          git add -A sitemap.xml profesionales/ anuncios/
           if ! git diff --cached --quiet; then
-            git commit -m "Actualizar perfiles y sitemap"
+            git commit -m "Actualizar perfiles, anuncios y sitemap"
             git push
           fi
           
