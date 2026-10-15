@@ -1,22 +1,24 @@
-
 import os
-import json
 import re
+import json
 import html
 import urllib.parse
 import urllib.request
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
+# CONFIGURACIÓN
 BASE = "https://tarotanuncia.es/"
 API = os.environ["SUPABASE_URL"].rstrip("/")
 KEY = os.environ["SUPABASE_ANON_KEY"]
 
-DEST = Path("profesionales")
-AD_DEST = Path("anuncios")
+# Misma imagen utilizada en anuncios.html
+LOGO = "/file_000000003c088210be49f3122608d83d.png"
 
-DEST.mkdir(exist_ok=True)
-AD_DEST.mkdir(exist_ok=True)
+PROFILES_DIR = Path("profesionales")
+ADS_DIR = Path("anuncios")
+PROFILES_DIR.mkdir(exist_ok=True)
+ADS_DIR.mkdir(exist_ok=True)
 
 
 def fetch(table, params):
@@ -24,8 +26,7 @@ def fetch(table, params):
 
     for start in range(0, 100000, 1000):
         query = urllib.parse.urlencode(params)
-
-        req = urllib.request.Request(
+        request = urllib.request.Request(
             f"{API}/rest/v1/{table}?{query}",
             headers={
                 "apikey": KEY,
@@ -35,11 +36,15 @@ def fetch(table, params):
             },
         )
 
-        with urllib.request.urlopen(req, timeout=45) as response:
+        with urllib.request.urlopen(
+            request, timeout=45
+        ) as response:
             batch = json.load(response)
 
         if not isinstance(batch, list):
-            raise RuntimeError(f"Respuesta inválida de {table}")
+            raise RuntimeError(
+                f"Respuesta inválida de {table}"
+            )
 
         result.extend(batch)
 
@@ -50,14 +55,35 @@ def fetch(table, params):
 
 
 def clean(value):
-    return html.escape(str(value or ""), quote=True)
+    return html.escape(
+        str(value or ""), quote=True
+    )
 
 
 def val(data, key):
     return str(data.get(key) or "").strip()
 
 
-def cats(data):
+def uid(value):
+    return bool(
+        re.fullmatch(
+            r"[0-9a-fA-F-]{36}", value
+        )
+    )
+
+
+def picture(value):
+    parsed = urllib.parse.urlparse(value)
+    if parsed.scheme == "https" and parsed.netloc:
+        return value
+    return ""
+
+
+def phone(value):
+    return re.sub(r"[^+0-9]", "", value)
+
+
+def categories(data):
     value = data.get("categories") or []
 
     if isinstance(value, list):
@@ -70,51 +96,25 @@ def cats(data):
     ]
 
 
-def phone(value):
-    return re.sub(r"[^+0-9]", "", value)
-
-
-def picture(value):
-    parsed = urllib.parse.urlparse(value)
-
-    if parsed.scheme == "https" and parsed.netloc:
-        return value
-
-    return ""
-
-
-def uid(value):
-    return bool(
-        re.fullmatch(
-            r"[0-9a-fA-F-]{36}",
-            value,
-        )
-    )
-
-
-def text_summary(value, length=155):
+def summary(value, length=155):
     return " ".join(value.split())[:length]
 
 
-def make_schema(data):
+def structured_data(value):
     return json.dumps(
-        data,
-        ensure_ascii=False,
+        value, ensure_ascii=False
     ).replace("<", "\\u003c")
 
 
-# --------------------------------------------------
-# DISEÑO COMPARTIDO DE TAROTANUNCIA
-# --------------------------------------------------
-
+# ESTILOS DE TAROTANUNCIA
 CSS = """
 :root {
     --gold: #d89400;
-    --gold2: #efb326;
+    --gold-light: #efb326;
+    --purple: #702d6b;
     --ink: #171526;
     --cream: #fffaf1;
     --line: #eadfce;
-    --purple: #702d6b;
 }
 
 * {
@@ -122,7 +122,8 @@ CSS = """
 }
 
 html {
-    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -135,41 +136,46 @@ body {
 }
 
 a {
-    color: var(--purple);
+    color: #79500c;
 }
 
 .site-header {
-    background: rgba(255,252,246,.97);
+    background: #fffcf6;
     border-bottom: 1px solid #eee4d6;
-    box-shadow: 0 1px 0 rgba(123,84,24,.10);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
-.header-inner {
+.nav {
     max-width: 1240px;
     margin: auto;
-    padding: 13px 22px;
+    min-height: 68px;
+    padding: 10px 18px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 14px;
 }
 
 .brand {
-    text-decoration: none;
-    color: var(--ink);
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 9px;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
 }
 
-.brand-symbol {
-    font-size: 27px;
-    color: #b97800;
+.brand-logo {
+    width: 43px;
+    height: 43px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .brand-name {
     font: 700 25px Georgia, serif;
-    color: var(--ink);
 }
 
 .brand-name span {
@@ -178,62 +184,62 @@ a {
 
 .brand-subtitle {
     display: block;
-    font-size: 9px;
-    letter-spacing: 1px;
-    color: #766a70;
+    font-size: 8px;
+    letter-spacing: 1.2px;
+    color: #6c626a;
 }
 
-.header-nav {
+.nav-links {
     display: flex;
-    gap: 19px;
     align-items: center;
-    flex-wrap: wrap;
+    gap: 18px;
 }
 
-.header-nav a {
+.nav-links a {
     text-decoration: none;
     color: #302833;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
-.header-nav a:hover {
+.nav-links a:hover {
     color: #b97800;
 }
 
-.hero {
-    padding: 27px 18px 15px;
-    text-align: center;
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    color: #211b22;
+    font: 800 14px Arial, sans-serif;
+    padding: 10px;
+    cursor: pointer;
 }
 
-.hero h1 {
-    font: 800 clamp(24px, 4vw, 34px)/1.2 Georgia, serif;
-    margin: 0 0 9px;
-    overflow-wrap: anywhere;
+.mobile-links[hidden] {
+    display: none !important;
 }
 
-.hero p {
-    color: #6c626a;
-    margin: 0;
-    font-size: 14px;
+.mobile-links {
+    display: none;
 }
 
-.container {
-    width: min(850px, calc(100% - 30px));
-    margin: 15px auto 40px;
+main {
+    width: min(900px, calc(100% - 30px));
+    margin: 25px auto 40px;
 }
 
-.card {
+.panel {
     background: #fff;
     border: 1px solid #e6d8c2;
     border-top: 4px solid #d5ae55;
-    border-radius: 18px;
+    border-radius: 17px;
     padding: 25px;
     box-shadow: 0 5px 16px rgba(50,35,20,.07);
-    min-width: 0;
+    overflow: hidden;
 }
 
-.profile-top {
+.intro {
     text-align: center;
 }
 
@@ -242,93 +248,80 @@ a {
     width: 115px;
     height: 115px;
     object-fit: contain;
-    background: #fffaf1;
+    padding: 8px;
+    background: var(--cream);
     border: 2px solid #ead5a3;
     border-radius: 50%;
-    padding: 7px;
-    margin: 0 auto 14px;
+    margin: 0 auto;
 }
 
 .placeholder {
     display: grid;
     place-items: center;
+    font-size: 46px;
     color: #b78b39;
-    font-size: 44px;
-}
-
-.ad-photo-box {
-    background: #fbf7f0;
-    border: 1px solid #e3d4bc;
-    border-radius: 14px;
-    padding: 12px;
-    margin: 0 auto 19px;
-    text-align: center;
-}
-
-.ad-photo {
-    display: block;
-    width: 100%;
-    max-height: 360px;
-    object-fit: contain;
-    margin: auto;
-    border-radius: 9px;
 }
 
 h1 {
-    font: 800 clamp(24px, 4vw, 33px)/1.22 Georgia, serif;
-    color: #281d30;
+    font: 800 clamp(23px, 3.4vw, 31px)/1.25 Georgia, serif;
+    margin: 15px 0 12px;
     overflow-wrap: anywhere;
-    margin: 0 0 12px;
 }
 
 h2 {
     font: 800 21px Georgia, serif;
-    color: #3c293e;
-    margin: 25px 0 12px;
+    margin: 24px 0 12px;
 }
 
 h3 {
     font: 800 17px Georgia, serif;
-    margin: 0 0 9px;
-}
-
-.meta {
-    font-size: 13px;
-    color: #766c72;
-    margin: 8px 0 15px;
+    margin: 0 0 8px;
 }
 
 .description {
     font-size: 15px;
-    line-height: 1.65;
-    color: #433a43;
+    line-height: 1.6;
     white-space: pre-line;
     overflow-wrap: anywhere;
+    color: #433a43;
+    margin: 15px 0;
 }
 
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    justify-content: center;
-    margin: 12px 0;
+.location,
+.detail-meta {
+    color: #655d65;
+    font-size: 14px;
+    margin: 10px 0;
 }
 
 .tag {
-    background: #faeafa;
-    color: #702d6b;
-    padding: 5px 11px;
-    border-radius: 999px;
+    display: inline-block;
+    margin: 4px;
+    padding: 6px 10px;
+    border-radius: 25px;
+    background: #f7eaf5;
+    color: var(--purple);
     font-size: 12px;
-    font-weight: 700;
+}
+
+.photo {
+    display: block;
+    width: 100%;
+    max-height: 340px;
+    object-fit: contain;
+    background: #fbf7f0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 8px;
+    margin-bottom: 18px;
 }
 
 .buttons {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
-    margin: 22px 0;
+    margin: 20px 0;
 }
 
 .button {
@@ -336,269 +329,293 @@ h3 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 12px 19px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 800;
-    min-height: 46px;
     background: linear-gradient(
         135deg,
-        var(--gold2),
+        var(--gold-light),
         var(--gold)
     );
     color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 12px 19px;
+    font-size: 14px;
+    font-weight: 800;
+    min-height: 45px;
 }
 
 .button.secondary {
     background: #fffaf1;
-    border: 1px solid #d5a43c;
     color: #79550b;
-}
-
-.button:hover {
-    filter: brightness(.97);
+    border: 1px solid #d5a43c;
 }
 
 .ad-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 13px;
+    gap: 12px;
 }
 
-.ad-item {
-    border: 1px solid #eadfce;
-    border-radius: 13px;
-    padding: 15px;
+.ad {
     background: #fffdf9;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px;
     min-width: 0;
 }
 
-.ad-item a {
-    color: #702d6b;
+.ad a {
+    color: var(--purple);
     text-decoration: none;
 }
 
-.ad-item a:hover {
-    text-decoration: underline;
-}
-
-.ad-item p {
-    color: #615762;
+.ad p {
     font-size: 13px;
     line-height: 1.55;
-    overflow-wrap: anywhere;
     white-space: pre-line;
+    overflow-wrap: anywhere;
     margin: 8px 0 0;
 }
 
-.extra-links {
+.links {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 9px;
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid #eadfce;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
 }
 
-.extra-links a {
+.links a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 9px 12px;
+    text-align: center;
+    background: var(--cream);
+    border: 1px solid var(--line);
     border-radius: 10px;
-    border: 1px solid #eadfce;
-    background: #fffaf1;
-    color: #785010;
-    text-decoration: none;
+    padding: 9px 12px;
     font-size: 12px;
     font-weight: 700;
-    text-align: center;
-}
-
-.extra-links a:hover {
-    background: #fff1d3;
+    text-decoration: none;
 }
 
 footer {
     background: #fff7eb;
     border-top: 1px solid #eadcc3;
+    padding: 25px 14px;
     text-align: center;
-    padding: 24px 15px;
+    font-size: 13px;
     color: #786d71;
-    font-size: 12px;
 }
 
-footer strong {
-    display: block;
-    font: 800 23px Georgia, serif;
-    color: #b97800;
-    margin-bottom: 7px;
+@media (max-width: 900px) {
+    .nav {
+        min-height: 66px;
+        padding: 10px 14px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-left: auto;
+        white-space: nowrap;
+    }
+
+    .mobile-links:not([hidden]) {
+        display: grid;
+        gap: 2px;
+        background: #fffdf9;
+        border-top: 1px solid var(--line);
+        padding: 9px 15px 15px;
+    }
+
+    .mobile-links a {
+        display: block;
+        padding: 12px;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        color: #302833;
+    }
+
+    .mobile-links a:hover {
+        background: #fff5df;
+    }
 }
 
-footer a {
-    color: #785010;
-}
-
-@media (max-width: 700px) {
-
-    .header-inner {
-        padding: 12px 15px;
-        flex-direction: column;
-        gap: 9px;
+@media (max-width: 600px) {
+    .brand-logo {
+        width: 37px;
+        height: 37px;
     }
 
     .brand-name {
-        font-size: 23px;
+        font-size: 21px;
     }
 
-    .header-nav {
-        justify-content: center;
-        gap: 14px;
+    .brand-subtitle {
+        font-size: 7px;
     }
 
-    .header-nav a {
+    .menu-toggle {
         font-size: 12px;
+        padding: 7px;
     }
 
-    .hero {
-        padding: 22px 15px 12px;
-    }
-
-    .hero h1 {
-        font-size: 25px;
-    }
-
-    .container {
+    main {
         width: calc(100% - 24px);
-        margin: 12px auto 27px;
+        margin: 16px auto 28px;
     }
 
-    .card {
-        padding: 17px 15px;
-        border-radius: 16px;
+    .panel {
+        padding: 16px;
+        border-radius: 15px;
     }
 
     h1 {
-        font-size: 25px;
+        font-size: 23px;
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 19px;
     }
 
     .description {
         font-size: 14px;
-        line-height: 1.6;
+        line-height: 1.55;
     }
 
-    .ad-photo-box {
-        padding: 9px;
-    }
-
-    .ad-photo {
-        max-height: 300px;
+    .photo {
+        max-height: 280px;
     }
 
     .ad-list {
         grid-template-columns: 1fr;
     }
 
-    .buttons {
-        gap: 8px;
-    }
-
     .button {
         width: 100%;
-        font-size: 14px;
     }
 
-    .extra-links {
-        gap: 7px;
-    }
-
-    .extra-links a {
+    .links a {
         flex: 1 1 120px;
-        font-size: 11px;
-        padding: 9px 7px;
     }
 }
 """
 
 
+# CABECERA Y MENÚ
 def header_html():
-    return """
+    return f"""
 <header class="site-header">
-  <div class="header-inner">
+  <div class="nav">
+
     <a class="brand" href="/">
-      <span class="brand-symbol">✦</span>
+      <img class="brand-logo"
+           src="{clean(LOGO)}"
+           alt="Logo TarotAnuncia">
+
       <span>
         <span class="brand-name">
           Tarot<span>Anuncia</span>
         </span>
-        <span class="brand-subtitle">
+        <small class="brand-subtitle">
           TAROTISTAS CERCA DE TI
-        </span>
+        </small>
       </span>
     </a>
 
-    <nav class="header-nav" aria-label="Navegación">
+    <button class="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="ta-mobile-menu"
+            onclick="taToggleMenu(this)">
+      ☰ MENÚ
+    </button>
+
+    <nav class="nav-links"
+         aria-label="Navegación">
       <a href="/">Inicio</a>
       <a href="/anuncios.html">Anuncios</a>
       <a href="/tarotistas.html">Tarotistas</a>
-      <a href="/tienda-esoterica.html">Tienda esotérica</a>
+      <a href="/tienda-esoterica.html">
+        Tienda esotérica
+      </a>
     </nav>
+
   </div>
+
+  <nav class="mobile-links"
+       id="ta-mobile-menu"
+       aria-label="Menú móvil"
+       hidden>
+    <a href="/">Inicio</a>
+    <a href="/anuncios.html">Anuncios</a>
+    <a href="/tarotistas.html">Tarotistas</a>
+    <a href="/tienda-esoterica.html">
+      Tienda esotérica
+    </a>
+  </nav>
 </header>
 """
 
 
-def footer_html():
-    return """
-<footer>
-  <strong>TarotAnuncia</strong>
-  <div>Encuentra profesionales del tarot en toda España</div>
-  <p>
-    <a href="/aviso-legal.html">Aviso legal</a>
-    ·
-    <a href="/politica-privacidad.html">Privacidad</a>
-    ·
-    <a href="/contacto.html">Contacto</a>
-  </p>
-</footer>
+SCRIPT = """
+<script>
+function taToggleMenu(button) {
+    const menu = document.getElementById(
+        "ta-mobile-menu"
+    );
+
+    const opening = menu.hasAttribute("hidden");
+
+    if (opening) {
+        menu.removeAttribute("hidden");
+    } else {
+        menu.setAttribute("hidden", "");
+    }
+
+    button.setAttribute(
+        "aria-expanded",
+        String(opening)
+    );
+}
+</script>
 """
 
 
-def document(title, meta, canonical, schema, content):
+def document(title, meta, url, schema, content):
     return f"""<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
-      content="width=device-width, initial-scale=1">
+      content="width=device-width,initial-scale=1">
 <title>{clean(title)}</title>
 <meta name="description" content="{clean(meta)}">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="{clean(canonical)}">
+<link rel="canonical" href="{clean(url)}">
 <script type="application/ld+json">{schema}</script>
-<style>
-{CSS}
-</style>
+<style>{CSS}</style>
 </head>
 <body>
 {header_html()}
 {content}
-{footer_html()}
+<footer>
+  TarotAnuncia · Directorio de profesionales del tarot
+</footer>
+{SCRIPT}
 </body>
 </html>
 """
 
 
-# --------------------------------------------------
-# OBTENER PERFILES Y ANUNCIOS APROBADOS
-# --------------------------------------------------
-
+# OBTENER DATOS DE SUPABASE
 published = fetch(
     "ta_professional_profiles",
     {
@@ -623,10 +640,7 @@ for ad in ads:
     if uid(owner):
         people.setdefault(
             owner,
-            {
-                "profile": None,
-                "ads": [],
-            },
+            {"profile": None, "ads": []},
         )["ads"].append(ad)
 
 for profile in published:
@@ -635,18 +649,12 @@ for profile in published:
     if uid(owner):
         people.setdefault(
             owner,
-            {
-                "profile": None,
-                "ads": [],
-            },
+            {"profile": None, "ads": []},
         )["profile"] = profile
 
 
-# --------------------------------------------------
-# GENERAR PÁGINAS DE PROFESIONALES
-# --------------------------------------------------
-
-links = []
+# GENERAR PERFILES
+profile_links = []
 
 for owner, data in sorted(people.items()):
 
@@ -669,7 +677,7 @@ for owner, data in sorted(people.items()):
                 for ad in data["ads"]
                 if val(ad, "description")
             ),
-            "Consulta el perfil de este profesional en TarotAnuncia.",
+            "Consulta este perfil en TarotAnuncia.",
         )
     )
 
@@ -682,11 +690,14 @@ for owner, data in sorted(people.items()):
         if item
     )
 
-    specialties = cats(profile)
+    specialties = categories(profile)
 
-    photo = (
-        picture(val(profile, "profile_photo_url"))
-        or next(
+    photo = picture(
+        val(profile, "profile_photo_url")
+    )
+
+    if not photo:
+        photo = next(
             (
                 url
                 for ad in data["ads"]
@@ -698,16 +709,13 @@ for owner, data in sorted(people.items()):
             ),
             "",
         )
-    )
 
     number = phone(val(profile, "phone"))
     whatsapp = phone(val(profile, "whatsapp"))
 
     url = (
-        BASE
-        + "profesionales/"
-        + owner
-        + ".html"
+        BASE + "profesionales/"
+        + owner + ".html"
     )
 
     title = (
@@ -721,76 +729,7 @@ for owner, data in sorted(people.items()):
         else f"{name} | TarotAnuncia. "
     )
 
-    meta = text_summary(
-        prefix + description
-    )
-
-    tags_html = "".join(
-        f'<span class="tag">{clean(category)}</span>'
-        for category in specialties[:8]
-    )
-
-    ad_items = []
-
-    for ad in data["ads"]:
-        ad_id = val(ad, "id")
-
-        if not uid(ad_id):
-            continue
-
-        ad_title = (
-            val(ad, "title")
-            or "Consulta de tarot"
-        )
-
-        ad_description = val(
-            ad,
-            "description",
-        )[:250]
-
-        ad_items.append(
-            f"""
-            <article class="ad-item">
-              <h3>
-                <a href="/anuncios/{clean(ad_id)}.html">
-                  {clean(ad_title)}
-                </a>
-              </h3>
-              <p>{clean(ad_description)}</p>
-            </article>
-            """
-        )
-
-    ad_html = "".join(ad_items)
-
-    buttons = []
-
-    if number:
-        buttons.append(
-            f"""
-            <a class="button"
-               href="tel:{clean(number)}">
-              Llamar al profesional
-            </a>
-            """
-        )
-
-    if whatsapp:
-        wa_number = clean(
-            whatsapp.lstrip("+")
-        )
-
-        buttons.append(
-            f"""
-            <a class="button secondary"
-               href="https://wa.me/{wa_number}"
-               rel="noopener noreferrer">
-              Contactar por WhatsApp
-            </a>
-            """
-        )
-
-    buttons_html = "".join(buttons)
+    meta = summary(prefix + description)
 
     if photo:
         photo_html = (
@@ -803,6 +742,68 @@ for owner, data in sorted(people.items()):
             '<div class="avatar placeholder">✦</div>'
         )
 
+    tags_html = "".join(
+        f'<span class="tag">{clean(item)}</span>'
+        for item in specialties[:8]
+    )
+
+    buttons = []
+
+    if number:
+        buttons.append(
+            f'<a class="button" '
+            f'href="tel:{clean(number)}">'
+            f'Llamar</a>'
+        )
+
+    if whatsapp:
+        wa = whatsapp.lstrip("+")
+
+        buttons.append(
+            f'<a class="button secondary" '
+            f'href="https://wa.me/{clean(wa)}" '
+            f'rel="noopener noreferrer">'
+            f'WhatsApp</a>'
+        )
+
+    ad_cards = []
+
+    for ad in data["ads"]:
+        ad_id = val(ad, "id")
+
+        if not uid(ad_id):
+            continue
+
+        ad_title = (
+            val(ad, "title")
+            or "Consulta de tarot"
+        )
+
+        ad_cards.append(
+            f"""
+            <article class="ad">
+              <h3>
+                <a href="/anuncios/{clean(ad_id)}.html">
+                  {clean(ad_title)}
+                </a>
+              </h3>
+              <p>
+                {clean(val(ad, "description")[:600])}
+              </p>
+            </article>
+            """
+        )
+
+    ads_section = ""
+
+    if ad_cards:
+        ads_section = (
+            '<h2>Sus anuncios</h2>'
+            '<div class="ad-list">'
+            + "".join(ad_cards)
+            + '</div>'
+        )
+
     modality = val(profile, "modality")
 
     location_text = clean(
@@ -810,11 +811,9 @@ for owner, data in sorted(people.items()):
     )
 
     if modality:
-        location_text += (
-            " · " + clean(modality)
-        )
+        location_text += " · " + clean(modality)
 
-    schema_data = {
+    schema = structured_data({
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "url": url,
@@ -825,45 +824,22 @@ for owner, data in sorted(people.items()):
             "name": name,
             "description": description[:400],
         },
-    }
-
-    if location:
-        schema_data["contentLocation"] = {
-            "@type": "Place",
-            "name": location,
-        }
-
-    structured = make_schema(schema_data)
-
-    ads_section = ""
-
-    if ad_html:
-        ads_section = f"""
-        <h2>Sus anuncios</h2>
-        <div class="ad-list">
-          {ad_html}
-        </div>
-        """
+    })
 
     content = f"""
-<section class="hero">
-  <h1>Perfil profesional</h1>
-  <p>Descubre profesionales del tarot en TarotAnuncia</p>
-</section>
+<main>
+  <article class="panel">
 
-<main class="container">
-  <article class="card">
-
-    <div class="profile-top">
+    <div class="intro">
       {photo_html}
 
       <h1>{clean(name)}</h1>
 
-      <p class="meta">{location_text}</p>
+      <p class="location">
+        {location_text}
+      </p>
 
-      <div class="tags">
-        {tags_html}
-      </div>
+      <div>{tags_html}</div>
     </div>
 
     <h2>Sobre este profesional</h2>
@@ -873,12 +849,12 @@ for owner, data in sorted(people.items()):
     </div>
 
     <div class="buttons">
-      {buttons_html}
+      {''.join(buttons)}
     </div>
 
     {ads_section}
 
-    <div class="extra-links">
+    <div class="links">
       <a href="/tarotistas.html?perfil={clean(owner)}">
         Ver ficha completa y valoraciones
       </a>
@@ -897,33 +873,25 @@ for owner, data in sorted(people.items()):
 """
 
     page = document(
-        title,
-        meta,
-        url,
-        structured,
-        content,
+        title, meta, url, schema, content
     )
 
-    (DEST / (owner + ".html")).write_text(
-        page,
-        encoding="utf-8",
+    (PROFILES_DIR / (owner + ".html")).write_text(
+        page, encoding="utf-8"
     )
 
-    links.append(url)
+    profile_links.append(url)
 
 
-# --------------------------------------------------
 # ELIMINAR PERFILES ANTIGUOS
-# --------------------------------------------------
-
-valid = {
+valid_profiles = {
     url.rsplit("/", 1)[-1]
-    for url in links
+    for url in profile_links
 }
 
-for file in DEST.glob("*.html"):
+for file in PROFILES_DIR.glob("*.html"):
     if (
-        file.name not in valid
+        file.name not in valid_profiles
         and re.fullmatch(
             r"[0-9a-fA-F-]{36}\.html",
             file.name,
@@ -932,10 +900,7 @@ for file in DEST.glob("*.html"):
         file.unlink()
 
 
-# --------------------------------------------------
-# GENERAR PÁGINAS INDIVIDUALES DE ANUNCIOS
-# --------------------------------------------------
-
+# GENERAR ANUNCIOS INDIVIDUALES
 ad_links = []
 
 for ad in ads:
@@ -963,73 +928,57 @@ for ad in ads:
     city_ad = val(ad, "city")
 
     url_ad = (
-        BASE
-        + "anuncios/"
-        + ad_id
-        + ".html"
+        BASE + "anuncios/"
+        + ad_id + ".html"
     )
 
     original_ad = (
-        BASE
-        + "anuncios.html?anuncio="
+        BASE + "anuncios.html?anuncio="
         + urllib.parse.quote(ad_id)
     )
 
-    summary_ad = text_summary(
-        description_ad
-    )
+    summary_ad = summary(description_ad)
 
     photo_ad = picture(
         val(ad, "profile_photo_url")
     )
 
     if not photo_ad:
+        photo_urls = ad.get("photo_urls") or []
 
-        photos_ad = (
-            ad.get("photo_urls")
-            or []
-        )
-
-        if isinstance(photos_ad, list):
+        if isinstance(photo_urls, list):
             photo_ad = next(
                 (
                     url
-                    for item in photos_ad
+                    for item in photo_urls
                     if (
-                        url := picture(
-                            str(item)
-                        )
+                        url := picture(str(item))
                     )
                 ),
                 "",
             )
 
+    image_html = ""
+
     if photo_ad:
-        image_html = f"""
-        <div class="ad-photo-box">
-          <img class="ad-photo"
-               src="{clean(photo_ad)}"
-               alt="{clean(title_ad)}">
-        </div>
-        """
-    else:
-        image_html = ""
+        image_html = (
+            f'<img class="photo" '
+            f'src="{clean(photo_ad)}" '
+            f'alt="{clean(title_ad)}">'
+        )
 
     owner_ad = val(ad, "owner_id")
 
     profile_html = ""
 
-    if (
-        uid(owner_ad)
-        and owner_ad in people
-    ):
-        profile_html = f"""
-        <a href="/profesionales/{clean(owner_ad)}.html">
-          Ver perfil profesional
-        </a>
-        """
+    if uid(owner_ad) and owner_ad in people:
+        profile_html = (
+            f'<a href="/profesionales/'
+            f'{clean(owner_ad)}.html">'
+            f'Ver perfil profesional</a>'
+        )
 
-    schema_ad = make_schema({
+    schema_ad = structured_data({
         "@context": "https://schema.org",
         "@type": "WebPage",
         "url": url_ad,
@@ -1037,28 +986,23 @@ for ad in ads:
         "description": summary_ad,
     })
 
-    city_html = (
+    location_ad = (
         " · " + clean(city_ad)
         if city_ad
         else ""
     )
 
     content_ad = f"""
-<section class="hero">
-  <h1>Anuncios de tarot</h1>
-  <p>Contacta directamente con profesionales en España</p>
-</section>
-
-<main class="container">
-  <article class="card">
+<main>
+  <article class="panel">
 
     {image_html}
 
     <h1>{clean(title_ad)}</h1>
 
-    <p class="meta">
+    <p class="detail-meta">
       <strong>{clean(name_ad)}</strong>
-      {city_html}
+      {location_ad}
     </p>
 
     <div class="description">
@@ -1072,18 +1016,16 @@ for ad in ads:
       </a>
     </div>
 
-    <div class="extra-links">
-
+    <div class="links">
       {profile_html}
 
       <a href="/anuncios.html">
-        Más anuncios
+        Ver más anuncios de tarot
       </a>
 
       <a href="/tarotistas.html">
         Explorar profesionales
       </a>
-
     </div>
 
   </article>
@@ -1098,7 +1040,7 @@ for ad in ads:
         content_ad,
     )
 
-    (AD_DEST / (ad_id + ".html")).write_text(
+    (ADS_DIR / (ad_id + ".html")).write_text(
         page_ad,
         encoding="utf-8",
     )
@@ -1106,16 +1048,13 @@ for ad in ads:
     ad_links.append(url_ad)
 
 
-# --------------------------------------------------
 # ELIMINAR ANUNCIOS ANTIGUOS
-# --------------------------------------------------
-
 valid_ads = {
     url.rsplit("/", 1)[-1]
     for url in ad_links
 }
 
-for file in AD_DEST.glob("*.html"):
+for file in ADS_DIR.glob("*.html"):
     if (
         file.name not in valid_ads
         and re.fullmatch(
@@ -1126,19 +1065,16 @@ for file in AD_DEST.glob("*.html"):
         file.unlink()
 
 
-# --------------------------------------------------
-# GENERAR SITEMAP.XML
-# --------------------------------------------------
-
-ns = (
+# ACTUALIZAR SITEMAP
+namespace = (
     "http://www.sitemaps.org/"
     "schemas/sitemap/0.9"
 )
 
-ET.register_namespace("", ns)
+ET.register_namespace("", namespace)
 
 root = ET.Element(
-    "{" + ns + "}urlset"
+    "{" + namespace + "}urlset"
 )
 
 urls = [
@@ -1148,38 +1084,8 @@ urls = [
     BASE + "tienda-esoterica.html",
 ]
 
-urls += links
+urls += profile_links
 urls += ad_links
 
 for url in urls:
-    element = ET.SubElement(
-        root,
-        "{" + ns + "}url",
-    )
-
-    ET.SubElement(
-        element,
-        "{" + ns + "}loc",
-    ).text = url
-
-ET.indent(
-    root,
-    space="  ",
-)
-
-ET.ElementTree(root).write(
-    "sitemap.xml",
-    encoding="utf-8",
-    xml_declaration=True,
-)
-
-
-# --------------------------------------------------
-# RESULTADO
-# --------------------------------------------------
-
-print(
-    f"Generadas {len(links)} páginas de profesionales. "
-    f"Generados {len(ad_links)} anuncios aprobados. "
-    f"Sitemap: {len(urls)} URLs."
-)
+    elem
