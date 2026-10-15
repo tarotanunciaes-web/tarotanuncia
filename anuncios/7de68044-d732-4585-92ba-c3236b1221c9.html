@@ -3,21 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
-      content="width=device-width, initial-scale=1">
+      content="width=device-width,initial-scale=1">
 <title>Tarot, amor y videncia | TarotAnuncia</title>
 <meta name="description" content="Consulta privada y confidencial de tarot, amor y videncia. Atención personalizada y orientación espiritual online.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://tarotanuncia.es/anuncios/7de68044-d732-4585-92ba-c3236b1221c9.html">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "url": "https://tarotanuncia.es/anuncios/7de68044-d732-4585-92ba-c3236b1221c9.html", "name": "Tarot, amor y videncia", "description": "Consulta privada y confidencial de tarot, amor y videncia. Atención personalizada y orientación espiritual online."}</script>
 <style>
-
 :root {
     --gold: #d89400;
-    --gold2: #efb326;
+    --gold-light: #efb326;
+    --purple: #702d6b;
     --ink: #171526;
     --cream: #fffaf1;
     --line: #eadfce;
-    --purple: #702d6b;
 }
 
 * {
@@ -25,7 +24,8 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -38,41 +38,46 @@ body {
 }
 
 a {
-    color: var(--purple);
+    color: #79500c;
 }
 
 .site-header {
-    background: rgba(255,252,246,.97);
+    background: #fffcf6;
     border-bottom: 1px solid #eee4d6;
-    box-shadow: 0 1px 0 rgba(123,84,24,.10);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
-.header-inner {
+.nav {
     max-width: 1240px;
     margin: auto;
-    padding: 13px 22px;
+    min-height: 68px;
+    padding: 10px 18px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 14px;
 }
 
 .brand {
-    text-decoration: none;
-    color: var(--ink);
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 9px;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
 }
 
-.brand-symbol {
-    font-size: 27px;
-    color: #b97800;
+.brand-logo {
+    width: 43px;
+    height: 43px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .brand-name {
     font: 700 25px Georgia, serif;
-    color: var(--ink);
 }
 
 .brand-name span {
@@ -81,62 +86,62 @@ a {
 
 .brand-subtitle {
     display: block;
-    font-size: 9px;
-    letter-spacing: 1px;
-    color: #766a70;
+    font-size: 8px;
+    letter-spacing: 1.2px;
+    color: #6c626a;
 }
 
-.header-nav {
+.nav-links {
     display: flex;
-    gap: 19px;
     align-items: center;
-    flex-wrap: wrap;
+    gap: 18px;
 }
 
-.header-nav a {
+.nav-links a {
     text-decoration: none;
     color: #302833;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
-.header-nav a:hover {
+.nav-links a:hover {
     color: #b97800;
 }
 
-.hero {
-    padding: 27px 18px 15px;
-    text-align: center;
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    color: #211b22;
+    font: 800 14px Arial, sans-serif;
+    padding: 10px;
+    cursor: pointer;
 }
 
-.hero h1 {
-    font: 800 clamp(24px, 4vw, 34px)/1.2 Georgia, serif;
-    margin: 0 0 9px;
-    overflow-wrap: anywhere;
+.mobile-links[hidden] {
+    display: none !important;
 }
 
-.hero p {
-    color: #6c626a;
-    margin: 0;
-    font-size: 14px;
+.mobile-links {
+    display: none;
 }
 
-.container {
-    width: min(850px, calc(100% - 30px));
-    margin: 15px auto 40px;
+main {
+    width: min(900px, calc(100% - 30px));
+    margin: 25px auto 40px;
 }
 
-.card {
+.panel {
     background: #fff;
     border: 1px solid #e6d8c2;
     border-top: 4px solid #d5ae55;
-    border-radius: 18px;
+    border-radius: 17px;
     padding: 25px;
     box-shadow: 0 5px 16px rgba(50,35,20,.07);
-    min-width: 0;
+    overflow: hidden;
 }
 
-.profile-top {
+.intro {
     text-align: center;
 }
 
@@ -145,93 +150,80 @@ a {
     width: 115px;
     height: 115px;
     object-fit: contain;
-    background: #fffaf1;
+    padding: 8px;
+    background: var(--cream);
     border: 2px solid #ead5a3;
     border-radius: 50%;
-    padding: 7px;
-    margin: 0 auto 14px;
+    margin: 0 auto;
 }
 
 .placeholder {
     display: grid;
     place-items: center;
+    font-size: 46px;
     color: #b78b39;
-    font-size: 44px;
-}
-
-.ad-photo-box {
-    background: #fbf7f0;
-    border: 1px solid #e3d4bc;
-    border-radius: 14px;
-    padding: 12px;
-    margin: 0 auto 19px;
-    text-align: center;
-}
-
-.ad-photo {
-    display: block;
-    width: 100%;
-    max-height: 360px;
-    object-fit: contain;
-    margin: auto;
-    border-radius: 9px;
 }
 
 h1 {
-    font: 800 clamp(24px, 4vw, 33px)/1.22 Georgia, serif;
-    color: #281d30;
+    font: 800 clamp(23px, 3.4vw, 31px)/1.25 Georgia, serif;
+    margin: 15px 0 12px;
     overflow-wrap: anywhere;
-    margin: 0 0 12px;
 }
 
 h2 {
     font: 800 21px Georgia, serif;
-    color: #3c293e;
-    margin: 25px 0 12px;
+    margin: 24px 0 12px;
 }
 
 h3 {
     font: 800 17px Georgia, serif;
-    margin: 0 0 9px;
-}
-
-.meta {
-    font-size: 13px;
-    color: #766c72;
-    margin: 8px 0 15px;
+    margin: 0 0 8px;
 }
 
 .description {
     font-size: 15px;
-    line-height: 1.65;
-    color: #433a43;
+    line-height: 1.6;
     white-space: pre-line;
     overflow-wrap: anywhere;
+    color: #433a43;
+    margin: 15px 0;
 }
 
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    justify-content: center;
-    margin: 12px 0;
+.location,
+.detail-meta {
+    color: #655d65;
+    font-size: 14px;
+    margin: 10px 0;
 }
 
 .tag {
-    background: #faeafa;
-    color: #702d6b;
-    padding: 5px 11px;
-    border-radius: 999px;
+    display: inline-block;
+    margin: 4px;
+    padding: 6px 10px;
+    border-radius: 25px;
+    background: #f7eaf5;
+    color: var(--purple);
     font-size: 12px;
-    font-weight: 700;
+}
+
+.photo {
+    display: block;
+    width: 100%;
+    max-height: 340px;
+    object-fit: contain;
+    background: #fbf7f0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 8px;
+    margin-bottom: 18px;
 }
 
 .buttons {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
-    margin: 22px 0;
+    margin: 20px 0;
 }
 
 .button {
@@ -239,242 +231,247 @@ h3 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 12px 19px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 800;
-    min-height: 46px;
     background: linear-gradient(
         135deg,
-        var(--gold2),
+        var(--gold-light),
         var(--gold)
     );
     color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 12px 19px;
+    font-size: 14px;
+    font-weight: 800;
+    min-height: 45px;
 }
 
 .button.secondary {
     background: #fffaf1;
-    border: 1px solid #d5a43c;
     color: #79550b;
-}
-
-.button:hover {
-    filter: brightness(.97);
+    border: 1px solid #d5a43c;
 }
 
 .ad-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 13px;
+    gap: 12px;
 }
 
-.ad-item {
-    border: 1px solid #eadfce;
-    border-radius: 13px;
-    padding: 15px;
+.ad {
     background: #fffdf9;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px;
     min-width: 0;
 }
 
-.ad-item a {
-    color: #702d6b;
+.ad a {
+    color: var(--purple);
     text-decoration: none;
 }
 
-.ad-item a:hover {
-    text-decoration: underline;
-}
-
-.ad-item p {
-    color: #615762;
+.ad p {
     font-size: 13px;
     line-height: 1.55;
-    overflow-wrap: anywhere;
     white-space: pre-line;
+    overflow-wrap: anywhere;
     margin: 8px 0 0;
 }
 
-.extra-links {
+.links {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 9px;
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid #eadfce;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
 }
 
-.extra-links a {
+.links a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 9px 12px;
+    text-align: center;
+    background: var(--cream);
+    border: 1px solid var(--line);
     border-radius: 10px;
-    border: 1px solid #eadfce;
-    background: #fffaf1;
-    color: #785010;
-    text-decoration: none;
+    padding: 9px 12px;
     font-size: 12px;
     font-weight: 700;
-    text-align: center;
-}
-
-.extra-links a:hover {
-    background: #fff1d3;
+    text-decoration: none;
 }
 
 footer {
     background: #fff7eb;
     border-top: 1px solid #eadcc3;
+    padding: 25px 14px;
     text-align: center;
-    padding: 24px 15px;
+    font-size: 13px;
     color: #786d71;
-    font-size: 12px;
 }
 
-footer strong {
-    display: block;
-    font: 800 23px Georgia, serif;
-    color: #b97800;
-    margin-bottom: 7px;
+@media (max-width: 900px) {
+    .nav {
+        min-height: 66px;
+        padding: 10px 14px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-left: auto;
+        white-space: nowrap;
+    }
+
+    .mobile-links:not([hidden]) {
+        display: grid;
+        gap: 2px;
+        background: #fffdf9;
+        border-top: 1px solid var(--line);
+        padding: 9px 15px 15px;
+    }
+
+    .mobile-links a {
+        display: block;
+        padding: 12px;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        color: #302833;
+    }
+
+    .mobile-links a:hover {
+        background: #fff5df;
+    }
 }
 
-footer a {
-    color: #785010;
-}
-
-@media (max-width: 700px) {
-
-    .header-inner {
-        padding: 12px 15px;
-        flex-direction: column;
-        gap: 9px;
+@media (max-width: 600px) {
+    .brand-logo {
+        width: 37px;
+        height: 37px;
     }
 
     .brand-name {
-        font-size: 23px;
+        font-size: 21px;
     }
 
-    .header-nav {
-        justify-content: center;
-        gap: 14px;
+    .brand-subtitle {
+        font-size: 7px;
     }
 
-    .header-nav a {
+    .menu-toggle {
         font-size: 12px;
+        padding: 7px;
     }
 
-    .hero {
-        padding: 22px 15px 12px;
-    }
-
-    .hero h1 {
-        font-size: 25px;
-    }
-
-    .container {
+    main {
         width: calc(100% - 24px);
-        margin: 12px auto 27px;
+        margin: 16px auto 28px;
     }
 
-    .card {
-        padding: 17px 15px;
-        border-radius: 16px;
+    .panel {
+        padding: 16px;
+        border-radius: 15px;
     }
 
     h1 {
-        font-size: 25px;
+        font-size: 23px;
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 19px;
     }
 
     .description {
         font-size: 14px;
-        line-height: 1.6;
+        line-height: 1.55;
     }
 
-    .ad-photo-box {
-        padding: 9px;
-    }
-
-    .ad-photo {
-        max-height: 300px;
+    .photo {
+        max-height: 280px;
     }
 
     .ad-list {
         grid-template-columns: 1fr;
     }
 
-    .buttons {
-        gap: 8px;
-    }
-
     .button {
         width: 100%;
-        font-size: 14px;
     }
 
-    .extra-links {
-        gap: 7px;
-    }
-
-    .extra-links a {
+    .links a {
         flex: 1 1 120px;
-        font-size: 11px;
-        padding: 9px 7px;
     }
 }
-
 </style>
 </head>
 <body>
 
 <header class="site-header">
-  <div class="header-inner">
+  <div class="nav">
+
     <a class="brand" href="/">
-      <span class="brand-symbol">✦</span>
+      <img class="brand-logo"
+           src="/file_000000003c088210be49f3122608d83d.png"
+           alt="Logo TarotAnuncia">
+
       <span>
         <span class="brand-name">
           Tarot<span>Anuncia</span>
         </span>
-        <span class="brand-subtitle">
+        <small class="brand-subtitle">
           TAROTISTAS CERCA DE TI
-        </span>
+        </small>
       </span>
     </a>
 
-    <nav class="header-nav" aria-label="Navegación">
+    <button class="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="ta-mobile-menu"
+            onclick="taToggleMenu(this)">
+      ☰ MENÚ
+    </button>
+
+    <nav class="nav-links"
+         aria-label="Navegación">
       <a href="/">Inicio</a>
       <a href="/anuncios.html">Anuncios</a>
       <a href="/tarotistas.html">Tarotistas</a>
-      <a href="/tienda-esoterica.html">Tienda esotérica</a>
+      <a href="/tienda-esoterica.html">
+        Tienda esotérica
+      </a>
     </nav>
+
   </div>
+
+  <nav class="mobile-links"
+       id="ta-mobile-menu"
+       aria-label="Menú móvil"
+       hidden>
+    <a href="/">Inicio</a>
+    <a href="/anuncios.html">Anuncios</a>
+    <a href="/tarotistas.html">Tarotistas</a>
+    <a href="/tienda-esoterica.html">
+      Tienda esotérica
+    </a>
+  </nav>
 </header>
 
 
-<section class="hero">
-  <h1>Anuncios de tarot</h1>
-  <p>Contacta directamente con profesionales en España</p>
-</section>
+<main>
+  <article class="panel">
 
-<main class="container">
-  <article class="card">
-
-    
-        <div class="ad-photo-box">
-          <img class="ad-photo"
-               src="https://ozbbgfxixbgffxnhqpzh.supabase.co/storage/v1/object/public/tarotanuncia-photos/eb6f490b-8d59-4b2e-90be-66201fc16bac/profile-1791180360385-13909.png"
-               alt="Tarot, amor y videncia">
-        </div>
-        
+    <img class="photo" src="https://ozbbgfxixbgffxnhqpzh.supabase.co/storage/v1/object/public/tarotanuncia-photos/eb6f490b-8d59-4b2e-90be-66201fc16bac/profile-1791180360385-13909.png" alt="Tarot, amor y videncia">
 
     <h1>Tarot, amor y videncia</h1>
 
-    <p class="meta">
+    <p class="detail-meta">
       <strong>Taroteame</strong>
        · A Coruña
     </p>
@@ -490,39 +487,45 @@ footer a {
       </a>
     </div>
 
-    <div class="extra-links">
-
-      
-        <a href="/profesionales/eb6f490b-8d59-4b2e-90be-66201fc16bac.html">
-          Ver perfil profesional
-        </a>
-        
+    <div class="links">
+      <a href="/profesionales/eb6f490b-8d59-4b2e-90be-66201fc16bac.html">Ver perfil profesional</a>
 
       <a href="/anuncios.html">
-        Más anuncios
+        Ver más anuncios de tarot
       </a>
 
       <a href="/tarotistas.html">
         Explorar profesionales
       </a>
-
     </div>
 
   </article>
 </main>
 
-
 <footer>
-  <strong>TarotAnuncia</strong>
-  <div>Encuentra profesionales del tarot en toda España</div>
-  <p>
-    <a href="/aviso-legal.html">Aviso legal</a>
-    ·
-    <a href="/politica-privacidad.html">Privacidad</a>
-    ·
-    <a href="/contacto.html">Contacto</a>
-  </p>
+  TarotAnuncia · Directorio de profesionales del tarot
 </footer>
+
+<script>
+function taToggleMenu(button) {
+    const menu = document.getElementById(
+        "ta-mobile-menu"
+    );
+
+    const opening = menu.hasAttribute("hidden");
+
+    if (opening) {
+        menu.removeAttribute("hidden");
+    } else {
+        menu.setAttribute("hidden", "");
+    }
+
+    button.setAttribute(
+        "aria-expanded",
+        String(opening)
+    );
+}
+</script>
 
 </body>
 </html>
