@@ -19,9 +19,7 @@ BASE = "https://tarotanuncia.es/"
 API = os.environ["SUPABASE_URL"].rstrip("/")
 KEY = os.environ["SUPABASE_ANON_KEY"]
 
-LOGO = (
-    "/file_000000003c088210be49f3122608d83d.png"
-)
+LOGO = "/file_000000003c088210be49f3122608d83d.png"
 
 PROFILE_DIR = Path("profesionales")
 AD_DIR = Path("anuncios")
@@ -74,9 +72,7 @@ def val(data, key):
 
 
 def esc(value):
-    return html.escape(
-        str(value or ""), quote=True
-    )
+    return html.escape(str(value or ""), quote=True)
 
 
 def uid(value):
@@ -92,10 +88,7 @@ def image_url(value):
     value = str(value or "").strip()
     parsed = urllib.parse.urlparse(value)
 
-    if (
-        parsed.scheme == "https"
-        and parsed.netloc
-    ):
+    if parsed.scheme == "https" and parsed.netloc:
         return value
 
     return ""
@@ -119,7 +112,7 @@ def wa_phone(value):
 
 def summary(value, limit=155):
     return " ".join(
-        str(value).split()
+        str(value or "").split()
     )[:limit]
 
 
@@ -147,8 +140,19 @@ def schema(data):
     ).replace("<", "\\u003c")
 
 
+def short_description(value, limit=110):
+    text = " ".join(str(value or "").split())
+
+    if len(text) <= limit:
+        return text
+
+    shortened = text[:limit].rsplit(" ", 1)[0]
+
+    return shortened.rstrip(".,;: ") + "…"
+
+
 # ==========================================
-# DISEÑO COMPLETO
+# DISEÑO
 # ==========================================
 
 CSS = """
@@ -286,7 +290,7 @@ header {
     top: 0;
     bottom: 0;
     z-index: 151;
-    width: min(280px, 85vw);
+    width: min(280px,85vw);
     background: linear-gradient(
         180deg,
         #fffdf9,
@@ -356,7 +360,7 @@ header {
 
 main {
     flex: 1;
-    width: min(850px, calc(100% - 24px));
+    width: min(850px,calc(100% - 24px));
     margin: 12px auto 30px;
 }
 
@@ -502,11 +506,11 @@ h3 {
     filter: brightness(.97);
 }
 
-/* ANUNCIOS DEL PROFESIONAL */
+/* TARJETAS COMPACTAS */
 
 .ad-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
+    grid-template-columns: repeat(2,minmax(0,1fr));
     gap: 12px;
 }
 
@@ -514,22 +518,42 @@ h3 {
     background: #fffdf9;
     border: 1px solid var(--line);
     border-radius: 13px;
-    padding: 14px;
+    padding: 15px;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-.ad-card a {
-    text-decoration: none;
-    color: var(--purple);
+.ad-card h3 {
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 8px;
 }
 
 .ad-card p {
     font-size: 13px;
     color: #625961;
     line-height: 1.5;
-    margin: 8px 0 0;
-    white-space: pre-line;
+    margin: 0 0 14px;
     overflow-wrap: anywhere;
+}
+
+.ad-view-button {
+    display: block;
+    margin-top: auto;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #fff4da;
+    border: 1px solid #d5a43c;
+    color: #79550b;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+
+.ad-view-button:hover {
+    background: #fce8ba;
 }
 
 /* ENLACES INFERIORES */
@@ -581,7 +605,7 @@ footer a {
     color: #785010;
 }
 
-/* TABLET Y MÓVIL */
+/* RESPONSIVE */
 
 @media (max-width: 900px) {
     .desktop-nav {
@@ -665,6 +689,18 @@ footer a {
         grid-template-columns: 1fr;
     }
 
+    .ad-card {
+        padding: 13px;
+    }
+
+    .ad-card h3 {
+        font-size: 15px;
+    }
+
+    .ad-card p {
+        font-size: 12px;
+    }
+
     .links a {
         flex: 1 1 125px;
         font-size: 11px;
@@ -679,7 +715,7 @@ footer a {
 
 
 # ==========================================
-# CABECERA
+# CABECERA Y MENÚ
 # ==========================================
 
 def header():
@@ -736,6 +772,7 @@ def header():
 
   <div class="drawer-head">
     <strong>TarotAnuncia</strong>
+
     <button class="drawer-close"
             type="button"
             aria-label="Cerrar menú"
@@ -753,10 +790,6 @@ def header():
 </aside>
 """
 
-
-# ==========================================
-# JAVASCRIPT DEL MENÚ
-# ==========================================
 
 MENU_JS = """
 <script>
@@ -797,10 +830,6 @@ document.addEventListener(
 """
 
 
-# ==========================================
-# PIE DE PÁGINA
-# ==========================================
-
 def footer():
     return """
 <footer>
@@ -815,10 +844,6 @@ def footer():
 </footer>
 """
 
-
-# ==========================================
-# DOCUMENTO HTML
-# ==========================================
 
 def document(
     title,
@@ -865,7 +890,7 @@ def document(
 
 
 # ==========================================
-# CONSULTAR SUPABASE
+# DATOS DE SUPABASE
 # ==========================================
 
 profiles = fetch(
@@ -912,7 +937,7 @@ for profile in profiles:
 
 
 # ==========================================
-# GENERAR PERFILES PROFESIONALES
+# PERFILES PROFESIONALES
 # ==========================================
 
 profile_links = []
@@ -942,6 +967,8 @@ for owner, data in sorted(people.items()):
         )
     )
 
+    # Se mantienen localidad y provincia,
+    # aunque tengan el mismo nombre.
     location = ", ".join(
         x
         for x in (
@@ -1030,6 +1057,7 @@ for owner, data in sorted(people.items()):
             '</a>'
         )
 
+    # TARJETAS COMPACTAS CON BOTÓN
     ad_cards = []
 
     for ad in data["ads"]:
@@ -1044,19 +1072,21 @@ for owner, data in sorted(people.items()):
             or "Consulta de tarot"
         )
 
-        ad_description = (
-            val(ad, "description")[:400]
+        ad_description = short_description(
+            val(ad, "description"),
+            110
         )
 
         ad_cards.append(f"""
         <article class="ad-card">
-          <h3>
-            <a href="/anuncios/{esc(ad_id)}.html">
-              {esc(ad_title)}
-            </a>
-          </h3>
+          <h3>{esc(ad_title)}</h3>
 
           <p>{esc(ad_description)}</p>
+
+          <a class="ad-view-button"
+             href="/anuncios/{esc(ad_id)}.html">
+            Ver anuncio
+          </a>
         </article>
         """)
 
@@ -1161,7 +1191,7 @@ for owner, data in sorted(people.items()):
 
 
 # ==========================================
-# GENERAR ANUNCIOS INDIVIDUALES
+# ANUNCIOS INDIVIDUALES
 # ==========================================
 
 ad_links = []
@@ -1345,7 +1375,7 @@ for ad in ads:
 
 
 # ==========================================
-# ELIMINAR FICHAS ANTIGUAS
+# LIMPIEZA DE FICHAS ANTIGUAS
 # ==========================================
 
 def clean_old(directory, urls):
