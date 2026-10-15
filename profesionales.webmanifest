@@ -1,0 +1,25 @@
+{
+  "name": "TarotAnuncia Profesionales",
+  "short_name": "TarotAnuncia Pro",
+  "description": "Panel privado de profesionales de TarotAnuncia",
+  "id": "/profesionales.html",
+  "start_url": "/profesionales.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#fffaf0",
+  "icons": [
+    {
+      "src": "/tarotanuncia-pro-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/tarotanuncia-pro-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
