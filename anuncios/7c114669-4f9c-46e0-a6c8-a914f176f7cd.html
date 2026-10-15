@@ -2,38 +2,529 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
 <title>Tarotistas expertos en amarres de amor | TarotAnuncia</title>
 <meta name="description" content="El abuelo Papacho ofrece perspectivas transformadoras a través de lecturas de tarot y hojas de coca, conectándote con la sabiduría ancestral. 🌿✨ Cada sesió">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://tarotanuncia.es/anuncios/7c114669-4f9c-46e0-a6c8-a914f176f7cd.html">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "url": "https://tarotanuncia.es/anuncios/7c114669-4f9c-46e0-a6c8-a914f176f7cd.html", "name": "Tarotistas expertos en amarres de amor", "description": "El abuelo Papacho ofrece perspectivas transformadoras a través de lecturas de tarot y hojas de coca, conectándote con la sabiduría ancestral. 🌿✨ Cada sesió"}</script>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#fbfaf6;color:#241a28;font-family:Arial,sans-serif}
-header{background:#fffaf1;border-bottom:1px solid #ead9bd;padding:18px}
-header a{font:bold 25px Georgia,serif;color:#7e5109;text-decoration:none}
-main{max-width:760px;margin:30px auto;padding:0 16px}
-article{background:#fff;border:1px solid #e4d3b8;border-top:4px solid #d5ae55;border-radius:20px;padding:28px}
-h1{font:800 30px Georgia,serif}
-p{line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
-.photo{width:100%;max-height:360px;object-fit:contain;background:#fffaf1;border-radius:12px}
-.button{display:inline-block;background:#bd8520;color:#fff;text-decoration:none;border-radius:11px;padding:13px 20px;font-weight:bold}
-a{color:#785010}
+
+:root {
+    --gold: #d89400;
+    --gold2: #efb326;
+    --ink: #171526;
+    --cream: #fffaf1;
+    --line: #eadfce;
+    --purple: #702d6b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #fbfaf6;
+    color: var(--ink);
+    font-family: Arial, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+a {
+    color: var(--purple);
+}
+
+.site-header {
+    background: rgba(255,252,246,.97);
+    border-bottom: 1px solid #eee4d6;
+    box-shadow: 0 1px 0 rgba(123,84,24,.10);
+}
+
+.header-inner {
+    max-width: 1240px;
+    margin: auto;
+    padding: 13px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand {
+    text-decoration: none;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.brand-symbol {
+    font-size: 27px;
+    color: #b97800;
+}
+
+.brand-name {
+    font: 700 25px Georgia, serif;
+    color: var(--ink);
+}
+
+.brand-name span {
+    color: #b97800;
+}
+
+.brand-subtitle {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #766a70;
+}
+
+.header-nav {
+    display: flex;
+    gap: 19px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: #302833;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.header-nav a:hover {
+    color: #b97800;
+}
+
+.hero {
+    padding: 27px 18px 15px;
+    text-align: center;
+}
+
+.hero h1 {
+    font: 800 clamp(24px, 4vw, 34px)/1.2 Georgia, serif;
+    margin: 0 0 9px;
+    overflow-wrap: anywhere;
+}
+
+.hero p {
+    color: #6c626a;
+    margin: 0;
+    font-size: 14px;
+}
+
+.container {
+    width: min(850px, calc(100% - 30px));
+    margin: 15px auto 40px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #e6d8c2;
+    border-top: 4px solid #d5ae55;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 16px rgba(50,35,20,.07);
+    min-width: 0;
+}
+
+.profile-top {
+    text-align: center;
+}
+
+.avatar {
+    display: block;
+    width: 115px;
+    height: 115px;
+    object-fit: contain;
+    background: #fffaf1;
+    border: 2px solid #ead5a3;
+    border-radius: 50%;
+    padding: 7px;
+    margin: 0 auto 14px;
+}
+
+.placeholder {
+    display: grid;
+    place-items: center;
+    color: #b78b39;
+    font-size: 44px;
+}
+
+.ad-photo-box {
+    background: #fbf7f0;
+    border: 1px solid #e3d4bc;
+    border-radius: 14px;
+    padding: 12px;
+    margin: 0 auto 19px;
+    text-align: center;
+}
+
+.ad-photo {
+    display: block;
+    width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    margin: auto;
+    border-radius: 9px;
+}
+
+h1 {
+    font: 800 clamp(24px, 4vw, 33px)/1.22 Georgia, serif;
+    color: #281d30;
+    overflow-wrap: anywhere;
+    margin: 0 0 12px;
+}
+
+h2 {
+    font: 800 21px Georgia, serif;
+    color: #3c293e;
+    margin: 25px 0 12px;
+}
+
+h3 {
+    font: 800 17px Georgia, serif;
+    margin: 0 0 9px;
+}
+
+.meta {
+    font-size: 13px;
+    color: #766c72;
+    margin: 8px 0 15px;
+}
+
+.description {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #433a43;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    justify-content: center;
+    margin: 12px 0;
+}
+
+.tag {
+    background: #faeafa;
+    color: #702d6b;
+    padding: 5px 11px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 22px 0;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 19px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    min-height: 46px;
+    background: linear-gradient(
+        135deg,
+        var(--gold2),
+        var(--gold)
+    );
+    color: #fff;
+}
+
+.button.secondary {
+    background: #fffaf1;
+    border: 1px solid #d5a43c;
+    color: #79550b;
+}
+
+.button:hover {
+    filter: brightness(.97);
+}
+
+.ad-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 13px;
+}
+
+.ad-item {
+    border: 1px solid #eadfce;
+    border-radius: 13px;
+    padding: 15px;
+    background: #fffdf9;
+    min-width: 0;
+}
+
+.ad-item a {
+    color: #702d6b;
+    text-decoration: none;
+}
+
+.ad-item a:hover {
+    text-decoration: underline;
+}
+
+.ad-item p {
+    color: #615762;
+    font-size: 13px;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+    margin: 8px 0 0;
+}
+
+.extra-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid #eadfce;
+}
+
+.extra-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid #eadfce;
+    background: #fffaf1;
+    color: #785010;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.extra-links a:hover {
+    background: #fff1d3;
+}
+
+footer {
+    background: #fff7eb;
+    border-top: 1px solid #eadcc3;
+    text-align: center;
+    padding: 24px 15px;
+    color: #786d71;
+    font-size: 12px;
+}
+
+footer strong {
+    display: block;
+    font: 800 23px Georgia, serif;
+    color: #b97800;
+    margin-bottom: 7px;
+}
+
+footer a {
+    color: #785010;
+}
+
+@media (max-width: 700px) {
+
+    .header-inner {
+        padding: 12px 15px;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .brand-name {
+        font-size: 23px;
+    }
+
+    .header-nav {
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .header-nav a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 22px 15px 12px;
+    }
+
+    .hero h1 {
+        font-size: 25px;
+    }
+
+    .container {
+        width: calc(100% - 24px);
+        margin: 12px auto 27px;
+    }
+
+    .card {
+        padding: 17px 15px;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .description {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .ad-photo-box {
+        padding: 9px;
+    }
+
+    .ad-photo {
+        max-height: 300px;
+    }
+
+    .ad-list {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons {
+        gap: 8px;
+    }
+
+    .button {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .extra-links {
+        gap: 7px;
+    }
+
+    .extra-links a {
+        flex: 1 1 120px;
+        font-size: 11px;
+        padding: 9px 7px;
+    }
+}
+
 </style>
 </head>
 <body>
-<header><a href="/">✦ TarotAnuncia</a></header>
-<main><article>
-<img class="photo" src="https://ozbbgfxixbgffxnhqpzh.supabase.co/storage/v1/object/public/tarotanuncia-photos/7c9f61fa-2f9c-423b-9aa2-a53d9eacf4c5/profile-3bd0867c-8933-4882-acaf-4cf1435c3620-146.png" alt="Tarotistas expertos en amarres de amor">
-<h1>Tarotistas expertos en amarres de amor</h1>
-<p><strong>Papacho tarot</strong> · Madrid</p>
-<p>El abuelo Papacho ofrece perspectivas transformadoras a través de lecturas de tarot y hojas de coca, conectándote con la sabiduría ancestral. 🌿✨ Cada sesión es un viaje único, guiándote en la comprensión de tu camino en la vida y propósito espiritual.
 
-Las lecturas de tarot revelan verdades ocultas, empoderándote para tomar decisiones informadas. Por otro lado, las lecturas de hojas de coca, impregnadas de tradición, proporcionan claridad y dirección, aprovechando la energía de la Tierra y los espíritus ancestrales.</p>
-<p><a href="/profesionales/7c9f61fa-2f9c-423b-9aa2-a53d9eacf4c5.html">Ver perfil profesional</a></p>
-<p><a class="button" href="https://tarotanuncia.es/anuncios.html?anuncio=7c114669-4f9c-46e0-a6c8-a914f176f7cd">Ver anuncio completo y contactar</a></p>
-<p><a href="/anuncios.html">Ver más anuncios de tarot</a> · <a href="/tarotistas.html">Explorar profesionales</a></p>
-</article></main>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/">
+      <span class="brand-symbol">✦</span>
+      <span>
+        <span class="brand-name">
+          Tarot<span>Anuncia</span>
+        </span>
+        <span class="brand-subtitle">
+          TAROTISTAS CERCA DE TI
+        </span>
+      </span>
+    </a>
+
+    <nav class="header-nav" aria-label="Navegación">
+      <a href="/">Inicio</a>
+      <a href="/anuncios.html">Anuncios</a>
+      <a href="/tarotistas.html">Tarotistas</a>
+      <a href="/tienda-esoterica.html">Tienda esotérica</a>
+    </nav>
+  </div>
+</header>
+
+
+<section class="hero">
+  <h1>Anuncios de tarot</h1>
+  <p>Contacta directamente con profesionales en España</p>
+</section>
+
+<main class="container">
+  <article class="card">
+
+    
+        <div class="ad-photo-box">
+          <img class="ad-photo"
+               src="https://ozbbgfxixbgffxnhqpzh.supabase.co/storage/v1/object/public/tarotanuncia-photos/7c9f61fa-2f9c-423b-9aa2-a53d9eacf4c5/profile-3bd0867c-8933-4882-acaf-4cf1435c3620-146.png"
+               alt="Tarotistas expertos en amarres de amor">
+        </div>
+        
+
+    <h1>Tarotistas expertos en amarres de amor</h1>
+
+    <p class="meta">
+      <strong>Papacho tarot</strong>
+       · Madrid
+    </p>
+
+    <div class="description">
+      El abuelo Papacho ofrece perspectivas transformadoras a través de lecturas de tarot y hojas de coca, conectándote con la sabiduría ancestral. 🌿✨ Cada sesión es un viaje único, guiándote en la comprensión de tu camino en la vida y propósito espiritual.
+
+Las lecturas de tarot revelan verdades ocultas, empoderándote para tomar decisiones informadas. Por otro lado, las lecturas de hojas de coca, impregnadas de tradición, proporcionan claridad y dirección, aprovechando la energía de la Tierra y los espíritus ancestrales.
+    </div>
+
+    <div class="buttons">
+      <a class="button"
+         href="https://tarotanuncia.es/anuncios.html?anuncio=7c114669-4f9c-46e0-a6c8-a914f176f7cd">
+        Ver anuncio completo y contactar
+      </a>
+    </div>
+
+    <div class="extra-links">
+
+      
+        <a href="/profesionales/7c9f61fa-2f9c-423b-9aa2-a53d9eacf4c5.html">
+          Ver perfil profesional
+        </a>
+        
+
+      <a href="/anuncios.html">
+        Más anuncios
+      </a>
+
+      <a href="/tarotistas.html">
+        Explorar profesionales
+      </a>
+
+    </div>
+
+  </article>
+</main>
+
+
+<footer>
+  <strong>TarotAnuncia</strong>
+  <div>Encuentra profesionales del tarot en toda España</div>
+  <p>
+    <a href="/aviso-legal.html">Aviso legal</a>
+    ·
+    <a href="/politica-privacidad.html">Privacidad</a>
+    ·
+    <a href="/contacto.html">Contacto</a>
+  </p>
+</footer>
+
 </body>
 </html>
