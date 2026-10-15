@@ -156,7 +156,7 @@ header {
     top: 0;
     bottom: 0;
     z-index: 151;
-    width: min(280px, 85vw);
+    width: min(280px,85vw);
     background: linear-gradient(
         180deg,
         #fffdf9,
@@ -226,7 +226,7 @@ header {
 
 main {
     flex: 1;
-    width: min(850px, calc(100% - 24px));
+    width: min(850px,calc(100% - 24px));
     margin: 12px auto 30px;
 }
 
@@ -372,11 +372,11 @@ h3 {
     filter: brightness(.97);
 }
 
-/* ANUNCIOS DEL PROFESIONAL */
+/* TARJETAS COMPACTAS */
 
 .ad-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
+    grid-template-columns: repeat(2,minmax(0,1fr));
     gap: 12px;
 }
 
@@ -384,22 +384,42 @@ h3 {
     background: #fffdf9;
     border: 1px solid var(--line);
     border-radius: 13px;
-    padding: 14px;
+    padding: 15px;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-.ad-card a {
-    text-decoration: none;
-    color: var(--purple);
+.ad-card h3 {
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 8px;
 }
 
 .ad-card p {
     font-size: 13px;
     color: #625961;
     line-height: 1.5;
-    margin: 8px 0 0;
-    white-space: pre-line;
+    margin: 0 0 14px;
     overflow-wrap: anywhere;
+}
+
+.ad-view-button {
+    display: block;
+    margin-top: auto;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #fff4da;
+    border: 1px solid #d5a43c;
+    color: #79550b;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+
+.ad-view-button:hover {
+    background: #fce8ba;
 }
 
 /* ENLACES INFERIORES */
@@ -451,7 +471,7 @@ footer a {
     color: #785010;
 }
 
-/* TABLET Y MÓVIL */
+/* RESPONSIVE */
 
 @media (max-width: 900px) {
     .desktop-nav {
@@ -535,6 +555,18 @@ footer a {
         grid-template-columns: 1fr;
     }
 
+    .ad-card {
+        padding: 13px;
+    }
+
+    .ad-card h3 {
+        font-size: 15px;
+    }
+
+    .ad-card p {
+        font-size: 12px;
+    }
+
     .links a {
         flex: 1 1 125px;
         font-size: 11px;
@@ -603,6 +635,7 @@ footer a {
 
   <div class="drawer-head">
     <strong>TarotAnuncia</strong>
+
     <button class="drawer-close"
             type="button"
             aria-label="Cerrar menú"
@@ -658,27 +691,25 @@ Las lecturas de tarot revelan verdades ocultas, empoderándote para tomar decisi
 
     <h2>Sus anuncios</h2><div class="ad-grid">
         <article class="ad-card">
-          <h3>
-            <a href="/anuncios/7c114669-4f9c-46e0-a6c8-a914f176f7cd.html">
-              Tarotistas expertos en amarres de amor
-            </a>
-          </h3>
+          <h3>Tarotistas expertos en amarres de amor</h3>
 
-          <p>El abuelo Papacho ofrece perspectivas transformadoras a través de lecturas de tarot y hojas de coca, conectándote con la sabiduría ancestral. 🌿✨ Cada sesión es un viaje único, guiándote en la comprensión de tu camino en la vida y propósito espiritual.
+          <p>El abuelo Papacho ofrece perspectivas transformadoras a través de lecturas de tarot y hojas de coca…</p>
 
-Las lecturas de tarot revelan verdades ocultas, empoderándote para tomar decisiones informadas. Por otro lado, las lecturas de hojas de coca, impre</p>
+          <a class="ad-view-button"
+             href="/anuncios/7c114669-4f9c-46e0-a6c8-a914f176f7cd.html">
+            Ver anuncio
+          </a>
         </article>
         
         <article class="ad-card">
-          <h3>
-            <a href="/anuncios/bebe6181-33f6-4817-9e92-7d49b2929c03.html">
-              Tarotistas expertos en amarres de amor
-            </a>
-          </h3>
+          <h3>Tarotistas expertos en amarres de amor</h3>
 
-          <p>El abuelo Papacho ofrece perspectivas transformadoras a través de lecturas de tarot y hojas de coca, conectándote con la sabiduría ancestral. 🌿✨ Cada sesión es un viaje único, guiándote en la comprensión de tu camino en la vida y propósito espiritual.
+          <p>El abuelo Papacho ofrece perspectivas transformadoras a través de lecturas de tarot y hojas de coca…</p>
 
-Las lecturas de tarot revelan verdades ocultas, empoderándote para tomar decisiones informadas. Por otro lado, las lecturas de hojas de coca, impre</p>
+          <a class="ad-view-button"
+             href="/anuncios/bebe6181-33f6-4817-9e92-7d49b2929c03.html">
+            Ver anuncio
+          </a>
         </article>
         </div>
 
