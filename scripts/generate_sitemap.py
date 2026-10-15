@@ -1,4 +1,3 @@
-
 import os
 import json
 import re
@@ -198,7 +197,7 @@ for owner, data in sorted(people.items()):
 
     structured = json.dumps(
         schema_data, ensure_ascii=False
-    ).replace('<', '\\u003c')
+    ).replace('<', '\u003c')
 
     page = f'''<!doctype html>
 <html lang="es">
@@ -315,7 +314,7 @@ for a in ads:
         'url': url_ad,
         'name': title_ad,
         'description': summary_ad,
-    }, ensure_ascii=False).replace('<', '\\u003c')
+    }, ensure_ascii=False).replace('<', '\u003c')
 
     page_ad = f"""<!doctype html>
 <html lang="es">
