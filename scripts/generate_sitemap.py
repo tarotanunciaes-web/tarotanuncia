@@ -1,3 +1,4 @@
+
 import os
 import re
 import json
@@ -1088,4 +1089,26 @@ urls += profile_links
 urls += ad_links
 
 for url in urls:
-    elem
+    element = ET.SubElement(
+        root,
+        "{" + namespace + "}url",
+    )
+
+    ET.SubElement(
+        element,
+        "{" + namespace + "}loc",
+    ).text = url
+
+ET.indent(root, space="  ")
+
+ET.ElementTree(root).write(
+    "sitemap.xml",
+    encoding="utf-8",
+    xml_declaration=True,
+)
+
+print(
+    f"Generadas {len(profile_links)} páginas de profesionales. "
+    f"Generados {len(ad_links)} anuncios aprobados. "
+    f"Sitemap: {len(urls)} URLs."
+)
