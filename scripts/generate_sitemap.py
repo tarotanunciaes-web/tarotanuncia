@@ -1579,6 +1579,7 @@ urls = list(
         BASE + "anuncios.html",
         BASE + "tarotistas.html",
         BASE + "tienda-esoterica.html",
+        BASE + "foro.html",
         *profile_links,
         *ad_links,
         *province_links,
