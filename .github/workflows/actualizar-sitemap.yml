@@ -1,3 +1,4 @@
+
 name: Actualizar sitemap de TarotAnuncia
 
 on:
@@ -11,14 +12,71 @@ permissions:
 jobs:
   actualizar:
     runs-on: ubuntu-latest
+
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Preparar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Recuperar generador y mejorar SEO
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          archivo = Path("scripts/generate_sitemap.py")
+
+          # Recuperar el generador anterior al cambio erróneo.
+          codigo = subprocess.check_output(
+              [
+                  "git",
+                  "show",
+                  "bc5f0c270f6e9498a97b31399c035ff9e8af964f^:scripts/generate_sitemap.py"
+              ],
+              text=True
+          )
+
+          cambios = [
+              (
+                  "<h1>Perfil profesional</h1>",
+                  "<p>Perfil profesional</p>"
+              ),
+              (
+                  "<h1>Anuncios de tarot</h1>",
+                  "<p>Anuncios de tarot</p>"
+              ),
+              (
+                  'title + " | TarotAnuncia",',
+                  'f"{title} | {name} | TarotAnuncia",'
+              )
+          ]
+
+          for original, nuevo in cambios:
+              if codigo.count(original) != 1:
+                  raise RuntimeError(
+                      "No se pudo verificar: " + original
+                  )
+              codigo = codigo.replace(original, nuevo)
+
+          compile(
+              codigo,
+              str(archivo),
+              "exec"
+          )
+
+          archivo.write_text(
+              codigo,
+              encoding="utf-8"
+          )
+
+          print("Generador recuperado y SEO corregido")
+          PY
 
       - name: Generar perfiles, anuncios, provincias y sitemap
         env:
@@ -30,8 +88,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A sitemap.xml profesionales/ anuncios/ tarotistas/
+
+          git add -A \
+            scripts/generate_sitemap.py \
+            sitemap.xml \
+            profesionales/ \
+            anuncios/ \
+            tarotistas/
+
           if ! git diff --cached --quiet; then
-            git commit -m "Actualizar perfiles, anuncios, provincias y sitemap"
+            git commit -m "Restaurar generador y mejorar SEO"
             git push
           fi
