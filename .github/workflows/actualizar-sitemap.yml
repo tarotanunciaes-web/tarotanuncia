@@ -24,61 +24,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Recuperar generador y mejorar SEO
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import subprocess
-
-          archivo = Path("scripts/generate_sitemap.py")
-
-          # Recuperar el generador anterior al cambio erróneo.
-          codigo = subprocess.check_output(
-              [
-                  "git",
-                  "show",
-                  "bc5f0c270f6e9498a97b31399c035ff9e8af964f^:scripts/generate_sitemap.py"
-              ],
-              text=True
-          )
-
-          cambios = [
-              (
-                  "<h1>Perfil profesional</h1>",
-                  "<p>Perfil profesional</p>"
-              ),
-              (
-                  "<h1>Anuncios de tarot</h1>",
-                  "<p>Anuncios de tarot</p>"
-              ),
-              (
-                  'title + " | TarotAnuncia",',
-                  'f"{title} | {name} | TarotAnuncia",'
-              )
-          ]
-
-          for original, nuevo in cambios:
-              if codigo.count(original) != 1:
-                  raise RuntimeError(
-                      "No se pudo verificar: " + original
-                  )
-              codigo = codigo.replace(original, nuevo)
-
-          compile(
-              codigo,
-              str(archivo),
-              "exec"
-          )
-
-          archivo.write_text(
-              codigo,
-              encoding="utf-8"
-          )
-
-          print("Generador recuperado y SEO corregido")
-          PY
-
-      - name: Generar perfiles, anuncios, provincias y sitemap
+      - name: Generar perfiles, anuncios, provincias, libros y sitemap
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
@@ -94,9 +40,10 @@ jobs:
             sitemap.xml \
             profesionales/ \
             anuncios/ \
-            tarotistas/
+            tarotistas/ \
+            libros/
 
           if ! git diff --cached --quiet; then
-            git commit -m "Restaurar generador y mejorar SEO"
+            git commit -m "Actualizar fichas y sitemap"
             git push
           fi
