@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Biblioteca esotérica | TarotAnuncia</title>
+<meta name="description" content="Descubre libros de tarot, espiritualidad, astrología y esoterismo de autores independientes en TarotAnuncia.">
+<style>
+:root{--purple:#38253e;--gold:#b58b39;--cream:#fbf8f2;--border:#e9e1d4;--muted:#776d79}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--purple)}a{color:inherit}header{background:#fff;border-bottom:1px solid var(--border)}.top{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px}.brand{font-family:Georgia,serif;font-size:23px;font-weight:bold;text-decoration:none}.brand span{color:var(--gold)}.back{text-decoration:none;border:1px solid var(--border);border-radius:30px;padding:8px 14px;font-size:13px;white-space:nowrap}.hero{max-width:1100px;margin:0 auto;padding:33px 20px 22px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#98702d;font-weight:750}.hero h1{font:normal 34px/1.15 Georgia,serif;margin:9px 0}.hero p{color:var(--muted);margin:0;max-width:650px}.toolbar{max-width:1100px;margin:0 auto 19px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.count{font-size:13px;color:var(--muted)}.grid{max-width:1100px;margin:auto;padding:0 20px 35px;display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:16px}.book{display:grid;grid-template-columns:108px minmax(0,1fr);gap:15px;background:#fff;border:1px solid var(--border);border-radius:15px;padding:15px;min-height:190px;box-shadow:0 3px 12px #38253e08}.cover{width:108px;height:155px;object-fit:contain;background:#f8f4ec;border-radius:8px;border:1px solid #f0e9de}.cover-placeholder{width:108px;height:155px;display:grid;place-items:center;background:#f6efe2;border-radius:8px;color:#9e885e;font-family:Georgia,serif;font-size:14px;text-align:center;padding:10px}.info{min-width:0;display:flex;flex-direction:column;align-items:flex-start}.category{color:#9b762f;font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.6px}.info h2{font:normal 21px/1.16 Georgia,serif;margin:5px 0 7px;overflow-wrap:anywhere}.author{font-size:12px;color:var(--muted);margin:0 0 8px}.desc{font-size:12px;color:#645d65;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}.bottom{margin-top:auto;width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.price{font-weight:750;font-size:15px}.buy{font-size:12px;text-decoration:none;background:var(--gold);color:#fff;padding:8px 11px;border-radius:8px;font-weight:650}.buy:hover{background:#997127}.paging{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 auto 40px}.paging button{background:#fff;color:var(--purple);border:1px solid var(--border);border-radius:9px;padding:9px 13px;cursor:pointer}.paging button:disabled{opacity:.4;cursor:default}.paging span{font-size:12px;color:var(--muted)}#msg{max-width:1100px;margin:0 auto;padding:0 20px 20px;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:12px;padding:20px;border-top:1px solid var(--border)}@media(max-width:450px){.brand{font-size:20px}.top{padding:13px 16px}.back{font-size:12px;padding:7px 10px}.hero{padding:25px 17px 20px}.hero h1{font-size:30px}.toolbar{padding:0 17px}.grid{padding:0 14px 25px;grid-template-columns:1fr;gap:12px}.book{grid-template-columns:102px minmax(0,1fr);padding:12px;gap:12px}.cover,.cover-placeholder{width:102px;height:148px}.info h2{font-size:19px}.bottom{align-items:flex-start}.buy{padding:8px 10px}}
+
+
+/* Cabecera y biblioteca alineadas con Anuncios de TarotAnuncia */
+:root{--purple:#702d6b;--gold:#d89400;--cream:#fbfaf6;--border:#eadfce;--muted:#756a70}
+body{font-family:Arial,system-ui,sans-serif;color:#171526}
+header{position:sticky;top:0;z-index:50;background:#fffcf6;border-bottom:1px solid #eee4d6}
+.top{max-width:1240px;min-height:68px;padding:8px 20px;gap:18px}
+.brand{font:700 25px Georgia,serif;color:#171526;white-space:nowrap}
+.brand span{color:#b97800}
+.site-nav{display:flex;align-items:center;gap:17px;margin-left:auto}
+.site-nav a{font-size:12px;text-decoration:none;font-weight:600;white-space:nowrap}
+.site-nav a.current{color:#b97800;border-bottom:2px solid #d99b17;padding-bottom:5px}
+.menu-button{display:none;background:transparent;border:0;color:#171526;font-size:14px;font-weight:800;cursor:pointer}
+.hero{max-width:none;min-height:290px;background:linear-gradient(90deg,rgba(28,17,32,.97) 0%,rgba(41,24,42,.9) 42%,rgba(38,20,38,.18) 100%),url('biblioteca-portada.webp') center right/cover no-repeat;color:white;display:flex;align-items:center;padding:45px max(24px,calc((100vw - 1200px)/2));}
+.hero h1{font:800 clamp(30px,4vw,46px)/1.12 Georgia,serif;color:#fff;margin:7px 0 12px}
+.hero p{color:#f6e9d8;font-size:15px;max-width:470px}
+.hero .eyebrow{color:#efb326;font-size:11px}
+.toolbar{max-width:1240px;margin:20px auto 18px;padding:0 24px;display:flex;align-items:center;gap:12px}
+.toolbar input,.toolbar select{border:1px solid #e6dccd;border-radius:11px;padding:11px 13px;min-height:43px;background:white;color:#302833;min-width:0}
+.toolbar input{flex:2}.toolbar select{flex:1}.toolbar .count{margin-left:auto;white-space:nowrap}
+.grid{max-width:1240px;padding:0 24px 32px;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.book{display:flex;flex-direction:column;min-height:0;gap:0;padding:7px;border:1px solid #e6d8c2;border-radius:14px;box-shadow:0 5px 16px rgba(50,35,20,.07)}
+.cover,.cover-placeholder{width:100%;height:195px;object-fit:contain;border-radius:10px;background:#fbf7f0;border:1px solid #e3d4bc}
+.info{padding:10px 7px 8px;flex:1;align-items:stretch}
+.info h2{font:800 16px/1.3 Georgia,serif;margin:5px 0}
+.category{align-self:flex-start;background:#faeafa;color:#702d6b;border-radius:99px;padding:3px 8px;font-size:10px;letter-spacing:0;text-transform:none}
+.author{font-size:12px}.desc{font-size:12px;-webkit-line-clamp:2}.bottom{display:flex;align-items:stretch;flex-direction:column;gap:7px}.price{font-size:16px}.buy{background:linear-gradient(135deg,#efb326,#d89400);color:white;text-align:center;font-size:12px;font-weight:800;padding:10px;border-radius:10px}
+#paging[hidden]{display:none}
+@media(max-width:900px){.site-nav{display:none;position:absolute;top:68px;left:0;right:0;background:#fffdf9;border-bottom:1px solid #eadfce;padding:14px 22px;box-shadow:0 8px 15px #0001}.site-nav.open{display:flex;flex-direction:column;align-items:stretch}.site-nav a{padding:9px 0;font-size:14px}.menu-button{display:block;margin-left:auto}.hero{min-height:240px;padding:34px 20px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 12px 25px}.toolbar{padding:0 12px;flex-wrap:wrap}.toolbar input{flex:1 1 100%}.toolbar select{flex:1 1 45%}.toolbar .count{width:100%;margin:0}.cover,.cover-placeholder{height:150px}.info h2{font-size:14px}.author,.desc{font-size:11px}.price{font-size:14px}}
+@media(max-width:420px){.brand{font-size:21px}.hero{min-height:215px;background-position:65% center}.hero h1{font-size:31px}.hero p{font-size:13px}.cover,.cover-placeholder{height:130px}.book{padding:6px}.info{padding:8px 5px}.buy{font-size:11px;padding:9px 5px}}
+</style>
+<style id="biblioteca-final">
+.hero-banner{max-width:1240px;margin:18px auto 0;padding:0 14px;background:none;min-height:0;display:block}
+.hero-banner img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid #eadfce;box-shadow:0 6px 22px #37222e0b}
+.catalog-intro{max-width:1100px;margin:25px auto 15px;padding:0 20px}.catalog-intro h1{font:800 clamp(23px,3vw,31px) Georgia,serif;color:#392641;margin:0 0 5px}.catalog-intro p{font-size:13px;color:#736775;margin:0}
+.toolbar{background:#fff;padding:13px 15px;border:1px solid #eadfce;border-radius:14px;box-shadow:0 5px 18px #38253e0a;max-width:1060px;margin-bottom:22px}
+.toolbar input,.toolbar select{border:1px solid #e6dccd;border-radius:10px;background:#fff;padding:11px;min-height:43px;min-width:0}
+.grid{max-width:1100px;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.book{display:flex;flex-direction:column;min-width:0;min-height:0;padding:9px;border-radius:14px;gap:0}
+.cover,.cover-placeholder{width:100%;height:195px;object-fit:contain;border-radius:10px;background:#fbf7f0}
+.info{flex:1;width:100%;padding:10px 5px 4px;align-items:stretch}
+.info h2{font:800 16px/1.28 Georgia,serif;margin:5px 0;overflow-wrap:anywhere}
+.category{font-size:10px;color:#702d6b;background:#f8edf7;border-radius:999px;padding:3px 7px;align-self:flex-start;letter-spacing:0;text-transform:none}
+.author{font-size:12px;margin:3px 0 6px}.desc{font-size:12px;-webkit-line-clamp:2}.bottom{margin-top:auto;display:flex;flex-direction:column;align-items:stretch;gap:7px}.price{font-size:16px;color:#38253e}.buy{text-align:center;background:linear-gradient(135deg,#efb326,#d89400);border-radius:10px;font-weight:800;padding:10px 6px;color:#fff}
+.paging[hidden]{display:none!important}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-banner{margin-top:10px;padding:0 10px}.catalog-intro{margin-top:20px;padding:0 15px}.toolbar{margin:0 12px 19px}.cover,.cover-placeholder{height:165px}}
+@media(max-width:450px){.hero-banner img{border-radius:11px}.grid{gap:9px;padding:0 11px 24px}.book{padding:6px}.cover,.cover-placeholder{height:140px}.info{padding:8px 4px 4px}.info h2{font-size:14px}.author,.desc{font-size:11px}.price{font-size:14px}.buy{font-size:11px;padding:10px 3px}.toolbar{gap:7px}.toolbar input{flex-basis:100%}.toolbar select{flex:1 1 100%}}
+</style><style id="biblioteca-editorial-20261024">
+/* Biblioteca editorial: portadas protagonistas y tarjetas como fichas de catálogo */
+body{background:#fbf9f4}
+.hero-banner{max-width:1240px}
+.catalog-intro{max-width:1200px;margin:26px auto 16px}
+.catalog-intro h1{font-size:clamp(25px,3vw,35px);letter-spacing:-.5px}
+.catalog-intro p{font-size:14px;line-height:1.55}
+.catalog-intro::after{content:"";display:block;width:64px;height:3px;border-radius:3px;background:#c99a3b;margin-top:15px}
+.toolbar{max-width:1200px;box-shadow:0 3px 15px #49371d09}
+.grid{max-width:1200px;grid-template-columns:repeat(4,minmax(0,1fr));gap:21px;padding-bottom:45px}
+.book{position:relative;background:#fffefa;border:1px solid #e7dcca;border-radius:12px;padding:12px 12px 13px;box-shadow:0 7px 22px rgba(52,36,26,.065);overflow:hidden;transition:transform .18s,box-shadow .18s}
+.book:hover{transform:translateY(-3px);box-shadow:0 12px 27px rgba(52,36,26,.12)}
+.book::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e8d3a6,#b68b3e,#e8d3a6)}
+.cover,.cover-placeholder{width:100%;height:235px;object-fit:contain;background:linear-gradient(145deg,#faf5eb,#f2e9d9);border:0;border-radius:7px;padding:10px;box-shadow:inset 0 -4px 0 #e5d9c5}
+.cover{filter:drop-shadow(0 3px 3px rgba(28,19,26,.12))}
+.info{padding:12px 3px 0}
+.category{background:transparent;color:#9a742d;padding:0;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:800}
+.info h2{font:700 18px/1.3 Georgia,serif;color:#34213b;margin:6px 0 4px;min-height:2.6em}
+.author{color:#746b72;font-size:12px;margin:0 0 9px}
+.desc{font-size:12px;line-height:1.45;color:#766e72;margin:0 0 11px;-webkit-line-clamp:2}
+.bottom{border-top:1px solid #eee5d7;padding-top:10px;gap:9px}
+.price{font-size:17px;color:#422b45;font-weight:800}
+.buy{border-radius:8px;background:#fff9eb;color:#79540f;border:1px solid #d9b968;font-size:12px;padding:10px 5px;box-shadow:none}
+.buy:hover{background:#f6e8c7}
+@media(min-width:901px) and (max-width:1150px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:0 12px 30px}.book{padding:8px}.cover,.cover-placeholder{height:180px;padding:7px}.info{padding:9px 3px 0}.info h2{font-size:15px}.catalog-intro{margin-top:20px}.catalog-intro h1{font-size:25px}}
+@media(max-width:450px){.grid{gap:9px;padding:0 10px 26px}.book{padding:7px}.cover,.cover-placeholder{height:165px;padding:5px}.info{padding:8px 2px 0}.info h2{font-size:14px;min-height:0}.author{font-size:11px}.desc{font-size:11px}.price{font-size:14px}.buy{font-size:11px;padding:9px 3px}.category{font-size:9px}.toolbar{margin:0 11px 18px}}
+</style><style id="biblioteca-menu-logo-ajuste-final">
+/* Cabecera coherente con la página de anuncios */
+header{position:sticky;top:0;z-index:50;background:#fffcf6}
+header .top{max-width:1240px;min-height:68px;padding:9px 20px;justify-content:initial;gap:16px}
+header .brand{display:inline-flex;align-items:center;gap:9px;margin-right:auto;white-space:nowrap;font-size:25px;color:#171526}
+header .brand-logo{width:43px;height:43px;object-fit:contain;flex:none}
+header .brand-word>span{color:#b97800}
+header .site-nav{margin-left:auto;gap:16px}
+header .site-nav a{font-size:12px}
+@media(max-width:900px){
+ header .top{min-height:68px;padding:9px 14px}
+ header .brand{font-size:23px}
+ header .brand-logo{width:43px;height:43px}
+ header .site-nav{position:fixed;top:68px;left:0;right:0;margin:0;display:none;background:#fffdf9;padding:15px 22px;box-shadow:0 9px 20px #0002;max-height:calc(100dvh - 68px);overflow-y:auto;z-index:60}
+ header .site-nav.open{display:flex;flex-direction:column;align-items:stretch;gap:2px}
+ header .site-nav a{font-size:15px;padding:10px 0}
+ header .menu-button{display:block;flex:none;margin-left:auto;white-space:nowrap;font-size:14px}
+ .hero-banner{margin-top:14px!important}
+ .catalog-intro{margin-top:16px!important;margin-bottom:12px!important}
+ .catalog-intro h1{font-size:clamp(23px,5.4vw,29px)!important;margin-bottom:5px!important}
+ .catalog-intro p{font-size:13px!important;line-height:1.45!important}
+ .catalog-intro::after{margin-top:9px!important}
+ .toolbar{padding:11px!important;gap:7px!important}
+ .toolbar input,.toolbar select{min-height:42px!important}
+}
+@media(max-width:390px){header .brand{font-size:20px}header .brand-logo{width:37px;height:37px}header .menu-button{font-size:12px}}
+</style></head>
+<body>
+<header><div class="top"><a class="brand" href="index.html"><img class="brand-logo" src="file_000000003c088210be49f3122608d83d.png" alt="Logo de TarotAnuncia" onerror="this.style.display='none'"><span class="brand-word">Tarot<span>Anuncia</span></span></a><nav class="site-nav" id="siteNav" aria-label="Navegación"><a href="index.html">Inicio</a><a href="anuncios.html">Anuncios</a><a href="tarotistas.html">Tarotistas</a><a href="tienda-esoterica.html">Tienda esotérica</a><a href="libros.html" class="current" aria-current="page">Libros</a><a href="foro.html">Foro</a><a href="panel.html">Mi panel</a></nav><button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="siteNav">☰ MENÚ</button></div></header>
+<section class="hero-banner" aria-label="Biblioteca TarotAnuncia"><img alt="Biblioteca TarotAnuncia. Libros de tarot, espiritualidad y esoterismo de autores independientes" src="biblioteca-tarotanuncia.webp"></section>
+<section class="catalog-intro"><h1>Descubre nuestra colección</h1><p>Un espacio para explorar obras de tarot, espiritualidad y esoterismo de autores independientes.</p></section><div class="toolbar"><input id="searchBooks" type="search" placeholder="Buscar libros o autores…" aria-label="Buscar libros"><select id="categoryBooks" aria-label="Filtrar categoría"><option value="">Todas las categorías</option><option>Tarot</option><option>Espiritualidad</option><option>Esoterismo</option><option>Astrología</option></select><span class="count" id="count">Cargando libros…</span></div>
+<main id="books" class="grid"></main><p id="msg" role="status"></p>
+<nav class="paging" id="paging" hidden><button id="prev">Anterior</button><span id="page"></span><button id="next">Siguiente</button></nav>
+<footer>TarotAnuncia no procesa las compras. Se realizan en las páginas externas indicadas por los autores.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const db=supabase.createClient('https://ozbbgfxixbgffxnhqpzh.supabase.co','sb_publishable_Xag7GClzJc37vg2DQXhBVA_QfU0NUyd');
+let currentPage=0;const pageSize=12;let searchText='',categoryFilter='';
+function element(tag,className,text){const e=document.createElement(tag);if(className)e.className=className;if(text!==undefined)e.textContent=text;return e}
+async function loadBooks(){const list=document.getElementById('books'),msg=document.getElementById('msg'),count=document.getElementById('count'),paging=document.getElementById('paging');list.replaceChildren();msg.textContent='';count.textContent='Cargando libros…';paging.hidden=true;
+let query=db.from('ta_books').select('title,author,description,category,price,cover_url,purchase_url',{count:'exact'}).eq('status','approved');if(categoryFilter)query=query.eq('category',categoryFilter);if(searchText)query=query.or('title.ilike.%'+searchText+'%,author.ilike.%'+searchText+'%');const {data,error,count:total}=await query.order('created_at',{ascending:false}).range(currentPage*pageSize,currentPage*pageSize+pageSize-1);
+if(error){count.textContent='Biblioteca';msg.textContent='No se han podido cargar los libros. Inténtalo de nuevo más tarde.';return}
+count.textContent=total===1?'1 libro disponible':`${total||0} libros disponibles`;
+if(!data.length){msg.textContent='Próximamente encontrarás aquí nuevos libros.';return}
+for(const b of data){const card=element('article','book');if(b.cover_url&&/^https:\/\//i.test(b.cover_url)){const img=element('img','cover');img.src=b.cover_url;img.alt='Portada de '+b.title;img.loading='lazy';card.append(img)}else card.append(element('div','cover-placeholder','Sin portada'));
+const info=element('div','info');info.append(element('span','category',b.category||'Libro'),element('h2','',b.title),element('p','author','Por '+b.author));if(b.description)info.append(element('p','desc',b.description));const bottom=element('div','bottom');bottom.append(element('span','price',b.price==null?'Consultar precio':Number(b.price).toLocaleString('es-ES',{style:'currency',currency:'EUR'})));if(b.purchase_url&&/^https:\/\//i.test(b.purchase_url)){const a=element('a','buy','Ver dónde comprar →');a.href=b.purchase_url;a.target='_blank';a.rel='noopener noreferrer';bottom.append(a)}info.append(bottom);card.append(info);list.append(card)}
+const pages=Math.ceil((total||0)/pageSize);paging.hidden=pages<=1;document.getElementById('page').textContent=`${currentPage+1} de ${pages}`;document.getElementById('prev').disabled=currentPage===0;document.getElementById('next').disabled=currentPage>=pages-1;
+}
+document.getElementById('menuButton').addEventListener('click',()=>{const nav=document.getElementById('siteNav');const open=nav.classList.toggle('open');document.getElementById('menuButton').setAttribute('aria-expanded',String(open))});let searchTimer;document.getElementById('searchBooks').addEventListener('input',e=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{searchText=e.target.value.trim().replace(/[%,()]/g,' ').slice(0,80);currentPage=0;loadBooks()},350)});document.getElementById('categoryBooks').addEventListener('change',e=>{categoryFilter=e.target.value;currentPage=0;loadBooks()});document.getElementById('prev').addEventListener('click',()=>{if(currentPage>0){currentPage--;loadBooks()}});document.getElementById('next').addEventListener('click',()=>{currentPage++;loadBooks()});loadBooks();
+</script>
+</body></html>
