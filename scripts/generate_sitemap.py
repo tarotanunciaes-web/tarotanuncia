@@ -1556,6 +1556,151 @@ for file in PROVINCE_DIR.glob("*.html"):
 
 
 # ==========================================
+# BIBLIOTECA - LIBROS APROBADOS
+# ==========================================
+
+BOOK_DIR = Path("libros")
+BOOK_DIR.mkdir(exist_ok=True)
+
+books = fetch(
+    "ta_books",
+    {
+        "select": "*",
+        "status": "eq.approved"
+    }
+)
+
+book_links = []
+
+for book in books:
+    book_id = val(book, "id")
+
+    if not uid(book_id):
+        continue
+
+    title = val(book, "title") or "Libro de espiritualidad"
+    author = val(book, "author") or "Autor no indicado"
+    description = (
+        val(book, "description")
+        or "Descubre este libro en la biblioteca de TarotAnuncia."
+    )
+    category = val(book, "category")
+    cover = image_url(val(book, "cover_url"))
+    purchase = image_url(val(book, "purchase_url"))
+    price = book.get("price")
+
+    url = BASE + "libros/" + book_id + ".html"
+    meta = summary(f"{title}, de {author}. {description}")
+
+    cover_html = ""
+    if cover:
+        cover_html = f"""
+        <div class="photo-box">
+          <img class="photo"
+               src="{esc(cover)}"
+               alt="Portada de {esc(title)}"
+               loading="eager">
+        </div>
+        """
+
+    price_html = ""
+    if price is not None:
+        price_html = (
+            f'<p class="meta"><strong>Precio: '
+            f'{esc(str(price).replace(".", ","))} €'
+            f'</strong></p>'
+        )
+
+    purchase_html = ""
+    if purchase:
+        purchase_html = f"""
+        <div class="buttons">
+          <a class="btn"
+             href="{esc(purchase)}"
+             target="_blank"
+             rel="noopener noreferrer sponsored">
+            Ver libro y comprar
+          </a>
+        </div>
+        """
+
+    structured = {
+        "@context": "https://schema.org",
+        "@type": "Book",
+        "name": title,
+        "author": {
+            "@type": "Person",
+            "name": author
+        },
+        "description": description[:500],
+        "url": url
+    }
+
+    if cover:
+        structured["image"] = cover
+
+    body = f"""
+    <section class="hero">
+      <p>Biblioteca de TarotAnuncia</p>
+      <p>Libros de tarot y espiritualidad</p>
+    </section>
+
+    <main>
+      <article class="panel">
+        {cover_html}
+
+        <h1>{esc(title)}</h1>
+
+        <p class="meta">
+          <strong>Autor:</strong> {esc(author)}
+        </p>
+
+        <p class="meta">{esc(category)}</p>
+
+        {price_html}
+
+        <h2>Sobre este libro</h2>
+
+        <div class="description">
+          {esc(description)}
+        </div>
+
+        {purchase_html}
+
+        <nav class="links">
+          <a href="/biblioteca.html">
+            Volver a la biblioteca
+          </a>
+          <a href="/">
+            Inicio
+          </a>
+        </nav>
+      </article>
+    </main>
+    """
+
+    page = document(
+        f"{title} | {author} | TarotAnuncia",
+        meta,
+        url,
+        structured,
+        body
+    )
+
+    (BOOK_DIR / (book_id + ".html")).write_text(
+        page,
+        encoding="utf-8"
+    )
+
+    book_links.append(url)
+
+# Eliminar únicamente fichas antiguas de libros
+# con identificadores UUID.
+clean_old(BOOK_DIR, book_links)
+
+print(f"Libros aprobados: {len(book_links)}")
+
+# ==========================================
 # GENERAR SITEMAP
 # ==========================================
 
@@ -1583,6 +1728,7 @@ urls = list(
         *profile_links,
         *ad_links,
         *province_links,
+        *book_links,
     ])
 )
 
