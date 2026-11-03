@@ -362,6 +362,31 @@ h3 {
     text-decoration: none;
 }
 
+.btn.website-link {
+    gap: 9px;
+    background: #fffaf1;
+    border: 1px solid #d5a43c;
+    color: #79550b;
+    box-shadow: none;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.btn.website-link:hover {
+    transform: translateY(-2px);
+    background: #fff5dc;
+    box-shadow: 0 2px 8px rgba(139, 94, 17, .10);
+}
+
+.btn.website-link:focus-visible {
+    outline: 3px solid #d5a43c;
+    outline-offset: 3px;
+}
+
+.btn.website-link .website-icon {
+    font-size: 17px;
+    line-height: 1;
+}
+
 .btn.secondary {
     background: #fffaf1;
     color: #79550b;
@@ -712,6 +737,7 @@ Taroteame, un espacio donde puedes hablar con confianza y encontrar orientación
          href="https://tarotanuncia.es/anuncios.html?anuncio=5fae2156-56c8-4d09-a48c-4c322a9c9b18">
         Ver anuncio completo y contactar
       </a>
+      <a class="btn website-link " href="https://taroteamereservas.es" target="_blank" rel="noopener noreferrer ugc" aria-label="Visitar web oficial (se abre en otra pestaña)"><span aria-hidden="true">↗</span> Visitar web oficial</a>
     </div>
 
     <nav class="links"
