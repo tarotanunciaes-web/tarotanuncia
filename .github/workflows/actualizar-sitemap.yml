@@ -31,6 +31,7 @@ jobs:
         run: python scripts/generate_sitemap.py
 
       - name: Guardar cambios
+        id: guardar
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -44,6 +45,77 @@ jobs:
             libros/
 
           if ! git diff --cached --quiet; then
+            git diff --cached --name-only --diff-filter=AM \
+              > /tmp/indexnow-paths.txt
+
             git commit -m "Actualizar fichas y sitemap"
             git push
+
+            echo "cambios=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "cambios=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Esperar publicación de GitHub Pages
+        if: steps.guardar.outputs.cambios == 'true'
+        run: sleep 120
+
+      - name: Notificar nuevas páginas a IndexNow
+        if: steps.guardar.outputs.cambios == 'true'
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: d38fdcc6b27d0062859af407892a9b02
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+          from pathlib import Path
+          from urllib.parse import quote
+
+          base = "https://tarotanuncia.es/"
+          key = os.environ["INDEXNOW_KEY"]
+
+          paths = Path("/tmp/indexnow-paths.txt").read_text().splitlines()
+
+          urls = []
+          for path in paths:
+              if not path.endswith(".html"):
+                  continue
+              if not Path(path).is_file():
+                  continue
+              if not path.startswith((
+                  "profesionales/",
+                  "anuncios/",
+                  "tarotistas/",
+                  "libros/",
+              )):
+                  continue
+              urls.append(base + quote(path, safe="/"))
+
+          urls = sorted(set(urls))
+
+          if not urls:
+              print("No hay páginas nuevas o modificadas.")
+          else:
+              payload = {
+                  "host": "tarotanuncia.es",
+                  "key": key,
+                  "keyLocation": base + key + ".txt",
+                  "urlList": urls,
+              }
+
+              request = urllib.request.Request(
+                  "https://api.indexnow.org/indexnow",
+                  data=json.dumps(payload).encode("utf-8"),
+                  headers={"Content-Type": "application/json; charset=utf-8"},
+                  method="POST",
+              )
+
+              with urllib.request.urlopen(
+                  request, timeout=45
+              ) as response:
+                  print("IndexNow HTTP:", response.status)
+                  print("URLs enviadas:", len(urls))
+          PY
+          
